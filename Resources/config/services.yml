@@ -1,0 +1,5 @@
+services:
+
+    sg_calendar.event.manager:
+        class: Sg\CalendarBundle\Manager\EventManager
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.event_class%]
