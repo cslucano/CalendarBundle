@@ -2,16 +2,17 @@
 
 namespace Sg\CalendarBundle\Manager;
 
+use Sg\CalendarBundle\Manager\EventManagerInterface;
+use Sg\CalendarBundle\Entity\Event;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Sg\CalendarBundle\Entity\Event;
 
 /**
  * Class EventManager
  *
  * @package Sg\CalendarBundle\Manager
  */
-class EventManager
+class EventManager implements EventManagerInterface
 {
     /**
      * @var EntityManager
@@ -19,31 +20,50 @@ class EventManager
     private $em;
 
     /**
-     * @var EntityRepository
-     */
-    private $repository;
-
-    /**
      * @var string
      */
     private $class;
 
+    /**
+     * @var EntityRepository
+     */
+    private $repository;
+
+
+    //-------------------------------------------------
+    // Ctor.
+    //-------------------------------------------------
 
     /**
      * Ctor.
      *
-     * @param EntityManager $em    A EntityManager instance
+     * @param EntityManager $em    An EntityManager instance
      * @param string        $class The fully qualified class name of event entity
      */
     public function __construct(EntityManager $em, $class)
     {
         $this->em = $em;
-        $this->class = $class;
         $this->repository = $em->getRepository($class);
+
+        /**
+         * var 1
+         */
+        $this->class = $class;
+
+        /**
+         * var 2
+         */
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->getName();
     }
 
+
+    //-------------------------------------------------
+    // EventManagerInterface
+    //-------------------------------------------------
+
     /**
-     * @return Event
+     * {@inheritDoc}
      */
     public function newEvent()
     {
@@ -54,38 +74,47 @@ class EventManager
     }
 
     /**
-     * @param integer $id
-     *
-     * @return Event
-     */
-    public function findById($id)
-    {
-        return $this->repository->find($id);
-    }
-
-    /**
-     * @return array
-     */
-    public function findAll()
-    {
-        return $this->repository->findAll();
-    }
-
-    /**
-     * @param Event $event
-     */
-    public function persistEvent(Event $event)
-    {
-        $this->em->persist($event);
-        $this->em->flush();
-    }
-
-    /**
-     * @param Event $event
+     * {@inheritDoc}
      */
     public function removeEvent(Event $event)
     {
         $this->em->remove($event);
         $this->em->flush();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateEvent(Event $event, $andFlush = true)
+    {
+        $this->em->persist($event);
+
+        if ($andFlush) {
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findEventBy(array $criteria)
+    {
+        return $this->repository->findOneBy($criteria);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findEvents()
+    {
+        return $this->repository->findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 }
