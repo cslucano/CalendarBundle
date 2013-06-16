@@ -9,8 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sg\CalendarBundle\Entity\Event;
-use Sg\CalendarBundle\Form\EventType;
 use Sg\CalendarBundle\Manager\EventManager;
+use Sg\CalendarBundle\Form\Factory\EventFormFactory;
 
 /**
  * Class EventController
@@ -86,14 +86,15 @@ class EventController extends Controller
      *
      * @Route("/event/create", name="sg_calendar_event_create")
      * @Method("POST")
-     * @Template("SgUserBundle:Event:new.html.twig")
+     * @Template("SgCalendarBundle:Event:new.html.twig")
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
         $entity = $this->getEventManager()->newEvent();
-        $form = $this->createForm(new EventType(), $entity);
+        $form = $this->getEventFormFactory()->createForm();
+        $form->setData($entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -120,7 +121,7 @@ class EventController extends Controller
     public function newAction()
     {
         $entity = $this->getEventManager()->newEvent();
-        $form = $this->createForm(new EventType(), $entity);
+        $form = $this->getEventFormFactory()->createForm();
 
         return array(
             'entity' => $entity,
@@ -176,7 +177,8 @@ class EventController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $editForm = $this->createForm(new EventType(), $entity);
+        $editForm = $this->getEventFormFactory()->createForm();
+        $editForm->setData($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -194,7 +196,7 @@ class EventController extends Controller
      *
      * @Route("/event/{id}/update", name="sg_calendar_event_update")
      * @Method("PUT")
-     * @Template("SgUserBundle:Event:edit.html.twig")
+     * @Template("SgCalendarBundle:Event:edit.html.twig")
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -208,7 +210,8 @@ class EventController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new EventType(), $entity);
+        $editForm = $this->getEventFormFactory()->createForm();
+        $editForm->setData($entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -273,5 +276,13 @@ class EventController extends Controller
     private function getEventManager()
     {
         return $this->container->get('sg_calendar.event_manager');
+    }
+
+    /**
+     * @return EventFormFactory
+     */
+    private function getEventFormFactory()
+    {
+        return $this->container->get('sg_calendar.form_factory');
     }
 }

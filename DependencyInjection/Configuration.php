@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('event_form_type')->isRequired()->cannotBeEmpty()->end()
             ->end();
 
         return $treeBuilder;
