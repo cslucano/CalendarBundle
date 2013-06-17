@@ -19,6 +19,8 @@ class EventManager implements EventManagerInterface
     private $em;
 
     /**
+     * The fully qualified class name of event entity.
+     *
      * @var string
      */
     private $class;
@@ -37,21 +39,13 @@ class EventManager implements EventManagerInterface
      * Ctor.
      *
      * @param EntityManager $em    An EntityManager instance
-     * @param string        $class The fully qualified class name of event entity
+     * @param string        $class The class name of event entity
      */
     public function __construct(EntityManager $em, $class)
     {
         $this->em = $em;
         $this->repository = $em->getRepository($class);
 
-        /**
-         * var 1
-         */
-        $this->class = $class;
-
-        /**
-         * var 2
-         */
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->getName();
     }
