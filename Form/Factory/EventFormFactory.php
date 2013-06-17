@@ -3,6 +3,7 @@
 namespace Sg\CalendarBundle\Form\Factory;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * Class EventFormFactory
@@ -21,8 +22,10 @@ class EventFormFactory implements EventFormFactoryInterface
      */
     private $name;
 
+    /**
+     * @var string|FormTypeInterface The type of the form
+     */
     private $type;
-
 
 
     //-------------------------------------------------
@@ -32,9 +35,9 @@ class EventFormFactory implements EventFormFactoryInterface
     /**
      * Ctor.
      *
-     * @param FormFactoryInterface $formFactory FormFactory
-     * @param string|integer       $name        The name of the form
-     * @param string               $type        Type
+     * @param FormFactoryInterface     $formFactory FormFactory
+     * @param string|integer           $name        The name of the form
+     * @param string|FormTypeInterface $type        The type of the form
      */
     public function __construct(FormFactoryInterface $formFactory, $name, $type)
     {
