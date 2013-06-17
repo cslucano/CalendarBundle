@@ -283,6 +283,6 @@ class EventController extends Controller
      */
     private function getEventFormFactory()
     {
-        return $this->container->get('sg_calendar.form_factory');
+        return $this->container->get('sg_calendar.form_factory.event');
     }
 }
