@@ -23,7 +23,12 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('event_form_type')->isRequired()->cannotBeEmpty()->end()
+                ->arrayNode('form')->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('event_name')->defaultValue('sg_calendar_eventtype')->end()
+                        ->scalarNode('event_type')->defaultValue('sg_calendar_eventtype')->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

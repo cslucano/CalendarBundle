@@ -12,6 +12,8 @@ use Symfony\Component\Form\FormInterface;
 interface EventFormFactoryInterface
 {
     /**
+     * Creates a event form.
+     *
      * @return FormInterface
      */
     public function createForm();

@@ -25,7 +25,8 @@ class SgCalendarExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('sg_calendar.event_class', $config['event_class']);
-        $container->setParameter('sg_calendar.event_form_type', $config['event_form_type']);
+        $container->setParameter('sg_calendar.event.class', $config['event_class']);
+        $container->setParameter('sg_calendar.form.event.name', $config['form']['event_name']);
+        $container->setParameter('sg_calendar.form.event.type', $config['form']['event_type']);
     }
 }

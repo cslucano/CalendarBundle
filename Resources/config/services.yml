@@ -2,14 +2,14 @@ services:
 
     sg_calendar.event_manager:
         class: Sg\CalendarBundle\Manager\EventManager
-        arguments: [@doctrine.orm.entity_manager, %sg_calendar.event_class%]
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.event.class%]
 
-    sg_calendar.form_factory:
-        class: Sg\CalendarBundle\Form\Factory\EventFormFactory
-        arguments: [@form.factory, 'Testname', %sg_calendar.event_form_type%]
-
-    sg_calendar.event_form_type:
+    sg_calendar.form_type.event.default:
         class: Sg\CalendarBundle\Form\Type\EventType
-        arguments: [%sg_calendar.event_class%]
+        arguments: [%sg_calendar.event.class%]
         tags:
             - { name: form.type, alias: sg_calendar_eventtype }
+
+    sg_calendar.form_factory.event:
+        class: Sg\CalendarBundle\Form\Factory\EventFormFactory
+        arguments: [@form.factory, %sg_calendar.form.event.name%, %sg_calendar.form.event.type%]
