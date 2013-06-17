@@ -4,6 +4,7 @@ namespace Sg\CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use \DateTime;
 
 /**
  * Class Event
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @package Sg\CalendarBundle\Entity
  */
-abstract class Event
+abstract class Event implements EventInterface
 {
     /**
      * @var integer
@@ -45,7 +46,7 @@ abstract class Event
     /**
      * The date/time an event begins.
      *
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="start", type="datetime", nullable=false)
      */
@@ -54,7 +55,7 @@ abstract class Event
     /**
      * The date/time an event ends.
      *
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="end", type="datetime", nullable=false)
      */
@@ -189,7 +190,7 @@ abstract class Event
     /**
      * Set start.
      *
-     * @param \DateTime $start
+     * @param DateTime $start
      *
      * @return Event
      */
@@ -203,7 +204,7 @@ abstract class Event
     /**
      * Get start.
      *
-     * @return \DateTime 
+     * @return DateTime
      */
     public function getStart()
     {
@@ -213,7 +214,7 @@ abstract class Event
     /**
      * Set end.
      *
-     * @param \DateTime $end
+     * @param DateTime $end
      *
      * @return Event
      */
@@ -227,7 +228,7 @@ abstract class Event
     /**
      * Get end.
      *
-     * @return \DateTime 
+     * @return DateTime
      */
     public function getEnd()
     {
