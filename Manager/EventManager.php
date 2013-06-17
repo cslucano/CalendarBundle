@@ -2,7 +2,6 @@
 
 namespace Sg\CalendarBundle\Manager;
 
-use Sg\CalendarBundle\Manager\EventManagerInterface;
 use Sg\CalendarBundle\Entity\Event;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
