@@ -2,7 +2,7 @@
 
 namespace Sg\CalendarBundle\Manager;
 
-use Sg\CalendarBundle\Entity\Event;
+use Sg\CalendarBundle\Entity\EventInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
@@ -69,7 +69,7 @@ class EventManager implements EventManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function removeEvent(Event $event)
+    public function removeEvent(EventInterface $event)
     {
         $this->em->remove($event);
         $this->em->flush();
@@ -78,7 +78,7 @@ class EventManager implements EventManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function updateEvent(Event $event, $andFlush = true)
+    public function updateEvent(EventInterface $event, $andFlush = true)
     {
         $this->em->persist($event);
 
