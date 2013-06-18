@@ -26,6 +26,8 @@ class SgCalendarExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('sg_calendar.event.class', $config['event_class']);
+        $container->setParameter('sg_calendar.first_day', $config['first_day']);
+        $container->setParameter('sg_calendar.time_format', $config['time_format']);
         $container->setParameter('sg_calendar.form.event.name', $config['form']['event_name']);
         $container->setParameter('sg_calendar.form.event.type', $config['form']['event_type']);
     }

@@ -18,15 +18,34 @@ class CalendarExtension extends Twig_Extension
      */
     private $twig;
 
+    /**
+     * The day that each week begins.
+     * Sunday=0, Monday=1 etc.
+     *
+     * @var integer
+     */
+    private $firstDay;
+
+    /**
+     * Determines the time-text that will be displayed on each event.
+     *
+     * @var string
+     */
+    private $timeFormat;
+
 
     /**
      * Ctor.
      *
-     * @param Twig $twig A Twig instance
+     * @param Twig    $twig       A Twig instance
+     * @param integer $firstDay   The day that each week begins
+     * @param string  $timeFormat Determines the time-text that will be displayed on each event
      */
-    public function __construct(Twig $twig)
+    public function __construct(Twig $twig, $firstDay, $timeFormat)
     {
         $this->twig = $twig;
+        $this->firstDay = $firstDay;
+        $this->timeFormat = $timeFormat;
     }
 
     /**
@@ -46,7 +65,9 @@ class CalendarExtension extends Twig_Extension
      */
     public function calendarRender($eventSourceUrl)
     {
-        $options['eventSourceUrl'] = $eventSourceUrl;
+        $options['first_day'] = $this->firstDay;
+        $options['time_format'] = $this->timeFormat;
+        $options['event_source_url'] = $eventSourceUrl;
 
         return $this->twig->render('SgCalendarBundle:Extension:calendar.html.twig', $options);
     }

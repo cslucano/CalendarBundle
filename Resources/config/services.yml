@@ -2,7 +2,7 @@ services:
 
     sg_calendar.twig_extension:
         class: Sg\CalendarBundle\Twig\CalendarExtension
-        arguments: [@twig]
+        arguments: [@twig, %sg_calendar.first_day%, %sg_calendar.time_format%]
         tags:
             - { name: twig.extension }
 

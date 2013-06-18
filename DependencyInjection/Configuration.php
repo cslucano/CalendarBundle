@@ -23,6 +23,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('first_day')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('time_format')->isRequired()->cannotBeEmpty()->end()
                 ->arrayNode('form')->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('event_name')->defaultValue('sg_calendar_eventtype')->end()

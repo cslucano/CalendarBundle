@@ -8,7 +8,7 @@
             $('#full_calendar').fullCalendar({
 
                 editable: true,
-                firstDay: 1,
+                firstDay: {{ first_day }},
 
                 dayNames: [
                     "{{ 'sg.calendar.day.sunday'|trans({}, 'CalendarBundle') }}",
@@ -57,7 +57,7 @@
                     "{{ 'sg.calendar.month.short.dec'|trans({}, 'CalendarBundle') }}"
                 ],
 
-                timeFormat: 'HH:mm',
+                timeFormat: "{{ time_format }}",
                 buttonText: {
                     today: "{{ 'sg.calendar.button.today'|trans({}, 'CalendarBundle') }}",
                     month: "{{ 'sg.calendar.button.month'|trans({}, 'CalendarBundle') }}",
@@ -66,14 +66,13 @@
                 },
 
                 eventSources: [{
-                    url: "{{ eventSourceUrl }}",
-                    color:'green',
-                    textColor:'black'
+                    url: "{{ event_source_url }}"
                 }],
 
+                /*
                 eventRender: function(event, element) {
                     element.find('.fc-event-title').html("<a href=" + event.show_url + ">" + event.title +"</a>" + "<a href=" + event.delete_url + "> <i style='margin-top: 2px;' class=' pull-right cus-delete'></i></a>");
-                },
+                },*/
 
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                     alert("Das Ende des Termins für " + event.title + " wurde um " + dayDelta + " Tage verschoben.");
