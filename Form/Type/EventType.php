@@ -18,6 +18,7 @@ class EventType extends AbstractType
      */
     private $class;
 
+
     /**
      * @param string $class The Event class name
      */
