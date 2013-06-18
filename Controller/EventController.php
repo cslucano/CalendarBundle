@@ -32,7 +32,9 @@ class EventController extends Controller
      */
     public function calendarAction()
     {
-        return array();
+        return array(
+            'eventSourceUrl' => $this->generateUrl('sg_calendar_events')
+        );
     }
 
     /**
