@@ -9,16 +9,60 @@
 
                 editable: true,
                 firstDay: 1,
-                dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-                dayNamesShort: ['So', 'Mo', 'Die', 'Mi', 'Do', 'Fr', 'Sa'],
-                monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-                monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+
+                dayNames: [
+                    "{{ 'sg.calendar.day.sunday'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.monday'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.tuesday'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.wednesday'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.thursday'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.friday'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.saturday'|trans({}, 'CalendarBundle') }}"
+                ],
+                dayNamesShort: [
+                    "{{ 'sg.calendar.day.short.sun'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.short.mon'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.short.tue'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.short.wed'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.short.thu'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.short.fri'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.day.short.sat'|trans({}, 'CalendarBundle') }}"
+                ],
+                monthNames: [
+                    "{{ 'sg.calendar.month.january'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.february'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.march'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.april'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.may'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.june'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.july'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.august'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.september'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.october'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.november'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.december'|trans({}, 'CalendarBundle') }}"
+                ],
+                monthNamesShort: [
+                    "{{ 'sg.calendar.month.short.jan'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.feb'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.mar'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.apr'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.may'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.june'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.july'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.aug'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.sept'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.oct'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.nov'|trans({}, 'CalendarBundle') }}",
+                    "{{ 'sg.calendar.month.short.dec'|trans({}, 'CalendarBundle') }}"
+                ],
+
                 timeFormat: 'HH:mm',
                 buttonText: {
-                    today: 'Heute',
-                    month: 'Monat',
-                    week: 'Woche',
-                    day: 'Tag'
+                    today: "{{ 'sg.calendar.button.today'|trans({}, 'CalendarBundle') }}",
+                    month: "{{ 'sg.calendar.button.month'|trans({}, 'CalendarBundle') }}",
+                    week: "{{ 'sg.calendar.button.week'|trans({}, 'CalendarBundle') }}",
+                    day: "{{ 'sg.calendar.button.day'|trans({}, 'CalendarBundle') }}"
                 },
 
                 eventSources: [{
