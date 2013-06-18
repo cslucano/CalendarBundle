@@ -2,7 +2,7 @@
 
 namespace Sg\CalendarBundle\Manager;
 
-use Sg\CalendarBundle\Entity\Event;
+use Sg\CalendarBundle\Entity\EventInterface;
 
 /**
  * Class EventManagerInterface
@@ -19,35 +19,35 @@ interface EventManagerInterface
     /**
      * Returns a new empty event instance.
      *
-     * @return Event
+     * @return EventInterface
      */
     public function newEvent();
 
     /**
      * Removes an event.
      *
-     * @param Event $event
+     * @param EventInterface $event
      *
      * @return void
      */
-    public function removeEvent(Event $event);
+    public function removeEvent(EventInterface $event);
 
     /**
      * Updates an event.
      *
-     * @param Event   $event    An Event instance
-     * @param Boolean $andFlush Whether to flush the changes (default true)
+     * @param EventInterface $event    An EventInterface instance
+     * @param Boolean        $andFlush Whether to flush the changes (default true)
      *
      * @return void
      */
-    public function updateEvent(Event $event, $andFlush = true);
+    public function updateEvent(EventInterface $event, $andFlush = true);
 
     /**
      * Finds one event by the given criteria.
      *
      * @param array $criteria
      *
-     * @return Event
+     * @return EventInterface
      */
     public function findEventBy(array $criteria);
 
