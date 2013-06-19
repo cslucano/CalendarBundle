@@ -1,0 +1,24 @@
+{
+    "name": "sg/calendarbundle",
+    "description": "Integrates the jQuery FullCalendar plugin into your Symfony2 application.",
+    "keywords": ["Symfony2", "Calendar", "Event"],
+    "homepage": "https://github.com/stwe/CalendarBundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "stwe"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.3"
+    },
+    "target-dir": "Sg/CalendarBundle",
+    "autoload": {
+        "psr-0": {
+            "Sg\\CalendarBundle": ""
+        }
+    }
+}
+
