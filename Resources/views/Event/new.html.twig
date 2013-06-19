@@ -1,20 +1,18 @@
-{% extends '::base.html.twig' %}
+{% extends 'SgUserBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Event creation</h1>
+{% block title %}{{ 'sg.calendar.title.event.new'|trans({}, 'CalendarBundle') }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'sg.calendar.title.event.new'|trans({}, 'CalendarBundle') }}</h2>
+
+    <hr />
 
     <form action="{{ path('sg_calendar_event_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
         {{ form_widget(form) }}
         <p>
-            <button type="submit">Create</button>
+            <button type="submit">{{ 'sg.calendar.event.create'|trans({}, 'CalendarBundle') }}</button>
         </p>
     </form>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('sg_calendar_show') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
 {% endblock %}

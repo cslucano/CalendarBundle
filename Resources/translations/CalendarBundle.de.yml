@@ -47,4 +47,13 @@ sg:
             month: "Monat"
             week: "Woche"
             day: "Tag"
-
+        title:
+            calendar: "Kalender"
+            event:
+                edit: "Ereignis ändern"
+                new: "Neues Ereignis"
+                show: "Ereignis"
+        event:
+            edit: "Ändern"
+            create: "Speichern"
+            delete: "Löschen"

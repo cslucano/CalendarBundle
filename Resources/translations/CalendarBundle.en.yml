@@ -47,4 +47,13 @@ sg:
             month: "Month"
             week: "Week"
             day: "Day"
-
+        title:
+            calendar: "Calendar"
+            event:
+                edit: "Edit Event"
+                new: "New Event"
+                show: "Event"
+        event:
+            edit: "Edit"
+            create: "Create"
+            delete: "Delete"

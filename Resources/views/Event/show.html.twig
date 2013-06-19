@@ -1,9 +1,14 @@
-{% extends '::base.html.twig' %}
+{% extends 'SgUserBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Event</h1>
+{% block title %}{{ 'sg.calendar.title.event.show'|trans({}, 'CalendarBundle') }}{% endblock %}
 
-    <table class="record_properties">
+{% block content %}
+
+    <h2>{{ 'sg.calendar.title.event.show'|trans({}, 'CalendarBundle') }}</h2>
+
+    <hr />
+
+    <table>
         <tbody>
             <tr>
                 <th>Id</th>
@@ -56,23 +61,24 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('sg_calendar_show') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('sg_calendar_event_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('sg_calendar_event_delete', { 'id': entity.id }) }}" method="post">
-            <input type="hidden" name="_method" value="DELETE" />
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+    <ul>
+        <li>
+            <a href="{{ path('sg_calendar_show') }}">
+                {{ 'sg.calendar.title.calendar'|trans({}, 'CalendarBundle') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('sg_calendar_event_edit', { 'id': entity.id }) }}">
+                {{ 'sg.calendar.title.event.edit'|trans({}, 'CalendarBundle') }}
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('sg_calendar_event_delete', { 'id': entity.id }) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE" />
+                {{ form_widget(delete_form) }}
+                <button type="submit">{{ 'sg.calendar.event.delete'|trans({}, 'CalendarBundle') }}</button>
+            </form>
+        </li>
+    </ul>
+
 {% endblock %}
