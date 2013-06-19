@@ -33,17 +33,17 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('allDay')
-            ->add('start')
-            ->add('end')
-            ->add('url')
-            ->add('className')
-            ->add('editable')
-            ->add('color')
-            ->add('bgColor')
-            ->add('borderColor')
-            ->add('textColor');
+            ->add('title', null, array('label' => 'sg.calendar.form.title', 'translation_domain' => 'CalendarBundle'))
+            ->add('allDay', null, array('label' => 'sg.calendar.form.allDay', 'translation_domain' => 'CalendarBundle'))
+            ->add('start', null, array('label' => 'sg.calendar.form.start', 'translation_domain' => 'CalendarBundle'))
+            ->add('end', null, array('label' => 'sg.calendar.form.end', 'translation_domain' => 'CalendarBundle'))
+            ->add('url', null, array('label' => 'sg.calendar.form.url', 'translation_domain' => 'CalendarBundle'))
+            ->add('className', null, array('label' => 'sg.calendar.form.className', 'translation_domain' => 'CalendarBundle'))
+            ->add('editable', null, array('label' => 'sg.calendar.form.editable', 'translation_domain' => 'CalendarBundle'))
+            ->add('color', null, array('label' => 'sg.calendar.form.color', 'translation_domain' => 'CalendarBundle'))
+            ->add('bgColor', null, array('label' => 'sg.calendar.form.bgColor', 'translation_domain' => 'CalendarBundle'))
+            ->add('borderColor', null, array('label' => 'sg.calendar.form.borderColor', 'translation_domain' => 'CalendarBundle'))
+            ->add('textColor', null, array('label' => 'sg.calendar.form.textColor', 'translation_domain' => 'CalendarBundle'));
     }
 
     /**
