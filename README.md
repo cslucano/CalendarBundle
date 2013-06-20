@@ -108,7 +108,7 @@ A layout.html.twig for your bundle can look like this:
 ``` html
 {% extends '::base.html.twig' %}
 
-{% block title %}UserBundle{% endblock %}
+{% block title %}CalendarBundle{% endblock %}
 
 {% block stylesheets %}
 
