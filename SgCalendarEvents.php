@@ -10,14 +10,14 @@ namespace Sg\CalendarBundle;
 final class SgCalendarEvents
 {
     /**
-     * EVENT_CREATE_COMPLETED is called each time a new event is saved.
+     * EVENT_CREATE_COMPLETED is called every time when a new event has been saved.
      *
      * @var string
      */
     const EVENT_CREATE_COMPLETED = 'sg_calendar.event.create.completed';
 
     /**
-     * EVENT_UPDATE_COMPLETED is called each time an event is updated.
+     * EVENT_CREATE_COMPLETED is called every time when a new event has been updated.
      *
      * @var string
      */
