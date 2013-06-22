@@ -57,6 +57,9 @@ sg:
             edit: "Ändern"
             create: "Speichern"
             delete: "Löschen"
+            flash:
+                created: "Das Ereignis wurde erfolgreich angelegt."
+                updated: "Das Ereignis wurde erfolgreich geändert."
         form:
             title: "Titel"
             allDay: "Ganztägig"

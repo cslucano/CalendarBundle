@@ -57,6 +57,9 @@ sg:
             edit: "Edit"
             create: "Create"
             delete: "Delete"
+            flash:
+                created: "The event has been created successfully."
+                updated: "The event has been updated successfully."
         form:
             title: "Title"
             allDay: "All day"
