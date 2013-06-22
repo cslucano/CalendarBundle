@@ -19,3 +19,9 @@ services:
     sg_calendar.form_factory.event:
         class: Sg\CalendarBundle\Form\Factory\EventFormFactory
         arguments: [@form.factory, %sg_calendar.form.event.name%, %sg_calendar.form.event.type%]
+
+    sg_calendar.subscriber:
+        class: Sg\CalendarBundle\EventSubscriber\CalendarSubscriber
+        arguments: [@session, @router, @translator]
+        tags:
+            - { name: kernel.event_subscriber }

@@ -135,20 +135,87 @@ A layout.html.twig for your bundle can look like this:
 
 ### Step 7: Routing
 
-sg_calendar_show                  GET      ANY    ANY  /calendar/
+### `GET` /calendar/ ###
 
-sg_calendar_events                GET      ANY    ANY  /calendar/events
+_Shows the calendar._
 
-sg_calendar_event_create          POST     ANY    ANY  /calendar/event/create
+Shows the calendar.
 
-sg_calendar_event_new             GET      ANY    ANY  /calendar/event/new
 
-sg_calendar_event_show            GET      ANY    ANY  /calendar/event/{id}
+### `POST` /calendar/event/create ###
 
-sg_calendar_event_edit            GET      ANY    ANY  /calendar/event/{id}/edit
+_Creates a new Event entity._
 
-sg_calendar_event_update          PUT      ANY    ANY  /calendar/event/{id}/update
+Creates a new Event entity.
 
-sg_calendar_event_delete          DELETE   ANY    ANY  /calendar/event/{id}/delete
+
+### `GET` /calendar/event/new ###
+
+_Displays a form to create a new Event entity._
+
+Displays a form to create a new Event entity.
+
+
+### `DELETE` /calendar/event/{id}/delete ###
+
+_Deletes an Event entity._
+
+Deletes an Event entity.
+
+#### Requirements ####
+
+**id**
+
+  - Type: integer
+  - Description: The entity id
+
+
+### `GET` /calendar/event/{id}/edit ###
+
+_Displays a form to edit an existing Event entity._
+
+Displays a form to edit an existing Event entity.
+
+#### Requirements ####
+
+**id**
+
+  - Type: integer
+  - Description: The entity id
+
+
+### `GET` /calendar/event/{id}/show ###
+
+_Finds and displays an Event entity._
+
+Finds and displays an Event entity.
+
+#### Requirements ####
+
+**id**
+
+  - Type: integer
+  - Description: The entity id
+
+
+### `PUT` /calendar/event/{id}/update ###
+
+_Edits an existing Event entity._
+
+Edits an existing Event entity.
+
+#### Requirements ####
+
+**id**
+
+  - Type: integer
+  - Description: The entity id
+
+
+### `GET` /calendar/events ###
+
+_Get all Event entities._
+
+Get all Event entities.
 
 ### Next Steps
