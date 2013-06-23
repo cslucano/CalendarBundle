@@ -58,6 +58,10 @@
                 <th>Textcolor</th>
                 <td>{{ entity.textColor }}</td>
             </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
         </tbody>
     </table>
 
