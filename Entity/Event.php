@@ -16,6 +16,8 @@ use \DateTime;
 abstract class Event implements EventInterface
 {
     /**
+     * Uniquely identifies the given event.
+     *
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -35,7 +37,7 @@ abstract class Event implements EventInterface
     private $title;
 
     /**
-     * Whether an event occurs at a specific time-of-day.
+     * This property affects whether an event's time is shown.
      *
      * @var boolean
      *
@@ -57,7 +59,7 @@ abstract class Event implements EventInterface
      *
      * @var DateTime
      *
-     * @ORM\Column(name="end", type="datetime", nullable=false)
+     * @ORM\Column(name="end", type="datetime", nullable=true)
      */
     private $end;
 
@@ -80,7 +82,7 @@ abstract class Event implements EventInterface
     private $className;
 
     /**
-     * Overrides the master editable option for this single event.
+     * This determines if the events can be dragged and resized.
      *
      * @var boolean
      *
@@ -89,7 +91,7 @@ abstract class Event implements EventInterface
     private $editable;
 
     /**
-     * Sets an event's background and border color just like the calendar-wide eventColor option.
+     * Sets an event's background  - and - border color.
      *
      * @var string
      *
@@ -98,7 +100,7 @@ abstract class Event implements EventInterface
     private $color;
 
     /**
-     * Sets an event's background color just like the calendar-wide eventBackgroundColor option.
+     * Sets an event's background color.
      *
      * @var string
      *
@@ -107,7 +109,7 @@ abstract class Event implements EventInterface
     private $bgColor;
 
     /**
-     * Sets an event's border color just like the the calendar-wide eventBorderColor option.
+     * Sets an event's border color.
      *
      * @var string
      *
@@ -116,13 +118,47 @@ abstract class Event implements EventInterface
     private $borderColor;
 
     /**
-     * Sets an event's text color just like the calendar-wide eventTextColor option.
+     * Sets an event's text color.
      *
      * @var string
      *
      * @ORM\Column(name="textColor", type="string", length=255, nullable=true)
      */
     private $textColor;
+
+    /**
+     * Create datetime.
+     *
+     * @var DateTime $createdAt
+     *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+
+    //-------------------------------------------------
+    // Ctor. && toString
+    //-------------------------------------------------
+
+    /**
+     * Ctor.
+     */
+    public function __construct()
+    {
+        $this->allDay = true;
+        $this->editable = false;
+        $this->start = new DateTime();
+        $this->end = new DateTime();
+        $this->createdAt = new DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
 
 
     //-------------------------------------------------
@@ -401,6 +437,30 @@ abstract class Event implements EventInterface
     public function getTextColor()
     {
         return $this->textColor;
+    }
+
+    /**
+     * Set createdAt.
+     *
+     * @param DateTime $createdAt
+     *
+     * @return Event
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt.
+     *
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
     /**
