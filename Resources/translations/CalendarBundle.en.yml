@@ -1,5 +1,6 @@
 sg:
     calendar:
+        allDay: "All-day"
         day:
             sunday: "Sunday"
             monday: "Monday"
