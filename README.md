@@ -148,25 +148,17 @@ A layout.html.twig for your bundle can look like this:
 
 _Shows the calendar._
 
-Shows the calendar.
-
 #### `POST` /calendar/event/create ####
 
 _Creates a new Event entity._
-
-Creates a new Event entity.
 
 #### `GET` /calendar/event/new ####
 
 _Displays a form to create a new Event entity._
 
-Displays a form to create a new Event entity.
-
 #### `DELETE` /calendar/event/{id}/delete ####
 
 _Deletes an Event entity._
-
-Deletes an Event entity.
 
 **id**
 
@@ -176,8 +168,6 @@ Deletes an Event entity.
 #### `GET` /calendar/event/{id}/edit ####
 
 _Displays a form to edit an existing Event entity._
-
-Displays a form to edit an existing Event entity.
 
 **id**
 
@@ -189,8 +179,6 @@ Displays a form to edit an existing Event entity.
 
 _Finds and displays an Event entity._
 
-Finds and displays an Event entity.
-
 **id**
 
   - Type: integer
@@ -201,18 +189,13 @@ Finds and displays an Event entity.
 
 _Edits an existing Event entity._
 
-Edits an existing Event entity.
-
 **id**
 
   - Type: integer
   - Description: The entity id
 
-
 #### `GET` /calendar/events ####
 
 _Get all Event entities._
-
-Get all Event entities.
 
 ### Next Steps
