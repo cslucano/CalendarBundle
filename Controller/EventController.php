@@ -89,23 +89,20 @@ class EventController extends Controller
      */
     public function createAction(Request $request)
     {
-        $dispatcher = $this->getDispatcher();
-
         $event = $this->getEventManager()->newEvent();
 
         $form = $this->getEventFormFactory()->createForm();
         $form->setData($event);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $calendarEvent = new CalendarEvent($event);
 
             $this->getEventManager()->updateEvent($event);
 
-            // Set (redirect) response
+            // Set (redirect) response and flash message
+            $dispatcher = $this->getDispatcher();
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_SUCCESS, $calendarEvent);
-
-            // Set flash message
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_COMPLETED, $calendarEvent);
 
             return $calendarEvent->getResponse();
@@ -132,6 +129,7 @@ class EventController extends Controller
         $event = $this->getEventManager()->newEvent();
 
         $form = $this->getEventFormFactory()->createForm();
+        $form->setData($event);
 
         return array(
             'entity' => $event,
@@ -150,14 +148,10 @@ class EventController extends Controller
      * ApiDoc()
      *
      * @return array
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function showAction($id)
     {
-        $event = $this->getEventManager()->findEventBy(array('id' => $id));
-        if (!$event) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
-        }
+        $event = $this->getEventById($id);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -178,14 +172,10 @@ class EventController extends Controller
      * ApiDoc()
      *
      * @return array
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function editAction($id)
     {
-        $event = $this->getEventManager()->findEventBy(array('id' => $id));
-        if (!$event) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
-        }
+        $event = $this->getEventById($id);
 
         $editForm = $this->getEventFormFactory()->createForm();
         $editForm->setData($event);
@@ -208,30 +198,23 @@ class EventController extends Controller
      * ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function updateAction(Request $request, $id)
     {
-        $event = $this->getEventManager()->findEventBy(array('id' => $id));
-        if (!$event) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
-        }
-
-        $dispatcher = $this->getDispatcher();
+        $event = $this->getEventById($id);
 
         $editForm = $this->getEventFormFactory()->createForm();
         $editForm->setData($event);
-        $editForm->bind($request);
+        $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $calendarEvent = new CalendarEvent($event);
 
             $this->getEventManager()->updateEvent($event);
 
-            // Set (redirect) response
+            // Set (redirect) response and flash message
+            $dispatcher = $this->getDispatcher();
             $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_SUCCESS, $calendarEvent);
-
-            // Set flash message
             $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_COMPLETED, $calendarEvent);
 
             return $calendarEvent->getResponse();
@@ -254,19 +237,14 @@ class EventController extends Controller
      * ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event = $this->getEventManager()->findEventBy(array('id' => $id));
-            if (!$event) {
-                throw $this->createNotFoundException('Unable to find Event entity.');
-            }
-
+            $event = $this->getEventById($id);
             $this->getEventManager()->removeEvent($event);
         }
 
@@ -277,6 +255,24 @@ class EventController extends Controller
     //-------------------------------------------------
     // Private
     //-------------------------------------------------
+
+    /**
+     * Return an event by id.
+     *
+     * @param integer $id
+     *
+     * @return \Sg\CalendarBundle\Entity\EventInterface
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function getEventById($id)
+    {
+        $event = $this->getEventManager()->findEventBy(array('id' => $id));
+        if (!$event) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
+        }
+
+        return $event;
+    }
 
     /**
      * Creates a form to delete an Event entity by id.
