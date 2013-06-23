@@ -6,10 +6,14 @@
         $(document).ready(function () {
 
             $('#full_calendar').fullCalendar({
-
+                header: {
+                    left: 'prevYear, prev, next, nextYear today',
+                    center: 'title',
+                    right: 'month, basicWeek, basicDay, agendaWeek, agendaDay'
+                },
                 editable: true,
                 firstDay: {{ first_day }},
-
+                allDayText: "{{ 'sg.calendar.allDay'|trans({}, 'CalendarBundle') }}",
                 dayNames: [
                     "{{ 'sg.calendar.day.sunday'|trans({}, 'CalendarBundle') }}",
                     "{{ 'sg.calendar.day.monday'|trans({}, 'CalendarBundle') }}",
@@ -56,15 +60,28 @@
                     "{{ 'sg.calendar.month.short.nov'|trans({}, 'CalendarBundle') }}",
                     "{{ 'sg.calendar.month.short.dec'|trans({}, 'CalendarBundle') }}"
                 ],
+                timeFormat:{
+                    '': "{{ time_format }}",
+                    agenda: "{{ time_format }}{ - {{ time_format }}}"
+                },
+                axisFormat: "{{ time_format }}",
 
-                timeFormat: "{{ time_format }}",
+                // @todo: config
+                titleFormat: {
+                    week: "d.[ MMMM][ yyyy]{ - d. MMMM yyyy}",
+                    day: "dddd, d. MMMM yyyy"
+                },
+                columnFormat: {
+                    week: "ddd d.",
+                    day: ""
+                },
+
                 buttonText: {
                     today: "{{ 'sg.calendar.button.today'|trans({}, 'CalendarBundle') }}",
                     month: "{{ 'sg.calendar.button.month'|trans({}, 'CalendarBundle') }}",
                     week: "{{ 'sg.calendar.button.week'|trans({}, 'CalendarBundle') }}",
                     day: "{{ 'sg.calendar.button.day'|trans({}, 'CalendarBundle') }}"
                 },
-
                 eventSources: [{
                     url: "{{ event_source_url }}"
                 }],
