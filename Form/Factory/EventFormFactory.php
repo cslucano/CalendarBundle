@@ -35,7 +35,7 @@ class EventFormFactory implements EventFormFactoryInterface
     /**
      * Ctor.
      *
-     * @param FormFactoryInterface     $formFactory FormFactory
+     * @param FormFactoryInterface     $formFactory A FormFactoryInterface instance
      * @param string|integer           $name        The name of the form
      * @param string|FormTypeInterface $type        The type of the form
      */
@@ -48,7 +48,7 @@ class EventFormFactory implements EventFormFactoryInterface
 
 
     //-------------------------------------------------
-    // FactoryInterface
+    // EventFormFactoryInterface
     //-------------------------------------------------
 
     /**
@@ -56,6 +56,6 @@ class EventFormFactory implements EventFormFactoryInterface
      */
     public function createForm()
     {
-        return $this->formFactory->createNamed($this->name, $this->type, null);
+        return $this->formFactory->createNamed($this->name, $this->type);
     }
 }

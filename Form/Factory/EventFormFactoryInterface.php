@@ -12,9 +12,9 @@ use Symfony\Component\Form\FormInterface;
 interface EventFormFactoryInterface
 {
     /**
-     * Creates a event form.
+     * Creates an event form.
      *
-     * @return FormInterface
+     * @return FormInterface The form
      */
     public function createForm();
 }
