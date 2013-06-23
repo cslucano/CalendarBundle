@@ -130,6 +130,7 @@ A layout.html.twig for your bundle can look like this:
     {% block scripts %}
 
         <script src="{{ asset('bundles/sgcalendar/js/jquery-2.0.2.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/sgcalendar/js/jquery-ui-1.10.3.custom.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/sgcalendar/js/fullcalendar.min.js') }}" type="text/javascript"></script>
 
     {% endblock %}
