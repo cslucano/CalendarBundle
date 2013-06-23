@@ -77,6 +77,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event extends BaseEvent
 {
+    /**
+     * Ctor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // your own logic
+    }
 }
 ```
 
@@ -135,84 +144,72 @@ A layout.html.twig for your bundle can look like this:
 
 ### Step 7: Routing
 
-### `GET` /calendar/ ###
+#### `GET` /calendar/ ####
 
 _Shows the calendar._
 
 Shows the calendar.
 
-
-### `POST` /calendar/event/create ###
+#### `POST` /calendar/event/create ####
 
 _Creates a new Event entity._
 
 Creates a new Event entity.
 
-
-### `GET` /calendar/event/new ###
+#### `GET` /calendar/event/new ####
 
 _Displays a form to create a new Event entity._
 
 Displays a form to create a new Event entity.
 
-
-### `DELETE` /calendar/event/{id}/delete ###
+#### `DELETE` /calendar/event/{id}/delete ####
 
 _Deletes an Event entity._
 
 Deletes an Event entity.
 
-#### Requirements ####
-
 **id**
 
   - Type: integer
   - Description: The entity id
 
-
-### `GET` /calendar/event/{id}/edit ###
+#### `GET` /calendar/event/{id}/edit ####
 
 _Displays a form to edit an existing Event entity._
 
 Displays a form to edit an existing Event entity.
 
-#### Requirements ####
-
 **id**
 
   - Type: integer
   - Description: The entity id
 
 
-### `GET` /calendar/event/{id}/show ###
+#### `GET` /calendar/event/{id}/show ####
 
 _Finds and displays an Event entity._
 
 Finds and displays an Event entity.
 
-#### Requirements ####
-
 **id**
 
   - Type: integer
   - Description: The entity id
 
 
-### `PUT` /calendar/event/{id}/update ###
+#### `PUT` /calendar/event/{id}/update ####
 
 _Edits an existing Event entity._
 
 Edits an existing Event entity.
 
-#### Requirements ####
-
 **id**
 
   - Type: integer
   - Description: The entity id
 
 
-### `GET` /calendar/events ###
+#### `GET` /calendar/events ####
 
 _Get all Event entities._
 
