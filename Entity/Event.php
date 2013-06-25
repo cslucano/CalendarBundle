@@ -501,6 +501,7 @@ abstract class Event implements EventInterface
         }
 
         $event['allDay'] = $this->allDay;
+        $event['editable'] = $this->editable;
 
         return $event;
     }
