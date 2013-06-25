@@ -12,9 +12,12 @@ use Symfony\Component\Form\FormInterface;
 interface EventFormFactoryInterface
 {
     /**
-     * Creates an event form.
+     * Returns a form.
+     *
+     * @param mixed $data    The initial data
+     * @param array $options The options
      *
      * @return FormInterface The form
      */
-    public function createForm();
+    public function createForm($data = null, array $options = array());
 }

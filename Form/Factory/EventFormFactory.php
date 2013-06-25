@@ -54,8 +54,8 @@ class EventFormFactory implements EventFormFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createForm()
+    public function createForm($data = null, array $options = array())
     {
-        return $this->formFactory->createNamed($this->name, $this->type);
+        return $this->formFactory->createNamed($this->name, $this->type, $data, $options);
     }
 }
