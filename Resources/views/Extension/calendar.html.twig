@@ -11,7 +11,9 @@
                     center: 'title',
                     right: 'month, basicWeek, basicDay, agendaWeek, agendaDay'
                 },
-                editable: true,
+                editable: false,
+                ignoreTimezone: false,
+                defaultView: 'month',
                 firstDay: {{ first_day }},
                 allDayText: "{{ 'sg.calendar.allDay'|trans({}, 'CalendarBundle') }}",
                 dayNames: [
@@ -91,70 +93,59 @@
                     element.find('.fc-event-title').html("<a href=" + event.show_url + ">" + event.title +"</a>" + "<a href=" + event.delete_url + "> <i style='margin-top: 2px;' class=' pull-right cus-delete'></i></a>");
                 },*/
 
+                eventMouseover: function(event, jsEvent, view) {
+                    if (view.name !== 'agendaDay') {
+                        $(jsEvent.target).attr('title', event.title);
+                    }
+                },
+
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-                    alert("Das Ende des Termins für " + event.title + " wurde um " + dayDelta + " Tage verschoben.");
                     if (!confirm("Soll der neue Termin gespeichert werden?")) {
                         revertFunc();
                     } else {
-                        var start_date = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd");
-
-                        if (event.end) {
-                            var end_date = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd");
-                        } else {
-                            var end_date = start_date;
-                        }
-
                         $.ajax({
-                            url: "",
+                            url: "{{ event_update_xhr_url }}",
                             type: "POST",
                             cache: false,
                             data: {
                                 'id':       event.id,
-                                'start':    start_date,
-                                'end':      end_date
+                                'start':    event.start,
+                                'end':      event.end
                             },
                             success: function(data) {
                                 alert("Der Termin wurde erfolgreich gespeichert.");
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
+                                revertFunc();
                             }
                         })
                     }
                 },
 
                 eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-                    alert("Der Termin für " + event.title + " wurde um "  + dayDelta + " Tage verschoben.");
                     if (!confirm("Soll der neue Termin gespeichert werden?")) {
                         revertFunc();
                     } else {
-                        var start_date = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd");
-
-                        if (event.end) {
-                            var end_date = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd");
-                        } else {
-                            var end_date = start_date;
-                        }
-
                         $.ajax({
-                            url: "",
+                            url: "{{ event_update_xhr_url }}",
                             type: "POST",
                             cache: false,
                             data: {
                                 'id':       event.id,
-                                'start':    start_date,
-                                'end':      end_date
+                                'start':    event.start,
+                                'end':      event.end
                             },
                             success: function(data) {
                                 alert("Der Termin wurde erfolgreich gespeichert.");
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
+                                revertFunc();
                             }
                         })
                     }
                 }
-
             })
 
         });
