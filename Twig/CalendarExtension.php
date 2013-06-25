@@ -60,14 +60,16 @@ class CalendarExtension extends Twig_Extension
 
     /**
      * @param string $eventSourceUrl
+     * @param string $eventUpdateXhrUrl
      *
      * @return mixed
      */
-    public function calendarRender($eventSourceUrl)
+    public function calendarRender($eventSourceUrl, $eventUpdateXhrUrl)
     {
         $options['first_day'] = $this->firstDay;
         $options['time_format'] = $this->timeFormat;
         $options['event_source_url'] = $eventSourceUrl;
+        $options['event_update_xhr_url'] = $eventUpdateXhrUrl;
 
         return $this->twig->render('SgCalendarBundle:Extension:calendar.html.twig', $options);
     }
