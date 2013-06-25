@@ -8,11 +8,11 @@
 
     <hr />
 
-    <form action="{{ path('sg_calendar_event_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+    {{ form_start(form, {'action': path('sg_calendar_event_create') }) }}
         {{ form_widget(form) }}
         <p>
-            <button type="submit">{{ 'sg.calendar.event.create'|trans({}, 'CalendarBundle') }}</button>
+            <button formnovalidate="formnovalidate" type="submit">{{ 'sg.calendar.event.create'|trans({}, 'CalendarBundle') }}</button>
         </p>
-    </form>
+    {{ form_end(form) }}
 
 {% endblock %}
