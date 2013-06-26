@@ -22,7 +22,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class EventController extends Controller
 {
     /**
-     * Returns the overall Events list.
+     * Returns the overall Events list as JSON object via XHR.
      *
      * @Route("/", name="sg_calendar_get_xhr_events")
      * @Method("GET")
@@ -59,7 +59,8 @@ class EventController extends Controller
     }
 
     /**
-     * Updates an existing Event entity.
+     * Updates an existing Event entity via XHR.
+     * Drag and Drop functionality.
      *
      * @Route("/update", name="sg_calendar_update_xhr_event")
      * @Method("POST")
