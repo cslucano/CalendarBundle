@@ -143,60 +143,8 @@ A layout.html.twig for your bundle can look like this:
 {% endblock %}
 ```
 
-### Step 7: Routing
+### Routing
 
-#### `GET` /calendar/ ####
-
-_Shows the calendar._
-
-#### `POST` /calendar/event/create ####
-
-_Creates a new Event entity._
-
-#### `GET` /calendar/event/new ####
-
-_Displays a form to create a new Event entity._
-
-#### `DELETE` /calendar/event/{id}/delete ####
-
-_Deletes an Event entity._
-
-**id**
-
-  - Type: integer
-  - Description: The entity id
-
-#### `GET` /calendar/event/{id}/edit ####
-
-_Displays a form to edit an existing Event entity._
-
-**id**
-
-  - Type: integer
-  - Description: The entity id
-
-
-#### `GET` /calendar/event/{id}/show ####
-
-_Finds and displays an Event entity._
-
-**id**
-
-  - Type: integer
-  - Description: The entity id
-
-
-#### `PUT` /calendar/event/{id}/update ####
-
-_Edits an existing Event entity._
-
-**id**
-
-  - Type: integer
-  - Description: The entity id
-
-#### `GET` /calendar/events ####
-
-_Get all Event entities._
+<div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/routes.jpg"></div>
 
 ### Next Steps
