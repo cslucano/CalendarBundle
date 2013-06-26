@@ -62,6 +62,7 @@ sg:
             flash:
                 created: "The event has been created successfully."
                 updated: "The event has been updated successfully."
+            confirm: "Are you sure you want to delete?"
         form:
             title: "Title"
             allDay: "All day"

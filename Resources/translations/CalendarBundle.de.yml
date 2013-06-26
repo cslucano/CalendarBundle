@@ -62,6 +62,7 @@ sg:
             flash:
                 created: "Das Ereignis wurde erfolgreich angelegt."
                 updated: "Das Ereignis wurde erfolgreich geändert."
+            confirm: "Soll das Ereignis wirklich gelöscht werden?"
         form:
             title: "Titel"
             allDay: "Ganztägig"

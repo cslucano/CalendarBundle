@@ -1,0 +1,32 @@
+{% extends 'SgCalendarBundle::layout.html.twig' %}
+
+{% block title %}{{ 'sg.calendar.title.event.remove'|trans({}, 'CalendarBundle') }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'sg.calendar.title.event.remove'|trans({}, 'CalendarBundle') }}</h2>
+
+    <hr />
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Title:</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% set confirmMsg = 'sg.calendar.event.confirm'|trans({}, 'CalendarBundle') %}
+
+    {{ form_start(remove_form, {'action': path('sg_calendar_delete_event', { 'id': entity.id }) }) }}
+        {{ form_widget(remove_form) }}
+        <p>
+            <button formnovalidate="formnovalidate" type="submit" onclick="if(!confirm('{{ confirmMsg }}')) { return false; }">
+                {{ 'sg.calendar.event.delete'|trans({}, 'CalendarBundle') }}
+            </button>
+        </p>
+    {{ form_end(remove_form) }}
+
+{% endblock %}
+
