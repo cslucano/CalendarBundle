@@ -8,7 +8,7 @@
 
     <hr />
 
-    {{ form_start(edit_form, {'action': path('sg_calendar_event_update', { 'id': entity.id }) }) }}
+    {{ form_start(edit_form, {'action': path('sg_calendar_update_event', { 'id': entity.id }) }) }}
         {{ form_widget(edit_form) }}
         <p>
             <button formnovalidate="formnovalidate" type="submit">{{ 'sg.calendar.event.edit'|trans({}, 'CalendarBundle') }}</button>
