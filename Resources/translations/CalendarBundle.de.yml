@@ -54,6 +54,7 @@ sg:
                 edit: "Ereignis ändern"
                 new: "Neues Ereignis"
                 show: "Ereignis"
+                remove: "Ereignis löschen"
         event:
             edit: "Ändern"
             create: "Speichern"

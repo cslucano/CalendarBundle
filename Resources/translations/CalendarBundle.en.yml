@@ -54,6 +54,7 @@ sg:
                 edit: "Edit Event"
                 new: "New Event"
                 show: "Event"
+                remove: "Delete Event"
         event:
             edit: "Edit"
             create: "Create"

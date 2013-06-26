@@ -67,21 +67,19 @@
 
     <ul>
         <li>
-            <a href="{{ path('sg_calendar_show') }}">
+            <a href="{{ path('sg_calendar') }}">
                 {{ 'sg.calendar.title.calendar'|trans({}, 'CalendarBundle') }}
             </a>
         </li>
         <li>
-            <a href="{{ path('sg_calendar_event_edit', { 'id': entity.id }) }}">
+            <a href="{{ path('sg_calendar_edit_event', { 'id': entity.id }) }}">
                 {{ 'sg.calendar.title.event.edit'|trans({}, 'CalendarBundle') }}
             </a>
         </li>
         <li>
-            <form action="{{ path('sg_calendar_event_delete', { 'id': entity.id }) }}" method="post">
-                <input type="hidden" name="_method" value="DELETE" />
-                {{ form_widget(delete_form) }}
-                <button type="submit">{{ 'sg.calendar.event.delete'|trans({}, 'CalendarBundle') }}</button>
-            </form>
+            <a href="{{ path('sg_calendar_remove_event', { 'id': entity.id }) }}">
+                {{ 'sg.calendar.title.event.remove'|trans({}, 'CalendarBundle') }}
+            </a>
         </li>
     </ul>
 
