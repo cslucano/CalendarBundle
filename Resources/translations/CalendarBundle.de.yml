@@ -62,6 +62,7 @@ sg:
             flash:
                 created: "Das Ereignis wurde erfolgreich angelegt."
                 updated: "Das Ereignis wurde erfolgreich geändert."
+                removed: "Das Ereignis wurde erfolgreich gelöscht."
             confirm: "Soll das Ereignis wirklich gelöscht werden?"
         form:
             title: "Titel"

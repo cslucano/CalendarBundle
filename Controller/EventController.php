@@ -10,44 +10,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sg\CalendarBundle\Event\CalendarEvent;
 use Sg\CalendarBundle\SgCalendarEvents;
-//use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class EventController
  *
- * @Route("/calendar")
+ * @Route("/calendar/events")
  *
  * @package Sg\CalendarBundle\Controller
  */
 class EventController extends Controller
 {
     /**
-     * Shows the calendar.
+     * Returns the overall Events list.
      *
-     * @Route("/", name="sg_calendar_show")
+     * @Route("/", name="sg_calendar_get_xhr_events")
      * @Method("GET")
-     * @Template()
-     * ApiDoc()
-     *
-     * @return array
-     */
-    public function calendarAction()
-    {
-        return array(
-            'event_source_url' => $this->generateUrl('sg_calendar_events')
-        );
-    }
-
-    /**
-     * Get all Event entities.
-     *
-     * @Route("/events", name="sg_calendar_events")
-     * @Method("GET")
-     * ApiDoc()
+     * @ApiDoc()
      *
      * @return Response
      */
-    public function getEventsAction()
+    public function cgetXhrAction()
     {
         $request = $this->getRequest();
         $isAjax = $request->isXmlHttpRequest();
@@ -76,23 +59,53 @@ class EventController extends Controller
     }
 
     /**
+     * Updates an existing Event entity.
+     *
+     * @Route("/update", name="sg_calendar_update_xhr_event")
+     * @Method("POST")
+     * @ApiDoc()
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateXhrAction()
+    {
+        $request = $this->getRequest();
+        $isAjax = $request->isXmlHttpRequest();
+
+        if ($isAjax) {
+            $params  = $request->request->all();
+            $id      = $params['id'];
+            $start   = new \DateTime($params['start']);
+            $end     = new \DateTime($params['end']);
+
+            $event = $this->getEventById($id);
+            $event->setStart($start);
+            $event->setEnd($end);
+
+            $this->getEventManager()->updateEvent($event);
+
+            return new Response('This is ajax response.');
+        }
+
+        return new Response('This is not ajax.', 400);
+    }
+
+    /**
      * Creates a new Event entity.
      *
      * @param Request $request
      *
-     * @Route("/event/create", name="sg_calendar_event_create")
+     * @Route("/create", name="sg_calendar_create_event")
      * @Method("POST")
      * @Template("SgCalendarBundle:Event:new.html.twig")
-     * ApiDoc()
+     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function createAction(Request $request)
+    public function postAction(Request $request)
     {
         $event = $this->getEventManager()->newEvent();
-
-        $form = $this->getEventFormFactory()->createForm();
-        $form->setData($event);
+        $form = $this->getEventFormFactory()->createForm($event);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -117,19 +130,17 @@ class EventController extends Controller
     /**
      * Displays a form to create a new Event entity.
      *
-     * @Route("/event/new", name="sg_calendar_event_new")
+     * @Route("/new", name="sg_calendar_new_event")
      * @Method("GET")
      * @Template()
-     * ApiDoc()
+     * @ApiDoc()
      *
      * @return array
      */
     public function newAction()
     {
         $event = $this->getEventManager()->newEvent();
-
-        $form = $this->getEventFormFactory()->createForm();
-        $form->setData($event);
+        $form = $this->getEventFormFactory()->createForm($event);
 
         return array(
             'entity' => $event,
@@ -138,47 +149,42 @@ class EventController extends Controller
     }
 
     /**
-     * Finds and displays an Event entity.
+     * Finds and displays an existing Event entity.
      *
      * @param integer $id The entity id
      *
-     * @Route("/event/{id}/show", name="sg_calendar_event_show")
+     * @Route("/{id}/show", name="sg_calendar_get_event")
      * @Method("GET")
      * @Template()
-     * ApiDoc()
+     * @ApiDoc()
      *
      * @return array
      */
-    public function showAction($id)
+    public function getAction($id)
     {
         $event = $this->getEventById($id);
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity' => $event,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $event
         );
     }
 
     /**
-     * Displays a form to edit an existing Event entity.
+     * Displays a form to update an existing Event entity.
      *
      * @param integer $id The entity id
      *
-     * @Route("/event/{id}/edit", name="sg_calendar_event_edit")
+     * @Route("/{id}/edit", name="sg_calendar_edit_event")
      * @Method("GET")
      * @Template()
-     * ApiDoc()
+     * @ApiDoc()
      *
      * @return array
      */
     public function editAction($id)
     {
         $event = $this->getEventById($id);
-
-        $editForm = $this->getEventFormFactory()->createForm();
-        $editForm->setData($event);
+        $editForm = $this->getEventFormFactory()->createForm($event, array('method' => 'PUT'));
 
         return array(
             'entity' => $event,
@@ -187,24 +193,22 @@ class EventController extends Controller
     }
 
     /**
-     * Edits an existing Event entity.
+     * Updates an existing Event entity.
      *
      * @param Request $request A Request instance
      * @param integer $id      The entity id
      *
-     * @Route("/event/{id}/update", name="sg_calendar_event_update")
+     * @Route("/{id}/update", name="sg_calendar_update_event")
      * @Method("PUT")
      * @Template("SgCalendarBundle:Event:edit.html.twig")
-     * ApiDoc()
+     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateAction(Request $request, $id)
+    public function putAction(Request $request, $id)
     {
         $event = $this->getEventById($id);
-
-        $editForm = $this->getEventFormFactory()->createForm();
-        $editForm->setData($event);
+        $editForm = $this->getEventFormFactory()->createForm($event, array('method' => 'PUT'));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -227,28 +231,63 @@ class EventController extends Controller
     }
 
     /**
-     * Deletes an Event entity.
+     * Displays a form to delete an existing Event entity.
+     *
+     * @param integer $id The entity id
+     *
+     * @Route("/{id}/remove", name="sg_calendar_remove_event")
+     * @Method("GET")
+     * @Template()
+     * @ApiDoc()
+     *
+     * @return array
+     */
+    public function removeAction($id)
+    {
+        $event = $this->getEventById($id);
+        $removeForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity' => $event,
+            'remove_form' => $removeForm->createView()
+        );
+    }
+
+    /**
+     * Deletes an existing Event entity.
      *
      * @param Request $request A Request instance
      * @param integer $id      The entity id
      *
-     * @Route("/event/{id}/delete", name="sg_calendar_event_delete")
+     * @Route("/{id}/delete", name="sg_calendar_delete_event")
      * @Method("DELETE")
-     * ApiDoc()
+     * @ApiDoc()
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $event = $this->getEventById($id);
+        $removeForm = $this->createDeleteForm($id);
+        $removeForm->handleRequest($request);
 
-        if ($form->isValid()) {
-            $event = $this->getEventById($id);
+        if ($removeForm->isValid()) {
+            $calendarEvent = new CalendarEvent($event);
+
             $this->getEventManager()->removeEvent($event);
+
+            // Set (redirect) response and flash message
+            $dispatcher = $this->getDispatcher();
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_REMOVE_SUCCESS, $calendarEvent);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_REMOVE_COMPLETED, $calendarEvent);
+
+            return $calendarEvent->getResponse();
         }
 
-        return $this->redirect($this->generateUrl('sg_calendar_show'));
+        return array(
+            'entity' => $event,
+            'remove_form' => $removeForm->createView()
+        );
     }
 
 
@@ -285,6 +324,7 @@ class EventController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
+            ->setMethod('DELETE')
             ->getForm();
     }
 

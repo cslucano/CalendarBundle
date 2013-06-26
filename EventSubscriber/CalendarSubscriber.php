@@ -38,6 +38,7 @@ class CalendarSubscriber implements EventSubscriberInterface
     private static $messages = array(
         SgCalendarEvents::EVENT_CREATE_COMPLETED => 'sg.calendar.event.flash.created',
         SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'sg.calendar.event.flash.updated',
+        SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'sg.calendar.event.flash.removed'
     );
 
 
@@ -61,7 +62,7 @@ class CalendarSubscriber implements EventSubscriberInterface
     public function onEventCreateSuccess(CalendarEvent $calendarEvent)
     {
         $event = $calendarEvent->getEvent();
-        $url = $this->router->generate('sg_calendar_event_show', array('id' => $event->getId()));
+        $url = $this->router->generate('sg_calendar_get_event', array('id' => $event->getId()));
         $calendarEvent->setResponse(new RedirectResponse($url));
     }
 
@@ -71,7 +72,16 @@ class CalendarSubscriber implements EventSubscriberInterface
     public function onEventUpdateSuccess(CalendarEvent $calendarEvent)
     {
         $event = $calendarEvent->getEvent();
-        $url = $this->router->generate('sg_calendar_event_show', array('id' => $event->getId()));
+        $url = $this->router->generate('sg_calendar_get_event', array('id' => $event->getId()));
+        $calendarEvent->setResponse(new RedirectResponse($url));
+    }
+
+    /**
+     * @param CalendarEvent $calendarEvent
+     */
+    public function onEventRemoveSuccess(CalendarEvent $calendarEvent)
+    {
+        $url = $this->router->generate('sg_calendar');
         $calendarEvent->setResponse(new RedirectResponse($url));
     }
 
@@ -97,8 +107,10 @@ class CalendarSubscriber implements EventSubscriberInterface
         return array(
             SgCalendarEvents::EVENT_CREATE_SUCCESS => 'onEventCreateSuccess',
             SgCalendarEvents::EVENT_UPDATE_SUCCESS => 'onEventUpdateSuccess',
+            SgCalendarEvents::EVENT_REMOVE_SUCCESS => 'onEventRemoveSuccess',
             SgCalendarEvents::EVENT_CREATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlash'
+            SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlash'
         );
     }
 }
