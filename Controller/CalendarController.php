@@ -30,8 +30,8 @@ class CalendarController extends Controller
     public function indexAction()
     {
         return array(
-            'event_source_url' => $this->generateUrl('sg_calendar_events'),
-            'event_update_xhr_url' => $this->generateUrl('sg_calendar_event_update_xhr')
+            'event_source_url' => $this->generateUrl('sg_calendar_get_xhr_events'),
+            'event_update_xhr_url' => $this->generateUrl('sg_calendar_update_xhr_event')
         );
     }
 }
