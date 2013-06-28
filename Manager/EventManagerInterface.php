@@ -43,7 +43,7 @@ interface EventManagerInterface
     public function updateEvent(EventInterface $event, $andFlush = true);
 
     /**
-     * Finds one event by the given criteria.
+     * Finds an event by the given criteria.
      *
      * @param array $criteria
      *
@@ -52,9 +52,9 @@ interface EventManagerInterface
     public function findEventBy(array $criteria);
 
     /**
-     * Returns a collection with all event instances.
+     * Finds all events.
      *
-     * @return \Traversable
+     * @return array The events
      */
     public function findEvents();
 

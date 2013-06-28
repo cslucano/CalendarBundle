@@ -464,7 +464,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Convert calendar event details to an array
+     * Convert Event to an array.
      *
      * @return array $event
      */
@@ -472,36 +472,40 @@ abstract class Event implements EventInterface
     {
         $event = array();
 
-        if ($this->id !== null) {
-            $event['id'] = $this->id;
-        }
-
+        $event['id'] = $this->id;
         $event['title'] = $this->title;
-        $event['start'] = $this->start->format("Y-m-d\TH:i:sP");
+        $event['allDay'] = $this->allDay;
+        $event['start'] = $this->start->format(DATE_ISO8601);
+
+        if ($this->end !== null) {
+            $event['end'] = $this->end->format(DATE_ISO8601);
+        }
 
         if ($this->url !== null) {
             $event['url'] = $this->url;
-        }
-
-        if ($this->bgColor !== null) {
-            $event['backgroundColor'] = $this->bgColor;
-            $event['borderColor'] = $this->bgColor;
-        }
-
-        if ($this->color !== null) {
-            $event['textColor'] = $this->color;
         }
 
         if ($this->className !== null) {
             $event['className'] = $this->className;
         }
 
-        if ($this->end !== null) {
-            $event['end'] = $this->end->format("Y-m-d\TH:i:sP");
+        $event['editable'] = $this->editable;
+
+        if ($this->color !== null) {
+            $event['color'] = $this->color;
         }
 
-        $event['allDay'] = $this->allDay;
-        $event['editable'] = $this->editable;
+        if ($this->bgColor !== null) {
+            $event['backgroundColor'] = $this->bgColor;
+        }
+
+        if ($this->borderColor !== null) {
+            $event['borderColor'] = $this->borderColor;
+        }
+
+        if ($this->textColor !== null) {
+            $event['textColor'] = $this->textColor;
+        }
 
         return $event;
     }

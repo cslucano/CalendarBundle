@@ -39,7 +39,7 @@ class EventController extends Controller
             $events = $this->getEventManager()->findEvents();
 
             $response = new Response();
-            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Content-Type', 'application/json', 'charset=utf-8');
 
             $returnEvents = array();
 
