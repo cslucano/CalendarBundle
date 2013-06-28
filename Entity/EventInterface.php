@@ -83,11 +83,4 @@ interface EventInterface
      * @return DateTime
      */
     public function getEnd();
-
-    /**
-     * Convert calendar event details to an array
-     *
-     * @return array $event
-     */
-    public function toArray();
 }
