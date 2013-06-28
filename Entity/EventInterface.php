@@ -83,4 +83,132 @@ interface EventInterface
      * @return DateTime
      */
     public function getEnd();
+
+    /**
+     * Set url.
+     *
+     * @param string $url
+     *
+     * @return Event
+     */
+    public function setUrl($url);
+
+    /**
+     * Get url.
+     *
+     * @return string
+     */
+    public function getUrl();
+
+    /**
+     * Set className.
+     *
+     * @param string $className
+     *
+     * @return Event
+     */
+    public function setClassName($className);
+
+    /**
+     * Get className.
+     *
+     * @return string
+     */
+    public function getClassName();
+
+    /**
+     * Set editable.
+     *
+     * @param boolean $editable
+     *
+     * @return Event
+     */
+    public function setEditable($editable);
+
+    /**
+     * Get editable.
+     *
+     * @return boolean
+     */
+    public function getEditable();
+
+    /**
+     * Set color.
+     *
+     * @param string $color
+     *
+     * @return Event
+     */
+    public function setColor($color);
+
+    /**
+     * Get color.
+     *
+     * @return string
+     */
+    public function getColor();
+
+    /**
+     * Set bgColor.
+     *
+     * @param string $bgColor
+     *
+     * @return Event
+     */
+    public function setBgColor($bgColor);
+
+    /**
+     * Get bgColor.
+     *
+     * @return string
+     */
+    public function getBgColor();
+
+    /**
+     * Set borderColor.
+     *
+     * @param string $borderColor
+     *
+     * @return Event
+     */
+    public function setBorderColor($borderColor);
+
+    /**
+     * Get borderColor.
+     *
+     * @return string
+     */
+    public function getBorderColor();
+
+    /**
+     * Set textColor.
+     *
+     * @param string $textColor
+     *
+     * @return Event
+     */
+    public function setTextColor($textColor);
+
+    /**
+     * Get textColor.
+     *
+     * @return string
+     */
+    public function getTextColor();
+
+    /**
+     * Set createdAt.
+     *
+     * @param DateTime $createdAt
+     *
+     * @return Event
+     */
+    public function setCreatedAt($createdAt);
+
+    /**
+     * Get createdAt.
+     *
+     * @return DateTime
+     */
+    public function getCreatedAt();
 }
