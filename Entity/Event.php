@@ -4,12 +4,14 @@ namespace Sg\CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 use \DateTime;
 
 /**
  * Class Event
  *
  * @ORM\MappedSuperclass
+ * @Assert\Callback(methods={"isValid"})
  *
  * @package Sg\CalendarBundle\Entity
  */
@@ -461,5 +463,22 @@ abstract class Event implements EventInterface
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+
+    //-------------------------------------------------
+    // Validate
+    //-------------------------------------------------
+
+    /**
+     * @param ExecutionContextInterface $context
+     */
+    public function isValid(ExecutionContextInterface $context)
+    {
+        $is_valid = $this->start <= $this->end;
+
+        if (!$is_valid) {
+            $context->addViolationAt('end', 'sg_calendar.validation.event_end', array(), null);
+        }
     }
 }

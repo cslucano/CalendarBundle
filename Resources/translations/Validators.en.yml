@@ -1,0 +1,1 @@
+sg_calendar.validation.event_end: An event cannot end before it starts.
