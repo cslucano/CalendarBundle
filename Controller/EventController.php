@@ -21,6 +21,10 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  */
 class EventController extends Controller
 {
+    //-------------------------------------------------
+    // Actions
+    //-------------------------------------------------
+
     /**
      * Returns the overall Events list as JSON object via XHR.
      *
@@ -41,14 +45,8 @@ class EventController extends Controller
             $response = new Response();
             $response->headers->set('Content-Type', 'application/json', 'charset=utf-8');
 
-            $returnEvents = array();
-
-            /**
-             * @var \Sg\CalendarBundle\Entity\EventInterface $event
-             */
-            foreach ($events as $event) {
-                $returnEvents[] = $event->toArray();
-            }
+            $generator = $this->getArrayGenerator();
+            $returnEvents = $generator->generateArray($events);
 
             $response->setContent(json_encode($returnEvents));
 
@@ -329,6 +327,11 @@ class EventController extends Controller
             ->getForm();
     }
 
+
+    //-------------------------------------------------
+    // Services
+    //-------------------------------------------------
+
     /**
      * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
@@ -351,5 +354,13 @@ class EventController extends Controller
     private function getEventFormFactory()
     {
         return $this->container->get('sg_calendar.form_factory.event');
+    }
+
+    /**
+     * @return \Sg\CalendarBundle\Generator\EventsToArray
+     */
+    private function getArrayGenerator()
+    {
+        return $this->container->get('sg_calendar.array_generator');
     }
 }
