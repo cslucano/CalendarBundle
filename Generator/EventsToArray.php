@@ -31,7 +31,7 @@ class EventsToArray
     /**
      * Convert Events to an array.
      *
-     * @param EventInterface $events
+     * @param EventInterface[] $events
      *
      * @return array
      */
