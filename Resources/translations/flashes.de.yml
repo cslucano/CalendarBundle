@@ -1,0 +1,9 @@
+calendar: # the bundle name
+    flash:
+        error:
+        notice:
+        success:
+            event: # the success flash messages related to the object
+                created: "Das Ereignis wurde erfolgreich angelegt."
+                updated: "Das Ereignis wurde erfolgreich geändert."
+                removed: "Das Ereignis wurde erfolgreich gelöscht."

@@ -36,9 +36,9 @@ class CalendarSubscriber implements EventSubscriberInterface
      * @var array
      */
     private static $messages = array(
-        SgCalendarEvents::EVENT_CREATE_COMPLETED => 'sg.calendar.event.flash.created',
-        SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'sg.calendar.event.flash.updated',
-        SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'sg.calendar.event.flash.removed'
+        SgCalendarEvents::EVENT_CREATE_COMPLETED => 'calendar.flash.success.event.created',
+        SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'calendar.flash.success.event.updated',
+        SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'calendar.flash.success.event.removed'
     );
 
 
@@ -91,7 +91,7 @@ class CalendarSubscriber implements EventSubscriberInterface
     public function addSuccessFlash(CalendarEvent $calendarEvent)
     {
         $eventName = $calendarEvent->getName();
-        $this->session->getFlashBag()->add('success', $this->translator->trans(self::$messages[$eventName], array(), 'CalendarBundle'));
+        $this->session->getFlashBag()->add('success', $this->translator->trans(self::$messages[$eventName], array(), 'flashes'));
     }
 
 
