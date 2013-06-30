@@ -148,3 +148,5 @@ A layout.html.twig for your bundle can look like this:
 <div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/routes.jpg"></div>
 
 ### Next Steps
+
+- [Overriding Forms](https://github.com/stwe/CalendarBundle/blob/master/Resources/doc/overriding_forms.md)
