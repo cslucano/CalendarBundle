@@ -1,5 +1,5 @@
-sg:
-    calendar:
+calendar: # the bundle name
+    fullcalendar: # jQuery plugin
         allDay: "Ganztägig"
         day:
             sunday: "Sonntag"
@@ -48,23 +48,26 @@ sg:
             month: "Monat"
             week: "Woche"
             day: "Tag"
-        title:
-            calendar: "Kalender"
-            event:
-                edit: "Ereignis ändern"
-                new: "Neues Ereignis"
-                show: "Ereignis"
-                remove: "Ereignis löschen"
-        event:
-            edit: "Ändern"
-            create: "Speichern"
-            delete: "Löschen"
-            flash:
-                created: "Das Ereignis wurde erfolgreich angelegt."
-                updated: "Das Ereignis wurde erfolgreich geändert."
-                removed: "Das Ereignis wurde erfolgreich gelöscht."
-            confirm: "Soll das Ereignis wirklich gelöscht werden?"
-        form:
+    calendar: # a controller
+        action:
+            index:
+                title: "Kalender"
+    event: # a controller
+        action:
+            edit:
+                title: "Ereignis ändern"
+                submit: "Ändern"
+            get:
+                title: "Neues Ereignis"
+            new:
+                title: "Ereignis"
+                submit: "Speichern"
+            remove:
+                title: "Ereignis löschen"
+                submit: "Löschen"
+                confirm: "Soll das Ereignis wirklich gelöscht werden?"
+    form: # all forms
+        event: # an object name
             title: "Titel"
             allDay: "Ganztägig"
             start: "Beginn"

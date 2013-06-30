@@ -33,17 +33,17 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, array('label' => 'sg.calendar.form.title', 'translation_domain' => 'CalendarBundle'))
-            ->add('allDay', null, array('label' => 'sg.calendar.form.allDay', 'translation_domain' => 'CalendarBundle'))
-            ->add('start', null, array('label' => 'sg.calendar.form.start', 'translation_domain' => 'CalendarBundle'))
-            ->add('end', null, array('label' => 'sg.calendar.form.end', 'translation_domain' => 'CalendarBundle'))
-            ->add('url', null, array('label' => 'sg.calendar.form.url', 'translation_domain' => 'CalendarBundle'))
-            ->add('className', null, array('label' => 'sg.calendar.form.className', 'translation_domain' => 'CalendarBundle'))
-            ->add('editable', null, array('label' => 'sg.calendar.form.editable', 'translation_domain' => 'CalendarBundle'))
-            ->add('color', null, array('label' => 'sg.calendar.form.color', 'translation_domain' => 'CalendarBundle'))
-            ->add('bgColor', null, array('label' => 'sg.calendar.form.bgColor', 'translation_domain' => 'CalendarBundle'))
-            ->add('borderColor', null, array('label' => 'sg.calendar.form.borderColor', 'translation_domain' => 'CalendarBundle'))
-            ->add('textColor', null, array('label' => 'sg.calendar.form.textColor', 'translation_domain' => 'CalendarBundle'));
+            ->add('title', null, array('label' => 'calendar.form.event.title', 'translation_domain' => 'messages'))
+            ->add('allDay', null, array('label' => 'calendar.form.event.allDay', 'translation_domain' => 'messages'))
+            ->add('start', null, array('label' => 'calendar.form.event.start', 'translation_domain' => 'messages'))
+            ->add('end', null, array('label' => 'calendar.form.event.end', 'translation_domain' => 'messages'))
+            ->add('url', null, array('label' => 'calendar.form.event.url', 'translation_domain' => 'messages'))
+            ->add('className', null, array('label' => 'calendar.form.event.className', 'translation_domain' => 'messages'))
+            ->add('editable', null, array('label' => 'calendar.form.event.editable', 'translation_domain' => 'messages'))
+            ->add('color', null, array('label' => 'calendar.form.event.color', 'translation_domain' => 'messages'))
+            ->add('bgColor', null, array('label' => 'calendar.form.event.bgColor', 'translation_domain' => 'messages'))
+            ->add('borderColor', null, array('label' => 'calendar.form.event.borderColor', 'translation_domain' => 'messages'))
+            ->add('textColor', null, array('label' => 'calendar.form.event.textColor', 'translation_domain' => 'messages'));
     }
 
     /**
