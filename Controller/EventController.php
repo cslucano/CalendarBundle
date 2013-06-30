@@ -72,14 +72,22 @@ class EventController extends Controller
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
-            $params  = $request->request->all();
-            $id      = $params['id'];
-            $start   = new \DateTime($params['start']);
-            $end     = new \DateTime($params['end']);
+            $params = $request->request->all();
+            $id = $params['id'];
+            $start = new \DateTime($params['start']);
+
+            if (!$params['end']) {
+                $end = null;
+            } else {
+                $end = new \DateTime($params['end']);
+            }
+
+            $allDay = $params['allDay'];
 
             $event = $this->getEventById($id);
             $event->setStart($start);
             $event->setEnd($end);
+            $event->setAllDay($allDay);
 
             $this->getEventManager()->updateEvent($event);
 

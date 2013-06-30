@@ -3,6 +3,11 @@
     <div id="full_calendar"></div>
 
     <script type="text/javascript">
+
+        function toInt( val ) {
+            return val & 1;
+        }
+
         $(document).ready(function () {
 
             $('#full_calendar').fullCalendar({
@@ -110,7 +115,8 @@
                             data: {
                                 'id':       event.id,
                                 'start':    event.start,
-                                'end':      event.end
+                                'end':      event.end,
+                                'allDay':   toInt(event.allDay)
                             },
                             success: function(data) {
                                 alert("Der Termin wurde erfolgreich gespeichert.");
@@ -134,7 +140,8 @@
                             data: {
                                 'id':       event.id,
                                 'start':    event.start,
-                                'end':      event.end
+                                'end':      event.end,
+                                'allDay':   toInt(event.allDay)
                             },
                             success: function(data) {
                                 alert("Der Termin wurde erfolgreich gespeichert.");
