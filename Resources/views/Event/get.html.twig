@@ -68,17 +68,17 @@
     <ul>
         <li>
             <a href="{{ path('sg_calendar') }}">
-                {{ 'sg.calendar.title.calendar'|trans({}, 'CalendarBundle') }}
+                {{ 'calendar.calendar.action.index.title'|trans({}, 'messages') }}
             </a>
         </li>
         <li>
             <a href="{{ path('sg_calendar_edit_event', { 'id': entity.id }) }}">
-                {{ 'sg.calendar.title.event.edit'|trans({}, 'CalendarBundle') }}
+                {{ 'calendar.event.action.edit.title'|trans({}, 'messages') }}
             </a>
         </li>
         <li>
             <a href="{{ path('sg_calendar_remove_event', { 'id': entity.id }) }}">
-                {{ 'sg.calendar.title.event.remove'|trans({}, 'CalendarBundle') }}
+                {{ 'calendar.event.action.remove.title'|trans({}, 'messages') }}
             </a>
         </li>
     </ul>
