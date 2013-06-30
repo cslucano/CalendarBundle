@@ -1,1 +1,3 @@
-sg_calendar.validation.event_end: Ein Ereignis kann nicht enden, bevor es beginnt.
+calendar: # the bundle name
+    event: # an object name
+        end_callback: Ein Ereignis kann nicht enden, bevor es beginnt.
