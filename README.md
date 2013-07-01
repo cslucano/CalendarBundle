@@ -91,7 +91,7 @@ class Event extends BaseEvent
 
 ### Step 4: Create your Doctrine ORM User class
 
-Create a User class implementing the FOS\UserBundle\Model\UserInterface.
+Create a User class implementing the Symfony\Component\Security\Core\User\UserInterface.
 
 ``` php
 <?php
@@ -132,7 +132,7 @@ doctrine:
     orm:
         # ...
         resolve_target_entities:
-            FOS\UserBundle\Model\UserInterface: Sg\UserBundle\Entity\User # Your custom class from above
+            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User # Your custom class from above
 ```
 
 ### Step 5: Configure the SgCalendarBundle
