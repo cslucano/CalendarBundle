@@ -2,7 +2,7 @@
 
 namespace Sg\CalendarBundle\Entity;
 
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
 /**

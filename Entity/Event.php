@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
 /**
@@ -145,7 +145,7 @@ abstract class Event implements EventInterface
      * @var UserInterface
      *
      * @ORM\ManyToOne(
-     *     targetEntity="FOS\UserBundle\Model\UserInterface"
+     *     targetEntity="Symfony\Component\Security\Core\User\UserInterface"
      * )
      * @JoinColumn(
      *     nullable=false
