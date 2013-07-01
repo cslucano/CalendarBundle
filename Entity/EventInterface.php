@@ -2,6 +2,7 @@
 
 namespace Sg\CalendarBundle\Entity;
 
+use FOS\UserBundle\Model\UserInterface;
 use \DateTime;
 
 /**
@@ -211,4 +212,20 @@ interface EventInterface
      * @return DateTime
      */
     public function getCreatedAt();
+
+    /**
+     * Set createdBy.
+     *
+     * @param UserInterface $createdBy
+     *
+     * @return Event
+     */
+    public function setCreatedBy(UserInterface $createdBy);
+
+    /**
+     * Get createdBy.
+     *
+     * @return UserInterface
+     */
+    public function getCreatedBy();
 }

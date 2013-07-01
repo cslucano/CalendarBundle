@@ -3,8 +3,10 @@
 namespace Sg\CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
+use FOS\UserBundle\Model\UserInterface;
 use \DateTime;
 
 /**
@@ -136,6 +138,20 @@ abstract class Event implements EventInterface
      * @ORM\Column(name="createdAt", type="datetime", nullable=false)
      */
     private $createdAt;
+
+    /**
+     * The owner of the event.
+     *
+     * @var UserInterface
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="FOS\UserBundle\Model\UserInterface"
+     * )
+     * @JoinColumn(
+     *     nullable=false
+     * )
+     */
+    private $createdBy;
 
 
     //-------------------------------------------------
@@ -463,6 +479,30 @@ abstract class Event implements EventInterface
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set createdBy.
+     *
+     * @param UserInterface $createdBy
+     *
+     * @return Event
+     */
+    public function setCreatedBy(UserInterface $createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy.
+     *
+     * @return UserInterface
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 
 
