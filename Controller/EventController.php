@@ -4,6 +4,7 @@ namespace Sg\CalendarBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -248,10 +249,16 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function removeAction($id)
     {
         $event = $this->getEventById($id);
+
+        if (!$this->get('security.context')->isGranted('OWNER', $event)) {
+            throw new AccessDeniedException();
+        }
+
         $removeForm = $this->createDeleteForm($id);
 
         return array(
@@ -271,10 +278,16 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function deleteAction(Request $request, $id)
     {
         $event = $this->getEventById($id);
+
+        if (!$this->get('security.context')->isGranted('OWNER', $event)) {
+            throw new AccessDeniedException();
+        }
+
         $removeForm = $this->createDeleteForm($id);
         $removeForm->handleRequest($request);
 

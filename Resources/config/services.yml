@@ -35,3 +35,8 @@ services:
     sg_calendar.array_generator:
         class: Sg\CalendarBundle\Generator\EventsToArray
         arguments: [@router]
+
+    sg_calendar.voter.access.owner:
+        class: Sg\CalendarBundle\Voter\OwnerVoter
+        tags:
+            - { name: security.voter }
