@@ -59,8 +59,8 @@ class CalendarExtension extends Twig_Extension
     }
 
     /**
-     * @param string $eventSourceUrl
-     * @param string $eventUpdateXhrUrl
+     * @param string $eventSourceUrl    Event source route
+     * @param string $eventUpdateXhrUrl Event update route
      *
      * @return mixed
      */

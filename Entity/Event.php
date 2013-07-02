@@ -585,9 +585,9 @@ abstract class Event implements EventInterface
      */
     public function isEndValid(ExecutionContextInterface $context)
     {
-        $is_valid = $this->start <= $this->end;
+        $isValid = $this->start <= $this->end;
 
-        if (!$is_valid) {
+        if (!$isValid) {
             $context->addViolationAt('end', 'calendar.event.end_callback', array(), null);
         }
     }
