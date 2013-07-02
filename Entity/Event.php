@@ -140,7 +140,16 @@ abstract class Event implements EventInterface
     private $createdAt;
 
     /**
-     * The owner of the event.
+     * Update datetime.
+     *
+     * @var DateTime $updatedAt
+     *
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
+     * The creator of the event.
      *
      * @var UserInterface
      *
@@ -152,6 +161,20 @@ abstract class Event implements EventInterface
      * )
      */
     private $createdBy;
+
+    /**
+     * The user of the last change of the event.
+     *
+     * @var UserInterface
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="Symfony\Component\Security\Core\User\UserInterface"
+     * )
+     * @JoinColumn(
+     *     nullable=false
+     * )
+     */
+    private $updatedBy;
 
 
     //-------------------------------------------------
@@ -167,7 +190,6 @@ abstract class Event implements EventInterface
         $this->editable = false;
         $this->start = new DateTime();
         $this->end = new DateTime();
-        $this->createdAt = new DateTime();
     }
 
     /**
@@ -482,6 +504,30 @@ abstract class Event implements EventInterface
     }
 
     /**
+     * Set updatedAt.
+     *
+     * @param DateTime $updatedAt
+     *
+     * @return Event
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt.
+     *
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * Set createdBy.
      *
      * @param UserInterface $createdBy
@@ -503,6 +549,30 @@ abstract class Event implements EventInterface
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param UserInterface $updatedBy
+     *
+     * @return Event
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return UserInterface
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 
 

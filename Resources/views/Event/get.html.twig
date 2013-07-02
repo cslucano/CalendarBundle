@@ -62,6 +62,18 @@
                 <th>CreatedAt</th>
                 <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
             </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>CreatedBy</th>
+                <td>{{ entity.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedBy</th>
+                <td>{{ entity.updatedBy }}</td>
+            </tr>
         </tbody>
     </table>
 

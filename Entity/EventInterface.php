@@ -214,6 +214,22 @@ interface EventInterface
     public function getCreatedAt();
 
     /**
+     * Set updatedAt.
+     *
+     * @param DateTime $updatedAt
+     *
+     * @return Event
+     */
+    public function setUpdatedAt($updatedAt);
+
+    /**
+     * Get updatedAt.
+     *
+     * @return DateTime
+     */
+    public function getUpdatedAt();
+
+    /**
      * Set createdBy.
      *
      * @param UserInterface $createdBy
@@ -228,4 +244,20 @@ interface EventInterface
      * @return UserInterface
      */
     public function getCreatedBy();
+
+    /**
+     * Set updatedBy
+     *
+     * @param UserInterface $updatedBy
+     *
+     * @return Event
+     */
+    public function setUpdatedBy($updatedBy);
+
+    /**
+     * Get updatedBy
+     *
+     * @return UserInterface
+     */
+    public function getUpdatedBy();
 }

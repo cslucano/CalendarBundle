@@ -20,11 +20,17 @@ services:
         class: Sg\CalendarBundle\Form\Factory\EventFormFactory
         arguments: [@form.factory, %sg_calendar.form.event.name%, %sg_calendar.form.event.type%]
 
-    sg_calendar.subscriber:
+    sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\EventSubscriber\CalendarSubscriber
         arguments: [@session, @router, @translator]
         tags:
             - { name: kernel.event_subscriber }
+
+    sg_calendar.subscriber.orm:
+        class: Sg\CalendarBundle\EventSubscriber\OrmSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_subscriber }
 
     sg_calendar.array_generator:
         class: Sg\CalendarBundle\Generator\EventsToArray
