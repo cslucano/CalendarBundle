@@ -1,6 +1,6 @@
 <?php
 
-namespace Sg\CalendarBundle\EventSubscriber;
+namespace Sg\CalendarBundle\Subscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;

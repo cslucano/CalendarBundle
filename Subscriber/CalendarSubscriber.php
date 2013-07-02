@@ -1,6 +1,6 @@
 <?php
 
-namespace Sg\CalendarBundle\EventSubscriber;
+namespace Sg\CalendarBundle\Subscriber;
 
 use Sg\CalendarBundle\SgCalendarEvents;
 use Sg\CalendarBundle\Event\CalendarEvent;
