@@ -1,6 +1,6 @@
 # Overriding Default Forms
 
-Suppose that you have created an event class. In this class, you have added a `createdBy` property.
+Suppose that you have created an event class. In this class, you have added a `location` property.
 
 ``` php
 <?php
@@ -10,7 +10,6 @@ namespace Sg\UserBundle\Entity;
 
 use Sg\CalendarBundle\Entity\Event as BaseEvent;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 
 /**
  * Class Event
@@ -23,18 +22,13 @@ use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 class Event extends BaseEvent
 {
     /**
-     * The user who wrote the event.
+     * The event's location
      *
-     * @var User
+     * @ORM\Column(name="location", type="string", length=255, nullable=true)
      *
-     * @ORM\ManyToOne(
-     *     targetEntity="Sg\UserBundle\Entity\User"
-     * )
-     * @JoinColumn(
-     *     nullable=false
-     * )
+     * @var string
      */
-    private $createdBy;
+    private $location;
 
 
     /**
@@ -48,27 +42,27 @@ class Event extends BaseEvent
     }
 
     /**
-     * Set createdBy.
+     * Set location
      *
-     * @param User $createdBy
+     * @param string $location
      *
      * @return Event
      */
-    public function setCreatedBy(User $createdBy)
+    public function setLocation($location)
     {
-        $this->createdBy = $createdBy;
+        $this->location = $location;
 
         return $this;
     }
 
     /**
-     * Get createdBy.
+     * Get location
      *
-     * @return User
+     * @return string
      */
-    public function getCreatedBy()
+    public function getLocation()
     {
-        return $this->createdBy;
+        return $this->location;
     }
 }
 ```
@@ -99,7 +93,7 @@ class EventType extends BaseType
         parent::buildForm($builder, $options);
 
         // custom field
-        $builder->add('createdBy');
+        $builder->add('location');
     }
 
     /**

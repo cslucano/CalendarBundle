@@ -96,8 +96,6 @@ class Event extends BaseEvent
 
 ### Step 4: Implement the EquatableInterface in your Doctrine ORM User class
 
-Create a User class implementing the Symfony\Component\Security\Core\User\UserInterface.
-
 ``` php
 <?php
 // src/Sg/UserBundle/Entity/User.php
