@@ -5,6 +5,7 @@ namespace Sg\CalendarBundle\Subscriber;
 use Doctrine\Common\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Sg\CalendarBundle\Entity\EventInterface;
 use \DateTime;
@@ -62,9 +63,9 @@ class OrmSubscriber implements EventSubscriber
      * Stores the current user into updatedBy property.
      * Stores the current DateTime into updatedAt property.
      *
-     * @param LifecycleEventArgs $args
+     * @param PreUpdateEventArgs $args
      */
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args)
     {
         /**
          * @var \Sg\CalendarBundle\Entity\EventInterface $entity
