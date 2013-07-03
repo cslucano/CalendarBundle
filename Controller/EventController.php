@@ -109,10 +109,16 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function postAction(Request $request)
     {
         $event = $this->getEventManager()->newEvent();
+
+        if (!$this->container->get('security.context')->isGranted('create', $event)) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->getEventFormFactory()->createForm($event);
         $form->handleRequest($request);
 
@@ -144,10 +150,16 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function newAction()
     {
         $event = $this->getEventManager()->newEvent();
+
+        if (!$this->container->get('security.context')->isGranted('create', $event)) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->getEventFormFactory()->createForm($event);
 
         return array(
@@ -167,10 +179,15 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function getAction($id)
     {
         $event = $this->getEventById($id);
+
+        if (!$this->container->get('security.context')->isGranted('view', $event)) {
+            throw new AccessDeniedException();
+        }
 
         return array(
             'entity' => $event
@@ -188,10 +205,16 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function editAction($id)
     {
         $event = $this->getEventById($id);
+
+        if (!$this->container->get('security.context')->isGranted('edit', $event)) {
+            throw new AccessDeniedException();
+        }
+
         $editForm = $this->getEventFormFactory()->createForm($event, array('method' => 'PUT'));
 
         return array(
@@ -212,10 +235,16 @@ class EventController extends Controller
      * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function putAction(Request $request, $id)
     {
         $event = $this->getEventById($id);
+
+        if (!$this->container->get('security.context')->isGranted('edit', $event)) {
+            throw new AccessDeniedException();
+        }
+
         $editForm = $this->getEventFormFactory()->createForm($event, array('method' => 'PUT'));
         $editForm->handleRequest($request);
 
@@ -255,7 +284,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->get('security.context')->isGranted('OWNER', $event)) {
+        if (!$this->container->get('security.context')->isGranted('delete', $event)) {
             throw new AccessDeniedException();
         }
 
@@ -284,7 +313,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->get('security.context')->isGranted('OWNER', $event)) {
+        if (!$this->container->get('security.context')->isGranted('delete', $event)) {
             throw new AccessDeniedException();
         }
 
