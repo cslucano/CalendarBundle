@@ -90,7 +90,7 @@
                     day: "{{ 'calendar.fullcalendar.button.day'|trans({}, 'messages') }}"
                 },
                 eventSources: [{
-                    url: "{{ event_source_url }}"
+                    url: "{{ get_xhr_events_url }}"
                 }],
 
                 /*
@@ -109,7 +109,7 @@
                         revertFunc();
                     } else {
                         $.ajax({
-                            url: "{{ event_update_xhr_url }}",
+                            url: "{{ update_xhr_event_url }}",
                             type: "POST",
                             cache: false,
                             data: {
@@ -134,7 +134,7 @@
                         revertFunc();
                     } else {
                         $.ajax({
-                            url: "{{ event_update_xhr_url }}",
+                            url: "{{ update_xhr_event_url }}",
                             type: "POST",
                             cache: false,
                             data: {
