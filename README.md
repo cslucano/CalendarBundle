@@ -8,7 +8,8 @@ This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 applica
 
 ### Prerequisites
 
-This version of the bundle requires Symfony 2.3.x.
+* This version of the bundle requires Symfony 2.3.x.
+* Also FOSUserBundle needs to be installed and configured beforehand. Please follow all steps described [here](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
 
 ### Translations
 
@@ -17,6 +18,10 @@ This version of the bundle requires Symfony 2.3.x.
 
 framework:
     translator: { fallback: %locale% }
+
+    # ...
+
+    default_locale:  "%locale%"
 ```
 
 ### Step 1: Download SgCalendarBundle using composer
@@ -89,7 +94,7 @@ class Event extends BaseEvent
 }
 ```
 
-### Step 4: Create your Doctrine ORM User class
+### Step 4: Implement the EquatableInterface in your Doctrine ORM User class
 
 Create a User class implementing the Symfony\Component\Security\Core\User\UserInterface.
 
@@ -101,12 +106,14 @@ namespace Sg\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
+class User extends BaseUser implements EquatableInterface
 {
     /**
      * @ORM\Id
@@ -120,8 +127,19 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEqualTo(UserInterface $user)
+    {
+        return md5($user->getUsername()) == md5($this->getUsername()) &&
+            md5(serialize($user->getRoles())) == md5(serialize($this->getRoles()));
+    }
 }
 ```
+
+### Step 5: Configure your Doctrine ORM User class as target entity
 
 Configure it in your `config.yml`:
 
@@ -135,7 +153,7 @@ doctrine:
             Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User # Your custom class from above
 ```
 
-### Step 5: Configure the SgCalendarBundle
+### Step 6: Configure the SgCalendarBundle
 
 Add the following configuration to your `config.yml` file:
 
@@ -144,21 +162,21 @@ Add the following configuration to your `config.yml` file:
 
 sg_calendar:
     event_class: Sg\UserBundle\Entity\Event # or SgUserBundle:Event
-    first_day: 1
+    first_day: 1 # Monday
     time_format: "HH:mm"
 ```
 
-### Step 6: Update your database schema
+### Step 7: Update your database schema
 
 ``` bash
 $ php app/console doctrine:schema:update --force
 ```
 
-### Step 7: Assets
+### Step 8: Assets
 
 Add the required stylesheet and javascripts to your layout.
 
-A layout.html.twig for your bundle can look like this:
+A layout.html.twig can look like this:
 
 ``` html
 {% extends '::base.html.twig' %}
@@ -182,6 +200,24 @@ A layout.html.twig for your bundle can look like this:
     {% endblock %}
 
     <div class="container">
+
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         {% block content %}
         {% endblock %}
     </div>
