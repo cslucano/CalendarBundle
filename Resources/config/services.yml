@@ -37,6 +37,6 @@ services:
         arguments: [@router]
 
     sg_calendar.voter.access.owner:
-        class: Sg\CalendarBundle\Voter\OwnerVoter
+        class: Sg\CalendarBundle\Voter\EventVoter
         tags:
             - { name: security.voter }
