@@ -1,6 +1,6 @@
 # SgCalendarBundle
 
-This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 application.
+This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 application. Compatible with Doctrine ORM.
 
 **Status:** not yet ready, hard-development.
 
