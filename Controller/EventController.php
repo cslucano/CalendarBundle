@@ -349,7 +349,7 @@ class EventController extends Controller
      *
      * @param integer $id
      *
-     * @return \Sg\CalendarBundle\Entity\EventInterface
+     * @return \Sg\CalendarBundle\Model\EventInterface
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     private function getEventById($id)
@@ -391,7 +391,7 @@ class EventController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Manager\EventManagerInterface
+     * @return \Sg\CalendarBundle\Model\EventManagerInterface
      */
     private function getEventManager()
     {

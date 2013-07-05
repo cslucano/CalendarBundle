@@ -1,16 +1,16 @@
 <?php
 
-namespace Sg\CalendarBundle\Voter;
+namespace Sg\CalendarBundle\Security\Authorization\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sg\CalendarBundle\Entity\EventInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 /**
  * Class EventVoter
  *
- * @package Sg\CalendarBundle\Voter
+ * @package Sg\CalendarBundle\Security\Authorization\Voter
  */
 class EventVoter implements VoterInterface, EventVoterInterface
 {
@@ -49,6 +49,7 @@ class EventVoter implements VoterInterface, EventVoterInterface
         }
 
         $user = $token->getUser();
+        //$roles = $token->getRoles();
 
         if (!$user instanceof UserInterface) {
             return VoterInterface::ACCESS_DENIED;

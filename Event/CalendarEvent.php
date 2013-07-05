@@ -4,7 +4,7 @@ namespace Sg\CalendarBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
-use Sg\CalendarBundle\Entity\EventInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 /**
  * Class CalendarEvent

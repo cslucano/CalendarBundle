@@ -69,7 +69,7 @@ public function registerBundles()
 
 namespace Sg\UserBundle\Entity;
 
-use Sg\CalendarBundle\Entity\Event as BaseEvent;
+use Sg\CalendarBundle\Model\AbstractEvent as BaseEvent;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

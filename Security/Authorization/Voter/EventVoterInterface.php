@@ -1,16 +1,14 @@
 <?php
 
-namespace Sg\CalendarBundle\Voter;
+namespace Sg\CalendarBundle\Security\Authorization\Voter;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sg\CalendarBundle\Entity\EventInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 /**
  * Class EventVoterInterface
  *
- * Any event voter to be used by Sg\CalendarBundle must implement this interface.
- *
- * @package Sg\CalendarBundle\Voter
+ * @package Sg\CalendarBundle\Security\Authorization\Voter
  */
 interface EventVoterInterface
 {

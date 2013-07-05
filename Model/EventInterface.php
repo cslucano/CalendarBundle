@@ -1,6 +1,6 @@
 <?php
 
-namespace Sg\CalendarBundle\Entity;
+namespace Sg\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
@@ -8,9 +8,7 @@ use \DateTime;
 /**
  * Class EventInterface
  *
- * Any event to be used by Sg\CalendarBundle must implement this interface.
- *
- * @package Sg\CalendarBundle\Entity
+ * @package Sg\CalendarBundle\Model
  */
 interface EventInterface
 {
@@ -26,7 +24,7 @@ interface EventInterface
      *
      * @param string $title
      *
-     * @return Event
+     * @return self
      */
     public function setTitle($title);
 
@@ -42,7 +40,7 @@ interface EventInterface
      *
      * @param boolean $allDay
      *
-     * @return Event
+     * @return self
      */
     public function setAllDay($allDay);
 
@@ -58,7 +56,7 @@ interface EventInterface
      *
      * @param DateTime $start
      *
-     * @return Event
+     * @return self
      */
     public function setStart($start);
 
@@ -74,7 +72,7 @@ interface EventInterface
      *
      * @param DateTime $end
      *
-     * @return Event
+     * @return self
      */
     public function setEnd($end);
 
@@ -90,7 +88,7 @@ interface EventInterface
      *
      * @param string $url
      *
-     * @return Event
+     * @return self
      */
     public function setUrl($url);
 
@@ -106,7 +104,7 @@ interface EventInterface
      *
      * @param string $className
      *
-     * @return Event
+     * @return self
      */
     public function setClassName($className);
 
@@ -122,7 +120,7 @@ interface EventInterface
      *
      * @param boolean $editable
      *
-     * @return Event
+     * @return self
      */
     public function setEditable($editable);
 
@@ -138,7 +136,7 @@ interface EventInterface
      *
      * @param string $color
      *
-     * @return Event
+     * @return self
      */
     public function setColor($color);
 
@@ -154,7 +152,7 @@ interface EventInterface
      *
      * @param string $bgColor
      *
-     * @return Event
+     * @return self
      */
     public function setBgColor($bgColor);
 
@@ -170,7 +168,7 @@ interface EventInterface
      *
      * @param string $borderColor
      *
-     * @return Event
+     * @return self
      */
     public function setBorderColor($borderColor);
 
@@ -186,7 +184,7 @@ interface EventInterface
      *
      * @param string $textColor
      *
-     * @return Event
+     * @return self
      */
     public function setTextColor($textColor);
 
@@ -202,7 +200,7 @@ interface EventInterface
      *
      * @param DateTime $createdAt
      *
-     * @return Event
+     * @return self
      */
     public function setCreatedAt($createdAt);
 
@@ -218,7 +216,7 @@ interface EventInterface
      *
      * @param DateTime $updatedAt
      *
-     * @return Event
+     * @return self
      */
     public function setUpdatedAt($updatedAt);
 
@@ -234,7 +232,7 @@ interface EventInterface
      *
      * @param UserInterface $createdBy
      *
-     * @return Event
+     * @return self
      */
     public function setCreatedBy(UserInterface $createdBy);
 
@@ -250,9 +248,9 @@ interface EventInterface
      *
      * @param UserInterface $updatedBy
      *
-     * @return Event
+     * @return self
      */
-    public function setUpdatedBy($updatedBy);
+    public function setUpdatedBy(UserInterface $updatedBy);
 
     /**
      * Get updatedBy

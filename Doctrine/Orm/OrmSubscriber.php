@@ -1,19 +1,19 @@
 <?php
 
-namespace Sg\CalendarBundle\Subscriber;
+namespace Sg\CalendarBundle\Doctrine\Orm;
 
 use Doctrine\Common\EventSubscriber;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Sg\CalendarBundle\Entity\EventInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 use \DateTime;
 
 /**
  * Class OrmSubscriber
  *
- * @package Sg\CalendarBundle\EventSubscriber
+ * @package Sg\CalendarBundle\Doctrine\Orm
  */
 class OrmSubscriber implements EventSubscriber
 {
@@ -44,7 +44,7 @@ class OrmSubscriber implements EventSubscriber
         if (PHP_SAPI != 'cli') {
 
             /**
-             * @var \Sg\CalendarBundle\Entity\EventInterface $entity
+             * @var \Sg\CalendarBundle\Model\EventInterface $entity
              */
             $entity = $args->getEntity();
 
@@ -68,7 +68,7 @@ class OrmSubscriber implements EventSubscriber
     public function preUpdate(PreUpdateEventArgs $args)
     {
         /**
-         * @var \Sg\CalendarBundle\Entity\EventInterface $entity
+         * @var \Sg\CalendarBundle\Model\EventInterface $entity
          */
         $entity = $args->getEntity();
 

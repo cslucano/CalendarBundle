@@ -1,6 +1,6 @@
 <?php
 
-namespace Sg\CalendarBundle\Entity;
+namespace Sg\CalendarBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
@@ -10,14 +10,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
 
 /**
- * Class Event
+ * Class AbstractEvent
  *
  * @ORM\MappedSuperclass
  * @Assert\Callback(methods={"isEndValid"})
  *
- * @package Sg\CalendarBundle\Entity
+ * @package Sg\CalendarBundle\Model
  */
-abstract class Event implements EventInterface
+abstract class AbstractEvent implements EventInterface
 {
     /**
      * Uniquely identifies the given event.
@@ -28,7 +28,7 @@ abstract class Event implements EventInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * The text on an event's element.
@@ -38,7 +38,7 @@ abstract class Event implements EventInterface
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
-    private $title;
+    protected $title;
 
     /**
      * This property affects whether an event's time is shown.
@@ -47,7 +47,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="allDay", type="boolean", nullable=true)
      */
-    private $allDay;
+    protected $allDay;
 
     /**
      * The date/time an event begins.
@@ -56,7 +56,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="start", type="datetime", nullable=false)
      */
-    private $start;
+    protected $start;
 
     /**
      * The date/time an event ends.
@@ -65,7 +65,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="end", type="datetime", nullable=true)
      */
-    private $end;
+    protected $end;
 
     /**
      * A URL that will be visited when this event is clicked by the user.
@@ -74,7 +74,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
-    private $url;
+    protected $url;
 
     /**
      * A CSS class (or array of classes) that will be attached to this event's element.
@@ -83,7 +83,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="className", type="string", length=255, nullable=true)
      */
-    private $className;
+    protected $className;
 
     /**
      * This determines if the events can be dragged and resized.
@@ -92,7 +92,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="editable", type="boolean", nullable=true)
      */
-    private $editable;
+    protected $editable;
 
     /**
      * Sets an event's background  - and - border color.
@@ -101,7 +101,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="color", type="string", length=255, nullable=true)
      */
-    private $color;
+    protected $color;
 
     /**
      * Sets an event's background color.
@@ -110,7 +110,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="bgColor", type="string", length=255, nullable=true)
      */
-    private $bgColor;
+    protected $bgColor;
 
     /**
      * Sets an event's border color.
@@ -119,7 +119,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="borderColor", type="string", length=255, nullable=true)
      */
-    private $borderColor;
+    protected $borderColor;
 
     /**
      * Sets an event's text color.
@@ -128,7 +128,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="textColor", type="string", length=255, nullable=true)
      */
-    private $textColor;
+    protected $textColor;
 
     /**
      * Create datetime.
@@ -137,7 +137,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="createdAt", type="datetime", nullable=false)
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * Update datetime.
@@ -146,7 +146,7 @@ abstract class Event implements EventInterface
      *
      * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * The creator of the event.
@@ -160,7 +160,7 @@ abstract class Event implements EventInterface
      *     nullable=false
      * )
      */
-    private $createdBy;
+    protected $createdBy;
 
     /**
      * The user of the last change of the event.
@@ -174,7 +174,7 @@ abstract class Event implements EventInterface
      *     nullable=false
      * )
      */
-    private $updatedBy;
+    protected $updatedBy;
 
 
     //-------------------------------------------------
@@ -202,13 +202,11 @@ abstract class Event implements EventInterface
 
 
     //-------------------------------------------------
-    // Getters && Setters
+    // EventInterface
     //-------------------------------------------------
 
     /**
-     * Get id.
-     *
-     * @return integer 
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -216,11 +214,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set title.
-     *
-     * @param string $title
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setTitle($title)
     {
@@ -230,9 +224,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get title.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getTitle()
     {
@@ -240,11 +232,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set allDay.
-     *
-     * @param boolean $allDay
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setAllDay($allDay)
     {
@@ -254,9 +242,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get allDay.
-     *
-     * @return boolean 
+     * {@inheritdoc}
      */
     public function getAllDay()
     {
@@ -264,11 +250,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set start.
-     *
-     * @param DateTime $start
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setStart($start)
     {
@@ -278,9 +260,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get start.
-     *
-     * @return DateTime
+     * {@inheritdoc}
      */
     public function getStart()
     {
@@ -288,11 +268,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set end.
-     *
-     * @param DateTime $end
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setEnd($end)
     {
@@ -302,9 +278,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get end.
-     *
-     * @return DateTime
+     * {@inheritdoc}
      */
     public function getEnd()
     {
@@ -312,11 +286,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set url.
-     *
-     * @param string $url
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setUrl($url)
     {
@@ -326,9 +296,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get url.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getUrl()
     {
@@ -336,11 +304,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set className.
-     *
-     * @param string $className
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setClassName($className)
     {
@@ -350,9 +314,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get className.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getClassName()
     {
@@ -360,11 +322,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set editable.
-     *
-     * @param boolean $editable
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setEditable($editable)
     {
@@ -374,9 +332,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get editable.
-     *
-     * @return boolean 
+     * {@inheritdoc}
      */
     public function getEditable()
     {
@@ -384,11 +340,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set color.
-     *
-     * @param string $color
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setColor($color)
     {
@@ -398,9 +350,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get color.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getColor()
     {
@@ -408,11 +358,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set bgColor.
-     *
-     * @param string $bgColor
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setBgColor($bgColor)
     {
@@ -422,9 +368,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get bgColor.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getBgColor()
     {
@@ -432,11 +376,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set borderColor.
-     *
-     * @param string $borderColor
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setBorderColor($borderColor)
     {
@@ -446,9 +386,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get borderColor.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getBorderColor()
     {
@@ -456,11 +394,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set textColor.
-     *
-     * @param string $textColor
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setTextColor($textColor)
     {
@@ -470,9 +404,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get textColor.
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getTextColor()
     {
@@ -480,11 +412,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set createdAt.
-     *
-     * @param DateTime $createdAt
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setCreatedAt($createdAt)
     {
@@ -494,9 +422,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get createdAt.
-     *
-     * @return DateTime
+     * {@inheritdoc}
      */
     public function getCreatedAt()
     {
@@ -504,11 +430,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set updatedAt.
-     *
-     * @param DateTime $updatedAt
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -518,9 +440,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get updatedAt.
-     *
-     * @return DateTime
+     * {@inheritdoc}
      */
     public function getUpdatedAt()
     {
@@ -528,11 +448,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set createdBy.
-     *
-     * @param UserInterface $createdBy
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setCreatedBy(UserInterface $createdBy)
     {
@@ -542,9 +458,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get createdBy.
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function getCreatedBy()
     {
@@ -552,13 +466,9 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Set updatedBy
-     *
-     * @param UserInterface $updatedBy
-     *
-     * @return Event
+     * {@inheritdoc}
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy(UserInterface $updatedBy)
     {
         $this->updatedBy = $updatedBy;
 
@@ -566,9 +476,7 @@ abstract class Event implements EventInterface
     }
 
     /**
-     * Get updatedBy
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function getUpdatedBy()
     {

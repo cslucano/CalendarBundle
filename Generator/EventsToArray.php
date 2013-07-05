@@ -3,7 +3,7 @@
 namespace Sg\CalendarBundle\Generator;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Sg\CalendarBundle\Entity\EventInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 /**
  * Class EventsToArray

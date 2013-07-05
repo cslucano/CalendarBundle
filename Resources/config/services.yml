@@ -7,7 +7,7 @@ services:
             - { name: twig.extension }
 
     sg_calendar.event_manager:
-        class: Sg\CalendarBundle\Manager\EventManager
+        class: Sg\CalendarBundle\Doctrine\EventManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.event.class%]
 
     sg_calendar.form_type.event.default:
@@ -27,7 +27,7 @@ services:
             - { name: kernel.event_subscriber }
 
     sg_calendar.subscriber.orm:
-        class: Sg\CalendarBundle\Subscriber\OrmSubscriber
+        class: Sg\CalendarBundle\Doctrine\Orm\OrmSubscriber
         arguments: [@service_container]
         tags:
             - { name: doctrine.event_subscriber }
@@ -37,6 +37,6 @@ services:
         arguments: [@router]
 
     sg_calendar.voter.access.owner:
-        class: Sg\CalendarBundle\Voter\EventVoter
+        class: Sg\CalendarBundle\Security\Authorization\Voter\EventVoter
         tags:
             - { name: security.voter }

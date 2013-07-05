@@ -1,34 +1,28 @@
 <?php
 
-namespace Sg\CalendarBundle\Manager;
+namespace Sg\CalendarBundle\Doctrine;
 
-use Sg\CalendarBundle\Entity\EventInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Sg\CalendarBundle\Model\EventInterface;
+use Sg\CalendarBundle\Model\AbstractEventManager as BaseEventManager;
 
 /**
  * Class EventManager
  *
- * @package Sg\CalendarBundle\Manager
+ * @package Sg\CalendarBundle\Doctrine
  */
-class EventManager implements EventManagerInterface
+class EventManager extends BaseEventManager
 {
     /**
      * @var EntityManager
      */
-    private $em;
-
-    /**
-     * The fully qualified class name of event entity.
-     *
-     * @var string
-     */
-    private $class;
+    protected $em;
 
     /**
      * @var EntityRepository
      */
-    private $repository;
+    protected $repository;
 
 
     //-------------------------------------------------
@@ -54,17 +48,6 @@ class EventManager implements EventManagerInterface
     //-------------------------------------------------
     // EventManagerInterface
     //-------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-    public function newEvent()
-    {
-        $class = $this->class;
-        $event = new $class();
-
-        return $event;
-    }
 
     /**
      * {@inheritDoc}
@@ -101,13 +84,5 @@ class EventManager implements EventManagerInterface
     public function findEvents()
     {
         return $this->repository->findAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getClass()
-    {
-        return $this->class;
     }
 }

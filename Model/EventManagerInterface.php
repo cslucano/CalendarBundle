@@ -1,8 +1,6 @@
 <?php
 
-namespace Sg\CalendarBundle\Manager;
-
-use Sg\CalendarBundle\Entity\EventInterface;
+namespace Sg\CalendarBundle\Model;
 
 /**
  * Class EventManagerInterface
@@ -12,7 +10,7 @@ use Sg\CalendarBundle\Entity\EventInterface;
  *
  * All changes to events should happen through this interface.
  *
- * @package Sg\CalendarBundle\Manager
+ * @package Sg\CalendarBundle\Model
  */
 interface EventManagerInterface
 {
@@ -35,7 +33,7 @@ interface EventManagerInterface
     /**
      * Updates an event.
      *
-     * @param EventInterface $event    An EventInterface instance
+     * @param EventInterface $event    An event instance
      * @param Boolean        $andFlush Whether to flush the changes (default true)
      *
      * @return void
