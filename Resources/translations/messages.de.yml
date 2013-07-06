@@ -79,3 +79,6 @@ calendar: # the bundle name
             bgColor: "Hintergrundfarbe"
             borderColor: "Rahmenfarbe"
             textColor: "Textfarbe"
+        calendar: # an other object name
+            name: "Name"
+            eventsUrl: "Google Kalender Url"
