@@ -61,7 +61,34 @@ public function registerBundles()
 }
 ```
 
-### Step 3: Create your Doctrine ORM Event class
+### Step 3: Create your Doctrine ORM classes
+
+## The Calendar class
+
+``` php
+<?php
+// src/Sg/UserBundle/Entity/Calendar.php
+
+namespace Sg\UserBundle\Entity;
+
+use Sg\CalendarBundle\Model\AbstractCalendar as BaseCalendar;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Calendar
+ *
+ * @ORM\Entity()
+ * @ORM\Table()
+ *
+ * @package Sg\UserBundle\Entity
+ */
+class Calendar extends BaseCalendar
+{
+
+}
+```
+
+## The Event class
 
 ``` php
 <?php
@@ -159,6 +186,7 @@ Add the following configuration to your `config.yml` file:
 # app/config/config.yml
 
 sg_calendar:
+    calendar_class: Sg\UserBundle\Entity\Calendar # or SgUserBundle:Calendar
     event_class: Sg\UserBundle\Entity\Event # or SgUserBundle:Event
     first_day: 1 # Monday
     time_format: "HH:mm"
@@ -194,6 +222,7 @@ A layout.html.twig can look like this:
         <script src="{{ asset('bundles/sgcalendar/js/jquery-2.0.2.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/sgcalendar/js/jquery-ui-1.10.3.custom.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/sgcalendar/js/fullcalendar.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/sgcalendar/js/gcal.js') }}" type="text/javascript"></script>
 
     {% endblock %}
 
