@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('calendar_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('first_day')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('time_format')->isRequired()->cannotBeEmpty()->end()
@@ -29,6 +30,8 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('event_name')->defaultValue('sg_calendar_eventtype')->end()
                         ->scalarNode('event_type')->defaultValue('sg_calendar_eventtype')->end()
+                        ->scalarNode('calendar_name')->defaultValue('sg_calendar_calendartype')->end()
+                        ->scalarNode('calendar_type')->defaultValue('sg_calendar_calendartype')->end()
                     ->end()
                 ->end()
             ->end();

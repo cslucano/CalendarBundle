@@ -10,15 +10,29 @@ services:
         class: Sg\CalendarBundle\Doctrine\EventManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.event.class%]
 
+    sg_calendar.calendar_manager:
+        class: Sg\CalendarBundle\Doctrine\CalendarManager
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.calendar.class%]
+
     sg_calendar.form_type.event.default:
         class: Sg\CalendarBundle\Form\Type\EventType
         arguments: [%sg_calendar.event.class%]
         tags:
             - { name: form.type, alias: sg_calendar_eventtype }
 
+    sg_calendar.form_type.calendar.default:
+        class: Sg\CalendarBundle\Form\Type\CalendarType
+        arguments: [%sg_calendar.calendar.class%]
+        tags:
+            - { name: form.type, alias: sg_calendar_calendartype }
+
     sg_calendar.form_factory.event:
         class: Sg\CalendarBundle\Form\Factory\EventFormFactory
         arguments: [@form.factory, %sg_calendar.form.event.name%, %sg_calendar.form.event.type%]
+
+    sg_calendar.form_factory.calendar:
+        class: Sg\CalendarBundle\Form\Factory\CalendarFormFactory
+        arguments: [@form.factory, %sg_calendar.form.calendar.name%, %sg_calendar.form.calendar.type%]
 
     sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\Subscriber\CalendarSubscriber
