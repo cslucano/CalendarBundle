@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class EventType
  *
- * @package Sg\CalendarBundle\Form
+ * @package Sg\CalendarBundle\Form\Type
  */
 class EventType extends AbstractType
 {
