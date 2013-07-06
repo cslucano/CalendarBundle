@@ -244,7 +244,7 @@ interface EventInterface
     public function getCreatedBy();
 
     /**
-     * Set updatedBy
+     * Set updatedBy.
      *
      * @param UserInterface $updatedBy
      *
@@ -253,7 +253,7 @@ interface EventInterface
     public function setUpdatedBy(UserInterface $updatedBy);
 
     /**
-     * Get updatedBy
+     * Get updatedBy.
      *
      * @return UserInterface
      */
