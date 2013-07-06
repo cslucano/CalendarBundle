@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sg\CalendarBundle\Model\EventInterface;
+use Sg\CalendarBundle\Model\CalendarInterface;
 use \DateTime;
 
 /**
@@ -48,7 +49,7 @@ class OrmSubscriber implements EventSubscriber
              */
             $entity = $args->getEntity();
 
-            if ($entity instanceof EventInterface) {
+            if ($entity instanceof EventInterface || $entity instanceof CalendarInterface) {
                 $user = $this->getUser();
                 $entity->setCreatedBy($user);
                 $entity->setUpdatedBy($user);
@@ -72,7 +73,7 @@ class OrmSubscriber implements EventSubscriber
          */
         $entity = $args->getEntity();
 
-        if ($entity instanceof EventInterface) {
+        if ($entity instanceof EventInterface || $entity instanceof CalendarInterface) {
             $user = $this->getUser();
             $entity->setUpdatedBy($user);
             $entity->setUpdatedAt(new DateTime());
