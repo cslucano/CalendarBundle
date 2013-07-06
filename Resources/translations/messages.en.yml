@@ -52,7 +52,19 @@ calendar: # the bundle name
         action:
             index:
                 title: "Calendar"
-    event: # a controller
+            edit:
+                title: "Edit Calendar"
+                submit: "Edit"
+            get:
+                title: "Calendar"
+            new:
+                title: "New Calendar"
+                submit: "Create"
+            remove:
+                title: "Delete Calendar"
+                submit: "Delete"
+                confirm: "Are you sure you want to delete?"
+    event: # an other controller
         action:
             edit:
                 title: "Edit Event"

@@ -1,0 +1,18 @@
+{% extends 'SgCalendarBundle::layout.html.twig' %}
+
+{% block title %}{{ 'calendar.calendar.action.new.title'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'calendar.calendar.action.new.title'|trans({}, 'messages') }}</h2>
+
+    <hr />
+
+    {{ form_start(form, {'action': path('sg_calendar_create_calendar') }) }}
+        {{ form_widget(form) }}
+        <p>
+            <button formnovalidate="formnovalidate" type="submit">{{ 'calendar.calendar.action.new.submit'|trans({}, 'messages') }}</button>
+        </p>
+    {{ form_end(form) }}
+
+{% endblock %}
