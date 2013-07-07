@@ -1,0 +1,16 @@
+<div id="{{ datepicker_id }}"></div>
+
+<script>
+    $(function() {
+        $('#' + '{{ datepicker_id }}').datepicker(
+            {
+                dateFormat: 'DD, d MM, yy',
+                onSelect: function(dateText,dp){
+                    $('#' + '{{ fullcalendar_id }}').fullCalendar('gotoDate',new Date(Date.parse(dateText)));
+                    $('#' + '{{ fullcalendar_id }}').fullCalendar('changeView','agendaDay');
+                }
+            }
+        );
+    });
+</script>
+

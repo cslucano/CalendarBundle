@@ -19,6 +19,20 @@ class CalendarExtension extends Twig_Extension
     private $twig;
 
     /**
+     * The jQuery fullcalendar id selector
+     *
+     * @var string
+     */
+    private $fullcalendarId;
+
+    /**
+     * The jQuery datepicker id selector
+     *
+     * @var string
+     */
+    private $datepickerId;
+
+    /**
      * The day that each week begins.
      * Sunday=0, Monday=1 etc.
      *
@@ -37,13 +51,17 @@ class CalendarExtension extends Twig_Extension
     /**
      * Ctor.
      *
-     * @param Twig    $twig       A Twig instance
-     * @param integer $firstDay   The day that each week begins
-     * @param string  $timeFormat Determines the time-text that will be displayed on each event
+     * @param Twig    $twig           A Twig instance
+     * @param string  $fullcalendarId The jQuery fullcalendar id selector
+     * @param string  $datepickerId   The jQuery datepicker id selector
+     * @param integer $firstDay       The day that each week begins
+     * @param string  $timeFormat     Determines the time-text that will be displayed on each event
      */
-    public function __construct(Twig $twig, $firstDay, $timeFormat)
+    public function __construct(Twig $twig, $fullcalendarId, $datepickerId, $firstDay, $timeFormat)
     {
         $this->twig = $twig;
+        $this->fullcalendarId = $fullcalendarId;
+        $this->datepickerId = $datepickerId;
         $this->firstDay = $firstDay;
         $this->timeFormat = $timeFormat;
     }
@@ -54,24 +72,41 @@ class CalendarExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            new Twig_SimpleFunction('calendar_render', array($this, 'calendarRender'), array('is_safe' => array('all')))
+            new Twig_SimpleFunction('render_full_calendar', array($this, 'renderFullCalendar'), array('is_safe' => array('all'))),
+            new Twig_SimpleFunction('render_datepicker', array($this, 'renderDatepicker'), array('is_safe' => array('all')))
         );
     }
 
     /**
+     * Renders the FullCalendar.
+     *
      * @param string $getXhrEventsUrl   The generated URL
      * @param string $updateXhrEventUrl The generated URL
      *
      * @return mixed
      */
-    public function calendarRender($getXhrEventsUrl, $updateXhrEventUrl)
+    public function renderFullCalendar($getXhrEventsUrl, $updateXhrEventUrl)
     {
         $options['first_day'] = $this->firstDay;
         $options['time_format'] = $this->timeFormat;
+        $options['fullcalendar_id'] = $this->fullcalendarId;
         $options['get_xhr_events_url'] = $getXhrEventsUrl;
         $options['update_xhr_event_url'] = $updateXhrEventUrl;
 
-        return $this->twig->render('SgCalendarBundle:Extension:calendar.html.twig', $options);
+        return $this->twig->render('SgCalendarBundle:Extension:fullCalendar.html.twig', $options);
+    }
+
+    /**
+     * Renders the Datepicker.
+     *
+     * @return string
+     */
+    public function renderDatepicker()
+    {
+        $options['fullcalendar_id'] = $this->fullcalendarId;
+        $options['datepicker_id'] = $this->datepickerId;
+
+        return $this->twig->render('SgCalendarBundle:Extension:datepicker.html.twig', $options);
     }
 
     /**
