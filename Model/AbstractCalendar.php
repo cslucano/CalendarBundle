@@ -40,6 +40,7 @@ class AbstractCalendar implements CalendarInterface
 
     /**
      * The gcal. events url.
+     * e.g. https://www.google.com/calendar/feeds/german__de%40holiday.calendar.google.com/public/basic
      *
      * @var string
      *
@@ -66,7 +67,7 @@ class AbstractCalendar implements CalendarInterface
     protected $updatedAt;
 
     /**
-     * The creator of the calendar.
+     * The creator and owner of the calendar.
      *
      * @var UserInterface
      *

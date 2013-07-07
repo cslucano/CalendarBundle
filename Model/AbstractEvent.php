@@ -149,7 +149,7 @@ abstract class AbstractEvent implements EventInterface
     protected $updatedAt;
 
     /**
-     * The creator of the event.
+     * The creator and owner of the event.
      *
      * @var UserInterface
      *
