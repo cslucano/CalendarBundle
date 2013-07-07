@@ -65,7 +65,7 @@ public function registerBundles()
 
 ### Step 3: Create your Doctrine ORM classes
 
-## The Calendar class
+#### The Calendar class
 
 ``` php
 <?php
@@ -90,7 +90,7 @@ class Calendar extends BaseCalendar
 }
 ```
 
-## The Event class
+#### The Event class
 
 ``` php
 <?php
