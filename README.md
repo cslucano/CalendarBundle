@@ -4,6 +4,8 @@ This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 applica
 
 **Status:** not yet ready, hard-development.
 
+**Specifically missing is the relationship between calendar and event.**
+
 ## Installation
 
 ### Prerequisites
@@ -200,57 +202,10 @@ $ php app/console doctrine:schema:update --force
 
 ### Step 8: Assets
 
-Add the required stylesheet and javascripts to your layout.
+This bundle provides a layout that uses the Bootstrap framework. It does not contains the assets files.
+You can e.g. download a ZIP archive with the files from the Bootstrap repository on Github.
 
-A layout.html.twig can look like this:
-
-``` html
-{% extends '::base.html.twig' %}
-
-{% block title %}CalendarBundle{% endblock %}
-
-{% block stylesheets %}
-
-    <link href="{{ asset('bundles/sgcalendar/css/fullcalendar.css') }}" rel="stylesheet" type="text/css" />
-
-{% endblock %}
-
-{% block body%}
-
-    {% block scripts %}
-
-        <script src="{{ asset('bundles/sgcalendar/js/jquery-2.0.2.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/sgcalendar/js/jquery-ui-1.10.3.custom.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/sgcalendar/js/fullcalendar.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/sgcalendar/js/gcal.js') }}" type="text/javascript"></script>
-
-    {% endblock %}
-
-    <div class="container">
-
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-            <a href="{{ path('fos_user_security_logout') }}">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
-        {% else %}
-            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-        {% endif %}
-
-        {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-                <div class="flash-{{ type }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-
-        {% block content %}
-        {% endblock %}
-    </div>
-
-{% endblock %}
-```
+The bundle layout file is: `src/Sg/CalendarBundle/Resources/views/layout.html.twig`. This is only an example and can be replaced.
 
 ### Routing
 
