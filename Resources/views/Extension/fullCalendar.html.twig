@@ -1,6 +1,6 @@
 {% block sg_calendar_content %}
 
-    <div id="full_calendar"></div>
+    <div id="{{ fullcalendar_id }}"></div>
 
     <script type="text/javascript">
 
@@ -10,11 +10,11 @@
 
         $(document).ready(function () {
 
-            $('#full_calendar').fullCalendar({
+            $('#' + '{{ fullcalendar_id }}').fullCalendar({
                 header: {
-                    left: 'prevYear, prev, next, nextYear today',
+                    left: 'prev, next, today',
                     center: 'title',
-                    right: 'month, basicWeek, basicDay, agendaWeek, agendaDay'
+                    right: 'month, agendaWeek, agendaDay'
                 },
                 editable: false,
                 ignoreTimezone: false,
@@ -76,7 +76,7 @@
                 // @todo: config
                 titleFormat: {
                     week: "d.[ MMMM][ yyyy]{ - d. MMMM yyyy}",
-                    day: "dddd, d. MMMM yyyy"
+                    day: "d. MMMM yyyy"
                 },
                 columnFormat: {
                     week: "ddd d.",

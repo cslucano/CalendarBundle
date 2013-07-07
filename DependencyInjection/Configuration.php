@@ -24,6 +24,8 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('calendar_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('fullcalendar_id')->defaultValue('sg_fullcalendar')->end()
+                ->scalarNode('datepicker_id')->defaultValue('sg_datepicker')->end()
                 ->scalarNode('first_day')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('time_format')->isRequired()->cannotBeEmpty()->end()
                 ->arrayNode('form')->addDefaultsIfNotSet()

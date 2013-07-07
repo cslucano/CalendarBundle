@@ -2,27 +2,27 @@ services:
 
     sg_calendar.twig_extension:
         class: Sg\CalendarBundle\Twig\CalendarExtension
-        arguments: [@twig, %sg_calendar.first_day%, %sg_calendar.time_format%]
+        arguments: [@twig, %sg_calendar.twig.fullcalendar_id%, %sg_calendar.twig.datepicker_id%, %sg_calendar.twig.first_day%, %sg_calendar.twig.time_format%]
         tags:
             - { name: twig.extension }
 
     sg_calendar.event_manager:
         class: Sg\CalendarBundle\Doctrine\EventManager
-        arguments: [@doctrine.orm.entity_manager, %sg_calendar.event.class%]
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.event.class%]
 
     sg_calendar.calendar_manager:
         class: Sg\CalendarBundle\Doctrine\CalendarManager
-        arguments: [@doctrine.orm.entity_manager, %sg_calendar.calendar.class%]
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%]
 
     sg_calendar.form_type.event.default:
         class: Sg\CalendarBundle\Form\Type\EventType
-        arguments: [%sg_calendar.event.class%]
+        arguments: [%sg_calendar.doctrine.event.class%]
         tags:
             - { name: form.type, alias: sg_calendar_eventtype }
 
     sg_calendar.form_type.calendar.default:
         class: Sg\CalendarBundle\Form\Type\CalendarType
-        arguments: [%sg_calendar.calendar.class%]
+        arguments: [%sg_calendar.doctrine.calendar.class%]
         tags:
             - { name: form.type, alias: sg_calendar_calendartype }
 
