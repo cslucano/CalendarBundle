@@ -2,11 +2,21 @@
 
 {% block title %}{{ 'calendar.calendar.action.get.title'|trans({}, 'messages') }}{% endblock %}
 
-{% block content %}
+{% block header %}
 
     <h2>{{ 'calendar.calendar.action.get.title'|trans({}, 'messages') }}</h2>
 
     <hr />
+
+{% endblock %}
+
+{% block sidebar %}
+
+    {{ render_datepicker() }}
+
+{% endblock %}
+
+{% block content %}
 
     <table>
         <tbody>

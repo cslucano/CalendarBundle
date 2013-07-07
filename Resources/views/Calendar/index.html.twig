@@ -2,12 +2,22 @@
 
 {% block title %}{{ 'calendar.calendar.action.index.title'|trans({}, 'messages') }}{% endblock %}
 
-{% block content %}
+{% block header %}
 
     <h2>{{ 'calendar.calendar.action.index.title'|trans({}, 'messages') }}</h2>
 
     <hr />
 
-    {{ calendar_render(get_xhr_events_url, update_xhr_event_url) }}
+{% endblock %}
+
+{% block sidebar %}
+
+    {{ render_datepicker() }}
+
+{% endblock %}
+
+{% block content %}
+
+    {{ render_full_calendar(get_xhr_events_url, update_xhr_event_url) }}
 
 {% endblock %}

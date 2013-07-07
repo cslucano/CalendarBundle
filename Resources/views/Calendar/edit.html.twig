@@ -2,11 +2,21 @@
 
 {% block title %}{{ 'calendar.calendar.action.edit.title'|trans({}, 'messages') }}{% endblock %}
 
-{% block content %}
+{% block header %}
 
     <h2>{{ 'calendar.calendar.action.edit.title'|trans({}, 'messages') }}</h2>
 
     <hr />
+
+{% endblock %}
+
+{% block sidebar %}
+
+    {{ render_datepicker() }}
+
+{% endblock %}
+
+{% block content %}
 
     {{ form_start(edit_form, {'action': path('sg_calendar_update_calendar', { 'id': entity.id }) }) }}
         {{ form_widget(edit_form) }}
