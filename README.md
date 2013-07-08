@@ -4,8 +4,6 @@ This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 applica
 
 **Status:** not yet ready, hard-development.
 
-**Specifically missing is the relationship between calendar and event.**
-
 ## Installation
 
 ### Prerequisites
@@ -86,7 +84,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Calendar extends BaseCalendar
 {
+    /**
+     * Ctor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
+        // your own logic
+    }
 }
 ```
 
@@ -166,7 +172,7 @@ class User extends BaseUser implements EquatableInterface
 }
 ```
 
-### Step 5: Configure your Doctrine ORM User class as target entity
+### Step 5: Configure your Doctrine ORM classes as target entities
 
 Configure it in your `config.yml`:
 
@@ -177,7 +183,9 @@ doctrine:
     orm:
         # ...
         resolve_target_entities:
-            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User # Your custom class from above
+            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User
+            Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar
+            Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event
 ```
 
 ### Step 6: Configure the SgCalendarBundle
