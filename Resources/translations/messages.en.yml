@@ -84,6 +84,7 @@ calendar: # the bundle name
             allDay: "All day"
             start: "Start"
             end: "End"
+            calendar: "Calendar"
             url: "Url"
             className: "Css-class"
             editable: "Editable"

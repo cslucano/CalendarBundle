@@ -37,6 +37,7 @@ class EventType extends AbstractType
             ->add('allDay', null, array('label' => 'calendar.form.event.allDay', 'translation_domain' => 'messages'))
             ->add('start', null, array('label' => 'calendar.form.event.start', 'translation_domain' => 'messages'))
             ->add('end', null, array('label' => 'calendar.form.event.end', 'translation_domain' => 'messages'))
+            ->add('calendar', null, array('label' => 'calendar.form.event.calendar', 'translation_domain' => 'messages'))
             ->add('url', null, array('label' => 'calendar.form.event.url', 'translation_domain' => 'messages'))
             ->add('className', null, array('label' => 'calendar.form.event.className', 'translation_domain' => 'messages'))
             ->add('editable', null, array('label' => 'calendar.form.event.editable', 'translation_domain' => 'messages'))

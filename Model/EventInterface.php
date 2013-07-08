@@ -84,6 +84,22 @@ interface EventInterface
     public function getEnd();
 
     /**
+     * Set calendar.
+     *
+     * @param CalendarInterface $calendar
+     *
+     * @return self
+     */
+    public function setCalendar(CalendarInterface $calendar);
+
+    /**
+     * Get calendar.
+     *
+     * @return CalendarInterface
+     */
+    public function getCalendar();
+
+    /**
      * Set url.
      *
      * @param string $url

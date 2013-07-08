@@ -68,6 +68,23 @@ abstract class AbstractEvent implements EventInterface
     protected $end;
 
     /**
+     * The calendar.
+     *
+     * @var CalendarInterface
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="Sg\CalendarBundle\Model\CalendarInterface",
+     *     inversedBy="events"
+     * )
+     * @ORM\JoinColumn(
+     *     name="calendar_id",
+     *     referencedColumnName="id",
+     *     nullable=false
+     * )
+     */
+    protected $calendar;
+
+    /**
      * A URL that will be visited when this event is clicked by the user.
      *
      * @var string
@@ -283,6 +300,24 @@ abstract class AbstractEvent implements EventInterface
     public function getEnd()
     {
         return $this->end;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCalendar(CalendarInterface $calendar)
+    {
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCalendar()
+    {
+        return $this->calendar;
     }
 
     /**

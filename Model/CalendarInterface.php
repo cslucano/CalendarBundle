@@ -52,6 +52,29 @@ interface CalendarInterface
     public function getEventsUrl();
 
     /**
+     * Add event.
+     *
+     * @param EventInterface $event
+     *
+     * @return self
+     */
+    public function addEvent(EventInterface $event);
+
+    /**
+     * Remove event.
+     *
+     * @param EventInterface $event
+     */
+    public function removeEvent(EventInterface $event);
+
+    /**
+     * Get events.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvents();
+
+    /**
      * Set createdAt.
      *
      * @param DateTime $createdAt

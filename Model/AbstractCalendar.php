@@ -4,6 +4,7 @@ namespace Sg\CalendarBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \DateTime;
@@ -47,6 +48,20 @@ class AbstractCalendar implements CalendarInterface
      * @ORM\Column(name="eventsUrl", type="string", length=255, nullable=true)
      */
     protected $eventsUrl;
+
+    /**
+     * The events.
+     *
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Sg\CalendarBundle\Model\EventInterface",
+     *     mappedBy="calendar",
+     *     cascade={"persist"},
+     *     orphanRemoval=true
+     * )
+     */
+    protected $events;
 
     /**
      * Create datetime.
@@ -96,8 +111,16 @@ class AbstractCalendar implements CalendarInterface
 
 
     //-------------------------------------------------
-    // toString
+    // Ctor. && toString
     //-------------------------------------------------
+
+    /**
+     * Ctor.
+     */
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -154,6 +177,32 @@ class AbstractCalendar implements CalendarInterface
     public function getEventsUrl()
     {
         return $this->eventsUrl;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addEvent(EventInterface $event)
+    {
+        $this->events[] = $event;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeEvent(EventInterface $event)
+    {
+        $this->events->removeElement($event);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 
     /**
