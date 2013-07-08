@@ -33,6 +33,10 @@
                 <td>{{ entity.eventsUrl }}</td>
             </tr>
             <tr>
+                <th>{{ 'calendar.entity.calendar.visible'|trans({}, 'messages') }}</th>
+                <td>{{ entity.visible }}</td>
+            </tr>
+            <tr>
                 <th>{{ 'calendar.entity.calendar.createdAt'|trans({}, 'messages') }}</th>
                 <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
             </tr>

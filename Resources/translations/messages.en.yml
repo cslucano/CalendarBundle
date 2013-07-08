@@ -101,6 +101,7 @@ calendar: # the bundle name
             id: "id"
             name: "Name"
             eventsUrl: "Google Calendar Url"
+            visible: "Share calendar"
             createdAt: "Created at"
             updatedAt: "Updated at"
             createdBy: "Created by"

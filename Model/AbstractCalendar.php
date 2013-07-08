@@ -64,6 +64,15 @@ class AbstractCalendar implements CalendarInterface
     protected $events;
 
     /**
+     * This property affects whether an calendar is shown.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
+     */
+    protected $visible;
+
+    /**
      * Create datetime.
      *
      * @var DateTime
@@ -120,6 +129,7 @@ class AbstractCalendar implements CalendarInterface
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->visible = true;
     }
 
     /**
@@ -203,6 +213,24 @@ class AbstractCalendar implements CalendarInterface
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getVisible()
+    {
+        return $this->visible;
     }
 
     /**

@@ -75,6 +75,22 @@ interface CalendarInterface
     public function getEvents();
 
     /**
+     * Set visible.
+     *
+     * @param boolean $visible
+     *
+     * @return self
+     */
+    public function setVisible($visible);
+
+    /**
+     * Get visible.
+     *
+     * @return boolean
+     */
+    public function getVisible();
+
+    /**
      * Set createdAt.
      *
      * @param DateTime $createdAt
