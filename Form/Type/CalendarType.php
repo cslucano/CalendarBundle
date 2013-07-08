@@ -33,8 +33,8 @@ class CalendarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, array('label' => 'calendar.form.calendar.name', 'translation_domain' => 'messages'))
-            ->add('eventsUrl', null, array('label' => 'calendar.form.calendar.eventsUrl', 'translation_domain' => 'messages'));
+            ->add('name', null, array('label' => 'calendar.entity.calendar.name', 'translation_domain' => 'messages'))
+            ->add('eventsUrl', null, array('label' => 'calendar.entity.calendar.eventsUrl', 'translation_domain' => 'messages'));
     }
 
     /**

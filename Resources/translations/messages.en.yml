@@ -78,8 +78,9 @@ calendar: # the bundle name
                 title: "Delete Event"
                 submit: "Delete"
                 confirm: "Are you sure you want to delete?"
-    form: # all forms
-        event: # an object name
+    entity: # all entities
+        event: # an entity
+            id: "Id"
             title: "Title"
             allDay: "All day"
             start: "Start"
@@ -92,6 +93,15 @@ calendar: # the bundle name
             bgColor: "Background color"
             borderColor: "Border color"
             textColor: "Text color"
-        calendar: # an other object name
+            createdAt: "Created at"
+            updatedAt: "Updated at"
+            createdBy: "Created by"
+            updatedBy: "Updated by"
+        calendar: # an other entity
+            id: "id"
             name: "Name"
             eventsUrl: "Google Calendar Url"
+            createdAt: "Created at"
+            updatedAt: "Updated at"
+            createdBy: "Created by"
+            updatedBy: "Updated by"

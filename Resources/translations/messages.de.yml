@@ -78,8 +78,9 @@ calendar: # the bundle name
                 title: "Ereignis löschen"
                 submit: "Löschen"
                 confirm: "Soll das Ereignis wirklich gelöscht werden?"
-    form: # all forms
-        event: # an object name
+    entity: # all entities
+        event: # an entity
+            id: "Id"
             title: "Titel"
             allDay: "Ganztägig"
             start: "Beginn"
@@ -92,6 +93,15 @@ calendar: # the bundle name
             bgColor: "Hintergrundfarbe"
             borderColor: "Rahmenfarbe"
             textColor: "Textfarbe"
-        calendar: # an other object name
+            createdAt: "Erstellt am"
+            updatedAt: "Geändert am"
+            createdBy: "Erstellt von"
+            updatedBy: "Geändert von"
+        calendar: # an other entity
+            id: "Id"
             name: "Name"
             eventsUrl: "Google Kalender Url"
+            createdAt: "Erstellt am"
+            updatedAt: "Geändert am"
+            createdBy: "Erstellt von"
+            updatedBy: "Geändert von"

@@ -33,18 +33,18 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, array('label' => 'calendar.form.event.title', 'translation_domain' => 'messages'))
-            ->add('allDay', null, array('label' => 'calendar.form.event.allDay', 'translation_domain' => 'messages'))
-            ->add('start', null, array('label' => 'calendar.form.event.start', 'translation_domain' => 'messages'))
-            ->add('end', null, array('label' => 'calendar.form.event.end', 'translation_domain' => 'messages'))
-            ->add('calendar', null, array('label' => 'calendar.form.event.calendar', 'translation_domain' => 'messages'))
-            ->add('url', null, array('label' => 'calendar.form.event.url', 'translation_domain' => 'messages'))
-            ->add('className', null, array('label' => 'calendar.form.event.className', 'translation_domain' => 'messages'))
-            ->add('editable', null, array('label' => 'calendar.form.event.editable', 'translation_domain' => 'messages'))
-            ->add('color', null, array('label' => 'calendar.form.event.color', 'translation_domain' => 'messages'))
-            ->add('bgColor', null, array('label' => 'calendar.form.event.bgColor', 'translation_domain' => 'messages'))
-            ->add('borderColor', null, array('label' => 'calendar.form.event.borderColor', 'translation_domain' => 'messages'))
-            ->add('textColor', null, array('label' => 'calendar.form.event.textColor', 'translation_domain' => 'messages'));
+            ->add('title', null, array('label' => 'calendar.entity.event.title', 'translation_domain' => 'messages'))
+            ->add('allDay', null, array('label' => 'calendar.entity.event.allDay', 'translation_domain' => 'messages'))
+            ->add('start', null, array('label' => 'calendar.entity.event.start', 'translation_domain' => 'messages'))
+            ->add('end', null, array('label' => 'calendar.entity.event.end', 'translation_domain' => 'messages'))
+            ->add('calendar', null, array('label' => 'calendar.entity.event.calendar', 'translation_domain' => 'messages'))
+            ->add('url', null, array('label' => 'calendar.entity.event.url', 'translation_domain' => 'messages'))
+            ->add('className', null, array('label' => 'calendar.entity.event.className', 'translation_domain' => 'messages'))
+            ->add('editable', null, array('label' => 'calendar.entity.event.editable', 'translation_domain' => 'messages'))
+            ->add('color', null, array('label' => 'calendar.entity.event.color', 'translation_domain' => 'messages'))
+            ->add('bgColor', null, array('label' => 'calendar.entity.event.bgColor', 'translation_domain' => 'messages'))
+            ->add('borderColor', null, array('label' => 'calendar.entity.event.borderColor', 'translation_domain' => 'messages'))
+            ->add('textColor', null, array('label' => 'calendar.entity.event.textColor', 'translation_domain' => 'messages'));
     }
 
     /**
