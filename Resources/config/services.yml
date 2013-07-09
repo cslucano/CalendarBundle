@@ -1,10 +1,14 @@
 services:
 
+    # Twig
+
     sg_calendar.twig_extension:
         class: Sg\CalendarBundle\Twig\CalendarExtension
         arguments: [@twig, %sg_calendar.twig.fullcalendar_id%, %sg_calendar.twig.datepicker_id%, %sg_calendar.twig.first_day%, %sg_calendar.twig.time_format%]
         tags:
             - { name: twig.extension }
+
+    # Model
 
     sg_calendar.event_manager:
         class: Sg\CalendarBundle\Doctrine\EventManager
@@ -13,6 +17,8 @@ services:
     sg_calendar.calendar_manager:
         class: Sg\CalendarBundle\Doctrine\CalendarManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%]
+
+    # Forms
 
     sg_calendar.form_type.event.default:
         class: Sg\CalendarBundle\Form\Type\EventType
@@ -34,6 +40,8 @@ services:
         class: Sg\CalendarBundle\Form\Factory\CalendarFormFactory
         arguments: [@form.factory, %sg_calendar.form.calendar.name%, %sg_calendar.form.calendar.type%]
 
+    # Subcriber / Listener
+
     sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\Subscriber\CalendarSubscriber
         arguments: [@session, @router, @translator]
@@ -46,11 +54,20 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    # Helper
+
     sg_calendar.array_generator:
         class: Sg\CalendarBundle\Generator\EventsToArray
         arguments: [@router]
 
-    sg_calendar.voter.access.owner:
+    # Security
+
+    sg_calendar.voter.access.event.owner:
         class: Sg\CalendarBundle\Security\Authorization\Voter\EventVoter
+        tags:
+            - { name: security.voter }
+
+    sg_calendar.voter.access.calendar.owner:
+        class: Sg\CalendarBundle\Security\Authorization\Voter\CalendarVoter
         tags:
             - { name: security.voter }

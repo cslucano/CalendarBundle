@@ -3,6 +3,7 @@
 namespace Sg\CalendarBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -34,9 +35,18 @@ class CalendarController extends Controller
      */
     public function indexAction()
     {
+        $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true);
+
+        $userCalendars = array();
+        if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $userCalendars = $this->getCalendarManager()->findCalendarsByUser($this->getUser());
+        }
+
         return array(
             'get_xhr_events_url' => $this->generateUrl('sg_calendar_get_xhr_events'),
-            'update_xhr_event_url' => $this->generateUrl('sg_calendar_update_xhr_event')
+            'update_xhr_event_url' => $this->generateUrl('sg_calendar_update_xhr_event'),
+            'visible_calendars' => $visibleCalendars,
+            'user_calendars' => $userCalendars
         );
     }
 
@@ -51,10 +61,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function postAction(Request $request)
     {
         $calendar = $this->getCalendarManager()->newCalendar();
+
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->getCalendarFormFactory()->createForm($calendar);
         $form->handleRequest($request);
@@ -80,10 +95,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function newAction()
     {
         $calendar = $this->getCalendarManager()->newCalendar();
+
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->getCalendarFormFactory()->createForm($calendar);
 
@@ -104,10 +124,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function getAction($id)
     {
         $calendar = $this->getCalendarById($id);
+
+        if (false === $this->getSecurity()->isGranted('view', $calendar)) {
+            throw new AccessDeniedException();
+        }
 
         return array(
             'entity' => $calendar
@@ -125,10 +150,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function editAction($id)
     {
         $calendar = $this->getCalendarById($id);
+
+        if (false === $this->getSecurity()->isGranted('edit', $calendar)) {
+            throw new AccessDeniedException();
+        }
 
         $editForm = $this->getCalendarFormFactory()->createForm($calendar, array('method' => 'PUT'));
 
@@ -150,10 +180,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function putAction(Request $request, $id)
     {
         $calendar = $this->getCalendarById($id);
+
+        if (false === $this->getSecurity()->isGranted('edit', $calendar)) {
+            throw new AccessDeniedException();
+        }
 
         $editForm = $this->getCalendarFormFactory()->createForm($calendar, array('method' => 'PUT'));
         $editForm->handleRequest($request);
@@ -181,10 +216,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function removeAction($id)
     {
         $calendar = $this->getCalendarById($id);
+
+        if (false === $this->getSecurity()->isGranted('delete', $calendar)) {
+            throw new AccessDeniedException();
+        }
 
         $removeForm = $this->createDeleteForm($id);
 
@@ -205,10 +245,15 @@ class CalendarController extends Controller
      * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function deleteAction(Request $request, $id)
     {
         $calendar = $this->getCalendarById($id);
+
+        if (false === $this->getSecurity()->isGranted('delete', $calendar)) {
+            throw new AccessDeniedException();
+        }
 
         $removeForm = $this->createDeleteForm($id);
         $removeForm->handleRequest($request);
@@ -267,6 +312,14 @@ class CalendarController extends Controller
     //-------------------------------------------------
     // Services
     //-------------------------------------------------
+
+    /**
+     * @return \Symfony\Component\Security\Core\SecurityContext
+     */
+    private function getSecurity()
+    {
+        return $this->container->get('security.context');
+    }
 
     /**
      * @return \Sg\CalendarBundle\Model\CalendarManagerInterface
