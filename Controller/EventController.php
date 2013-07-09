@@ -115,7 +115,7 @@ class EventController extends Controller
     {
         $event = $this->getEventManager()->newEvent();
 
-        if (!$this->container->get('security.context')->isGranted('create', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw new AccessDeniedException();
         }
 
@@ -156,7 +156,7 @@ class EventController extends Controller
     {
         $event = $this->getEventManager()->newEvent();
 
-        if (!$this->container->get('security.context')->isGranted('create', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw new AccessDeniedException();
         }
 
@@ -185,7 +185,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->container->get('security.context')->isGranted('view', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('view', $event)) {
             throw new AccessDeniedException();
         }
 
@@ -211,7 +211,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->container->get('security.context')->isGranted('edit', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('edit', $event)) {
             throw new AccessDeniedException();
         }
 
@@ -241,7 +241,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->container->get('security.context')->isGranted('edit', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('edit', $event)) {
             throw new AccessDeniedException();
         }
 
@@ -284,7 +284,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->container->get('security.context')->isGranted('delete', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('delete', $event)) {
             throw new AccessDeniedException();
         }
 
@@ -313,7 +313,7 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (!$this->container->get('security.context')->isGranted('delete', $event)) {
+        if (false === $this->container->get('security.context')->isGranted('delete', $event)) {
             throw new AccessDeniedException();
         }
 

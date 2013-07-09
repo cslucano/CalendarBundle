@@ -24,7 +24,6 @@ class EventVoter implements VoterInterface, EventVoterInterface
     public function supportsAttribute($attribute)
     {
         return in_array(strtolower($attribute), array(
-                'create',
                 'view',
                 'edit',
                 'delete',
