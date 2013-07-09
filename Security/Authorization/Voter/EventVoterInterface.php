@@ -13,16 +13,6 @@ use Sg\CalendarBundle\Model\EventInterface;
 interface EventVoterInterface
 {
     /**
-     * Checks if the user should be able to create an event.
-     *
-     * @param UserInterface  $user  The logged in user
-     * @param EventInterface $event An Event instance
-     *
-     * @return boolean
-     */
-    public function canCreate(UserInterface $user, EventInterface $event);
-
-    /**
      * Checks if the user should be able to view an event.
      *
      * @param UserInterface  $user  The logged in user

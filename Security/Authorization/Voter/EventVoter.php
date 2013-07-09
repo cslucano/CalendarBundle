@@ -49,7 +49,6 @@ class EventVoter implements VoterInterface, EventVoterInterface
         }
 
         $user = $token->getUser();
-        //$roles = $token->getRoles();
 
         if (!$user instanceof UserInterface) {
             return VoterInterface::ACCESS_DENIED;
@@ -72,14 +71,6 @@ class EventVoter implements VoterInterface, EventVoterInterface
     //-------------------------------------------------
     // EventVoterInterface
     //-------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-    public function canCreate(UserInterface $user, EventInterface $event)
-    {
-        return true;
-    }
 
     /**
      * {@inheritDoc}
