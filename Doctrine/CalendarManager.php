@@ -4,6 +4,7 @@ namespace Sg\CalendarBundle\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Sg\CalendarBundle\Model\CalendarInterface;
 use Sg\CalendarBundle\Model\AbstractCalendarManager as BaseCalendarManager;
 
@@ -84,5 +85,29 @@ class CalendarManager extends BaseCalendarManager
     public function findCalendars()
     {
         return $this->repository->findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findCalendarsByVisible($visible)
+    {
+        $qb = $this->repository->createQueryBuilder('c');
+        $qb->where('c.visible = :visible');
+        $qb->setParameter('visible', $visible);
+
+        return $qb->getQuery()->execute();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findCalendarsByUser(UserInterface $user)
+    {
+        $qb = $this->repository->createQueryBuilder('c');
+        $qb->where('c.createdBy = :user');
+        $qb->setParameter('user', $user);
+
+        return $qb->getQuery()->execute();
     }
 }

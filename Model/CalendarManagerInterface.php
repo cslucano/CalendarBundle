@@ -2,6 +2,8 @@
 
 namespace Sg\CalendarBundle\Model;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Class CalendarManagerInterface
  *
@@ -62,4 +64,22 @@ interface CalendarManagerInterface
      * @return string
      */
     public function getClass();
+
+    /**
+     * Find all calendars by the given visibility.
+     *
+     * @param boolean $visible
+     *
+     * @return array The calendars
+     */
+    public function findCalendarsByVisible($visible);
+
+    /**
+     * Find all calendars by the given user.
+     *
+     * @param UserInterface $user
+     *
+     * @return array The calendars
+     */
+    public function findCalendarsByUser(UserInterface $user);
 }
