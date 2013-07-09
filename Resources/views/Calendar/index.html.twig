@@ -12,7 +12,39 @@
 
 {% block sidebar %}
 
+    {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+
+        <p>
+            <a href="{{ path('sg_calendar_new_event') }}" class="btn btn-primary" type="button">
+                {{ 'calendar.calendar.action.index.newEvent'|trans({}, 'messages') }}
+            </a>
+        </p>
+
+        <hr />
+
+    {% endif %}
+
     {{ render_datepicker() }}
+
+    <hr />
+
+    <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }}</h4>
+
+    {% for calendar in visible_calendars %}
+        {{ calendar.name }}
+    {% endfor %}
+
+    {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+
+        <hr />
+
+        <h4>{{ 'calendar.calendar.action.index.myCalendars'|trans({}, 'messages') }}</h4>
+
+        {% for calendar in user_calendars %}
+            {{ calendar.name }}
+        {% endfor %}
+
+    {% endif %}
 
 {% endblock %}
 

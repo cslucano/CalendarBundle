@@ -52,6 +52,9 @@ calendar: # the bundle name
         action:
             index:
                 title: "Calendar"
+                newEvent: "New Event"
+                publicCalendars: "Public Calendars"
+                myCalendars: "My Calendars"
             edit:
                 title: "Edit Calendar"
                 submit: "Edit"
