@@ -4,6 +4,7 @@ namespace Sg\CalendarBundle\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Sg\CalendarBundle\Model\CalendarInterface;
 use Sg\CalendarBundle\Model\EventInterface;
 use Sg\CalendarBundle\Model\AbstractEventManager as BaseEventManager;
 
@@ -81,8 +82,12 @@ class EventManager extends BaseEventManager
     /**
      * {@inheritDoc}
      */
-    public function findEvents()
+    public function findEventsByCalendar(CalendarInterface $calendar)
     {
-        return $this->repository->findAll();
+        $qb = $this->repository->createQueryBuilder('e');
+        $qb->where('e.calendar = :calendar');
+        $qb->setParameter('calendar', $calendar);
+
+        return $qb->getQuery()->execute();
     }
 }

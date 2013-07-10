@@ -50,11 +50,13 @@ interface EventManagerInterface
     public function findEventBy(array $criteria);
 
     /**
-     * Find all events.
+     * Find all events by given calendar.
+     *
+     * @param CalendarInterface $calendar
      *
      * @return array The events
      */
-    public function findEvents();
+    public function findEventsByCalendar(CalendarInterface $calendar);
 
     /**
      * Returns the events fully qualified class name.
