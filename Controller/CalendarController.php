@@ -24,7 +24,7 @@ class CalendarController extends Controller
     //-------------------------------------------------
 
     /**
-     * Shows all available calendars, without the associated events.
+     * Shows all available Calendars, without the associated Events.
      *
      * @Route("/", name="sg_calendar")
      * @Method("GET")
@@ -275,7 +275,7 @@ class CalendarController extends Controller
     //-------------------------------------------------
 
     /**
-     * Return an calendar by id.
+     * Return an Calendar by id.
      *
      * @param integer $id
      *
