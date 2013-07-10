@@ -4,6 +4,10 @@ This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 applica
 
 **Status:** not yet ready, hard-development.
 
+### Screenshot
+
+<div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/screen.jpg"></div>
+
 ## Installation
 
 ### Prerequisites
