@@ -16,7 +16,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 /**
  * Class EventController
  *
- * @Route("/calendar/events")
+ * @Route("/")
  *
  * @package Sg\CalendarBundle\Controller
  */
@@ -27,21 +27,29 @@ class EventController extends Controller
     //-------------------------------------------------
 
     /**
-     * Returns the overall Events list as JSON object via XHR.
+     * Returns all Events by a given Calendar-Id as JSON object via XHR.
      *
-     * @Route("/", name="sg_calendar_get_xhr_events")
+     * @param Request $request A Request instance
+     * @param integer $id      The Calendar entity id
+     *
+     * @Route("calendar/{id}/events", name="sg_calendar_get_xhr_events")
      * @Method("GET")
      * @ApiDoc()
      *
      * @return Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function cgetXhrAction()
+    public function cgetXhrAction(Request $request, $id)
     {
-        $request = $this->getRequest();
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
-            $events = $this->getEventManager()->findEvents();
+            $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
+            if (!$calendar) {
+                throw $this->createNotFoundException('Unable to find Calendar entity.');
+            }
+
+            $events = $this->getEventManager()->findEventsByCalendar($calendar);
 
             $response = new Response();
             $response->headers->set('Content-Type', 'application/json', 'charset=utf-8');
@@ -61,15 +69,16 @@ class EventController extends Controller
      * Updates an existing Event entity via XHR.
      * Drag and Drop functionality.
      *
-     * @Route("/update", name="sg_calendar_update_xhr_event")
+     * @param Request $request A Request instance
+     *
+     * @Route("calendar/event/update", name="sg_calendar_update_xhr_event")
      * @Method("POST")
      * @ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function updateXhrAction()
+    public function updateXhrAction(Request $request)
     {
-        $request = $this->getRequest();
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
@@ -101,9 +110,9 @@ class EventController extends Controller
     /**
      * Creates a new Event entity.
      *
-     * @param Request $request
+     * @param Request $request A Request instance
      *
-     * @Route("/create", name="sg_calendar_create_event")
+     * @Route("calendar/event/create", name="sg_calendar_create_event")
      * @Method("POST")
      * @Template("SgCalendarBundle:Event:new.html.twig")
      * @ApiDoc()
@@ -144,7 +153,7 @@ class EventController extends Controller
     /**
      * Displays a form to create a new Event entity.
      *
-     * @Route("/new", name="sg_calendar_new_event")
+     * @Route("calendar/event/new", name="sg_calendar_new_event")
      * @Method("GET")
      * @Template()
      * @ApiDoc()
@@ -173,7 +182,7 @@ class EventController extends Controller
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/show", name="sg_calendar_get_event")
+     * @Route("calendar/event/{id}/show", name="sg_calendar_get_event")
      * @Method("GET")
      * @Template()
      * @ApiDoc()
@@ -199,7 +208,7 @@ class EventController extends Controller
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/edit", name="sg_calendar_edit_event")
+     * @Route("calendar/event/{id}/edit", name="sg_calendar_edit_event")
      * @Method("GET")
      * @Template()
      * @ApiDoc()
@@ -229,7 +238,7 @@ class EventController extends Controller
      * @param Request $request A Request instance
      * @param integer $id      The entity id
      *
-     * @Route("/{id}/update", name="sg_calendar_update_event")
+     * @Route("calendar/event/{id}/update", name="sg_calendar_update_event")
      * @Method("PUT")
      * @Template("SgCalendarBundle:Event:edit.html.twig")
      * @ApiDoc()
@@ -272,7 +281,7 @@ class EventController extends Controller
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/remove", name="sg_calendar_remove_event")
+     * @Route("calendar/event/{id}/remove", name="sg_calendar_remove_event")
      * @Method("GET")
      * @Template()
      * @ApiDoc()
@@ -302,7 +311,7 @@ class EventController extends Controller
      * @param Request $request A Request instance
      * @param integer $id      The entity id
      *
-     * @Route("/{id}/delete", name="sg_calendar_delete_event")
+     * @Route("calendar/event/{id}/delete", name="sg_calendar_delete_event")
      * @Method("DELETE")
      * @ApiDoc()
      *
@@ -345,7 +354,7 @@ class EventController extends Controller
     //-------------------------------------------------
 
     /**
-     * Return an event by id.
+     * Returns an Event by id.
      *
      * @param integer $id
      *
@@ -404,6 +413,14 @@ class EventController extends Controller
     private function getEventManager()
     {
         return $this->container->get('sg_calendar.event_manager');
+    }
+
+    /**
+     * @return \Sg\CalendarBundle\Model\CalendarManagerInterface
+     */
+    private function getCalendarManager()
+    {
+        return $this->container->get('sg_calendar.calendar_manager');
     }
 
     /**

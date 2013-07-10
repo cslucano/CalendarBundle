@@ -53,6 +53,7 @@ calendar: # the bundle name
             index:
                 title: "Calendar"
                 newEvent: "New Event"
+                newCalendar: "New Calendar"
                 publicCalendars: "Public Calendars"
                 myCalendars: "My Calendars"
             edit:

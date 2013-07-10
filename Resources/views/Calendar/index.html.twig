@@ -14,11 +14,13 @@
 
     {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
 
-        <p>
-            <a href="{{ path('sg_calendar_new_event') }}" class="btn btn-primary" type="button">
-                {{ 'calendar.calendar.action.index.newEvent'|trans({}, 'messages') }}
-            </a>
-        </p>
+        <a href="{{ path('sg_calendar_new_event') }}" class="btn btn-primary" type="button">
+            {{ 'calendar.calendar.action.index.newEvent'|trans({}, 'messages') }}
+        </a>
+
+        <a href="{{ path('sg_calendar_new_calendar') }}" class="btn btn-primary" type="button">
+            {{ 'calendar.calendar.action.index.newCalendar'|trans({}, 'messages') }}
+        </a>
 
         <hr />
 
@@ -31,7 +33,10 @@
     <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }}</h4>
 
     {% for calendar in visible_calendars %}
-        {{ calendar.name }}
+        <label class="checkbox">
+            <input class="eventcheckboxes" type="checkbox" name="calendar[]" value="{{ calendar.id }}">
+            {{ calendar.name }}
+        </label>
     {% endfor %}
 
     {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -41,15 +46,33 @@
         <h4>{{ 'calendar.calendar.action.index.myCalendars'|trans({}, 'messages') }}</h4>
 
         {% for calendar in user_calendars %}
-            {{ calendar.name }}
+            <label class="checkbox">
+                <input class="eventcheckboxes" type="checkbox" name="calendar[]" value="{{ calendar.id }}">
+                {{ calendar.name }}
+            </label>
         {% endfor %}
 
     {% endif %}
+
+    <script type="text/javascript">
+        $('.eventcheckboxes').click(function() {
+            var cal = $(this).attr("value");
+
+            var event_url = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
+            event_url = event_url.replace("placeholder_id", cal);
+
+            if( $(this).is(":checked")) {
+                $("#sg_fullcalendar").fullCalendar("addEventSource", event_url);
+            } else {
+                $("#sg_fullcalendar").fullCalendar("removeEventSource", event_url);
+            }
+        })
+    </script>
 
 {% endblock %}
 
 {% block content %}
 
-    {{ render_full_calendar(get_xhr_events_url, update_xhr_event_url) }}
+    {{ render_full_calendar(update_xhr_event_url) }}
 
 {% endblock %}
