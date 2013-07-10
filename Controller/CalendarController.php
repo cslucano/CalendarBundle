@@ -24,7 +24,7 @@ class CalendarController extends Controller
     //-------------------------------------------------
 
     /**
-     * Shows the calendar.
+     * Shows all available calendars, without the associated events.
      *
      * @Route("/", name="sg_calendar")
      * @Method("GET")
@@ -43,7 +43,6 @@ class CalendarController extends Controller
         }
 
         return array(
-            'get_xhr_events_url' => $this->generateUrl('sg_calendar_get_xhr_events'),
             'update_xhr_event_url' => $this->generateUrl('sg_calendar_update_xhr_event'),
             'visible_calendars' => $visibleCalendars,
             'user_calendars' => $userCalendars

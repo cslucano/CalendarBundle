@@ -80,17 +80,15 @@ class CalendarExtension extends Twig_Extension
     /**
      * Renders the FullCalendar.
      *
-     * @param string $getXhrEventsUrl   The generated URL
-     * @param string $updateXhrEventUrl The generated URL
+     * @param string $updateXhrEventUrl The generated update URL
      *
      * @return mixed
      */
-    public function renderFullCalendar($getXhrEventsUrl, $updateXhrEventUrl)
+    public function renderFullCalendar($updateXhrEventUrl)
     {
         $options['first_day'] = $this->firstDay;
         $options['time_format'] = $this->timeFormat;
         $options['fullcalendar_id'] = $this->fullcalendarId;
-        $options['get_xhr_events_url'] = $getXhrEventsUrl;
         $options['update_xhr_event_url'] = $updateXhrEventUrl;
 
         return $this->twig->render('SgCalendarBundle:Extension:fullCalendar.html.twig', $options);
