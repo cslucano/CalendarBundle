@@ -10,15 +10,15 @@
 
         $(document).ready(function () {
 
-            $('#' + '{{ fullcalendar_id }}').fullCalendar({
+            $("#" + "{{ fullcalendar_id }}").fullCalendar({
                 header: {
-                    left: 'prev, next, today',
-                    center: 'title',
-                    right: 'month, agendaWeek, agendaDay'
+                    left: "prev, next, today",
+                    center: "title",
+                    right: "month, agendaWeek, agendaDay"
                 },
                 editable: false,
                 ignoreTimezone: false,
-                defaultView: 'month',
+                defaultView: "month",
                 firstDay: {{ first_day }},
                 allDayText: "{{ 'calendar.fullcalendar.allDay'|trans({}, 'messages') }}",
                 dayNames: [
@@ -90,17 +90,14 @@
                     day: "{{ 'calendar.fullcalendar.button.day'|trans({}, 'messages') }}"
                 },
 
-                eventSources: [{
-                }],
-
                 /*
                 eventRender: function(event, element) {
                     element.find('.fc-event-title').html("<a href=" + event.show_url + ">" + event.title +"</a>" + "<a href=" + event.delete_url + "> <i style='margin-top: 2px;' class=' pull-right cus-delete'></i></a>");
                 },*/
 
                 eventMouseover: function(event, jsEvent, view) {
-                    if (view.name !== 'agendaDay') {
-                        $(jsEvent.target).attr('title', event.title);
+                    if (view.name !== "agendaDay") {
+                        $(jsEvent.target).attr("title", event.title);
                     }
                 },
 
@@ -153,7 +150,20 @@
                         })
                     }
                 }
-            })
+            });
+
+            $('.eventcheckboxes').click(function() {
+                var cal = $(this).attr("value");
+
+                var event_url = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
+                event_url = event_url.replace("placeholder_id", cal);
+
+                if( $(this).is(":checked")) {
+                    $("#" + "{{ fullcalendar_id }}").fullCalendar("addEventSource", event_url);
+                } else {
+                    $("#" + "{{ fullcalendar_id }}").fullCalendar("removeEventSource", event_url);
+                }
+            });
 
         });
     </script>
