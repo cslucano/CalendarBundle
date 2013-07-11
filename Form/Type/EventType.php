@@ -35,8 +35,8 @@ class EventType extends AbstractType
         $builder
             ->add('title', null, array('label' => 'calendar.entity.event.title', 'translation_domain' => 'messages'))
             ->add('allDay', null, array('label' => 'calendar.entity.event.allDay', 'translation_domain' => 'messages'))
-            ->add('start', null, array('label' => 'calendar.entity.event.start', 'translation_domain' => 'messages'))
-            ->add('end', null, array('label' => 'calendar.entity.event.end', 'translation_domain' => 'messages'))
+            ->add('start', 'dateTimePicker', array('label' => 'calendar.entity.event.start', 'translation_domain' => 'messages'))
+            ->add('end', 'dateTimePicker', array('label' => 'calendar.entity.event.end', 'translation_domain' => 'messages'))
             ->add('calendar', null, array('label' => 'calendar.entity.event.calendar', 'translation_domain' => 'messages'))
             ->add('url', null, array('label' => 'calendar.entity.event.url', 'translation_domain' => 'messages'))
             ->add('className', null, array('label' => 'calendar.entity.event.className', 'translation_domain' => 'messages'))

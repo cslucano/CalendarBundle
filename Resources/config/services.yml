@@ -32,6 +32,16 @@ services:
         tags:
             - { name: form.type, alias: sg_calendar_calendartype }
 
+    sg_calendar.form_type.datepicker:
+        class: Sg\CalendarBundle\Form\Type\DatePickerType
+        tags:
+            - { name: form.type, alias: datePicker }
+
+    sg_calendar.form_type.datetimepicker:
+        class: Sg\CalendarBundle\Form\Type\DateTimePickerType
+        tags:
+            - { name: form.type, alias: dateTimePicker }
+
     sg_calendar.form_factory.event:
         class: Sg\CalendarBundle\Form\Factory\EventFormFactory
         arguments: [@form.factory, %sg_calendar.form.event.name%, %sg_calendar.form.event.type%]
