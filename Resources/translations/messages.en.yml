@@ -89,6 +89,7 @@ calendar: # the bundle name
             allDay: "All day"
             start: "Start"
             end: "End"
+            description: "Description"
             calendar: "Calendar"
             url: "Url"
             className: "Css-class"

@@ -84,6 +84,20 @@ interface EventInterface
     public function getEnd();
 
     /**
+     * Set description.
+     *
+     * @param text $description
+     *
+     * @return self
+     */
+    public function setDescription($description);
+
+    /**
+     * @return text
+     */
+    public function getDescription();
+
+    /**
      * Set calendar.
      *
      * @param CalendarInterface $calendar

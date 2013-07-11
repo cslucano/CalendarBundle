@@ -68,6 +68,15 @@ abstract class AbstractEvent implements EventInterface
     protected $end;
 
     /**
+     * The event description.
+     *
+     * @var text
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    protected $description;
+
+    /**
      * The calendar.
      *
      * @var CalendarInterface
@@ -300,6 +309,24 @@ abstract class AbstractEvent implements EventInterface
     public function getEnd()
     {
         return $this->end;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
