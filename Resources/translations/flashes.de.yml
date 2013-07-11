@@ -7,3 +7,7 @@ calendar: # the bundle name
                 created: "Das Ereignis wurde erfolgreich angelegt."
                 updated: "Das Ereignis wurde erfolgreich geändert."
                 removed: "Das Ereignis wurde erfolgreich gelöscht."
+            calendar: # the success flash messages related to the object
+                created: "Der Kalender wurde erfolgreich angelegt."
+                updated: "Der Kalender wurde erfolgreich geändert."
+                removed: "Der Kalender wurde erfolgreich gelöscht."

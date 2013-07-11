@@ -38,4 +38,34 @@ final class SgCalendarEvents
      * @var string
      */
     const EVENT_REMOVE_COMPLETED = 'sg_calendar.event.remove.completed';
+
+    /**
+     * @var string
+     */
+    const CALENDAR_CREATE_SUCCESS = 'sg_calendar.calendar.create.success';
+
+    /**
+     * @var string
+     */
+    const CALENDAR_UPDATE_SUCCESS = 'sg_calendar.calendar.update.success';
+
+    /**
+     * @var string
+     */
+    const CALENDAR_REMOVE_SUCCESS = 'sg_calendar.calendar.remove.success';
+
+    /**
+     * @var string
+     */
+    const CALENDAR_CREATE_COMPLETED = 'sg_calendar.calendar.create.completed';
+
+    /**
+     * @var string
+     */
+    const CALENDAR_UPDATE_COMPLETED = 'sg_calendar.calendar.update.completed';
+
+    /**
+     * @var string
+     */
+    const CALENDAR_REMOVE_COMPLETED = 'sg_calendar.calendar.remove.completed';
 }

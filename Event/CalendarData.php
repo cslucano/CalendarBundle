@@ -4,19 +4,19 @@ namespace Sg\CalendarBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
-use Sg\CalendarBundle\Model\EventInterface;
+use Sg\CalendarBundle\Model\CalendarInterface;
 
 /**
- * Class CalendarEvent
+ * Class CalendarData
  *
  * @package Sg\CalendarBundle\Event
  */
-class CalendarEvent extends Event
+class CalendarData extends Event
 {
     /**
-     * @var EventInterface
+     * @var CalendarInterface
      */
-    private $event;
+    private $calendar;
 
     /**
      * @var Response
@@ -25,19 +25,19 @@ class CalendarEvent extends Event
 
 
     /**
-     * @param EventInterface $event
+     * @param CalendarInterface $calendar
      */
-    public function __construct(EventInterface $event)
+    public function __construct(CalendarInterface $calendar)
     {
-        $this->event = $event;
+        $this->calendar = $calendar;
     }
 
     /**
-     * @return EventInterface
+     * @return CalendarInterface
      */
-    public function getEvent()
+    public function getCalendar()
     {
-        return $this->event;
+        return $this->calendar;
     }
 
     /**

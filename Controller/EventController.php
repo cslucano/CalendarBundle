@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sg\CalendarBundle\Event\CalendarEvent;
+use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\SgCalendarEvents;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -132,16 +132,16 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $calendarEvent = new CalendarEvent($event);
+            $eventData = new EventData($event);
 
             $this->getEventManager()->updateEvent($event);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
-            $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_SUCCESS, $calendarEvent);
-            $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_COMPLETED, $calendarEvent);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_SUCCESS, $eventData);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_COMPLETED, $eventData);
 
-            return $calendarEvent->getResponse();
+            return $eventData->getResponse();
         }
 
         return array(
@@ -258,16 +258,16 @@ class EventController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $calendarEvent = new CalendarEvent($event);
+            $eventData = new EventData($event);
 
             $this->getEventManager()->updateEvent($event);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
-            $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_SUCCESS, $calendarEvent);
-            $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_COMPLETED, $calendarEvent);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_SUCCESS, $eventData);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_COMPLETED, $eventData);
 
-            return $calendarEvent->getResponse();
+            return $eventData->getResponse();
         }
 
         return array(
@@ -330,16 +330,16 @@ class EventController extends Controller
         $removeForm->handleRequest($request);
 
         if ($removeForm->isValid()) {
-            $calendarEvent = new CalendarEvent($event);
+            $eventData = new EventData($event);
 
             $this->getEventManager()->removeEvent($event);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
-            $dispatcher->dispatch(SgCalendarEvents::EVENT_REMOVE_SUCCESS, $calendarEvent);
-            $dispatcher->dispatch(SgCalendarEvents::EVENT_REMOVE_COMPLETED, $calendarEvent);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_REMOVE_SUCCESS, $eventData);
+            $dispatcher->dispatch(SgCalendarEvents::EVENT_REMOVE_COMPLETED, $eventData);
 
-            return $calendarEvent->getResponse();
+            return $eventData->getResponse();
         }
 
         return array(

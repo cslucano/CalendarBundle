@@ -3,7 +3,9 @@
 namespace Sg\CalendarBundle\Subscriber;
 
 use Sg\CalendarBundle\SgCalendarEvents;
-use Sg\CalendarBundle\Event\CalendarEvent;
+use Sg\CalendarBundle\Event\EventData;
+use Sg\CalendarBundle\Event\CalendarData;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,9 +40,16 @@ class CalendarSubscriber implements EventSubscriberInterface
     private static $messages = array(
         SgCalendarEvents::EVENT_CREATE_COMPLETED => 'calendar.flash.success.event.created',
         SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'calendar.flash.success.event.updated',
-        SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'calendar.flash.success.event.removed'
+        SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'calendar.flash.success.event.removed',
+        SgCalendarEvents::CALENDAR_CREATE_COMPLETED => 'calendar.flash.success.calendar.created',
+        SgCalendarEvents::CALENDAR_UPDATE_COMPLETED => 'calendar.flash.success.calendar.updated',
+        SgCalendarEvents::CALENDAR_REMOVE_COMPLETED => 'calendar.flash.success.calendar.removed'
     );
 
+
+    //-------------------------------------------------
+    // Ctor.
+    //-------------------------------------------------
 
     /**
      * Ctor.
@@ -56,41 +65,97 @@ class CalendarSubscriber implements EventSubscriberInterface
         $this->translator = $translator;
     }
 
+
+    //-------------------------------------------------
+    // EventController
+    //-------------------------------------------------
+
     /**
-     * @param CalendarEvent $calendarEvent
+     * Set Response.
+     *
+     * @param EventData $eventData
      */
-    public function onEventCreateSuccess(CalendarEvent $calendarEvent)
+    public function onEventCreateSuccess(EventData $eventData)
     {
-        $event = $calendarEvent->getEvent();
+        $event = $eventData->getEvent();
         $url = $this->router->generate('sg_calendar_get_event', array('id' => $event->getId()));
-        $calendarEvent->setResponse(new RedirectResponse($url));
+        $eventData->setResponse(new RedirectResponse($url));
     }
 
     /**
-     * @param CalendarEvent $calendarEvent
+     * Set Response.
+     *
+     * @param EventData $eventData
      */
-    public function onEventUpdateSuccess(CalendarEvent $calendarEvent)
+    public function onEventUpdateSuccess(EventData $eventData)
     {
-        $event = $calendarEvent->getEvent();
+        $event = $eventData->getEvent();
         $url = $this->router->generate('sg_calendar_get_event', array('id' => $event->getId()));
-        $calendarEvent->setResponse(new RedirectResponse($url));
+        $eventData->setResponse(new RedirectResponse($url));
     }
 
     /**
-     * @param CalendarEvent $calendarEvent
+     * Set Response.
+     *
+     * @param EventData $eventData
      */
-    public function onEventRemoveSuccess(CalendarEvent $calendarEvent)
+    public function onEventRemoveSuccess(EventData $eventData)
     {
         $url = $this->router->generate('sg_calendar');
-        $calendarEvent->setResponse(new RedirectResponse($url));
+        $eventData->setResponse(new RedirectResponse($url));
+    }
+
+
+    //-------------------------------------------------
+    // CalendarController
+    //-------------------------------------------------
+
+    /**
+     * Set Response.
+     *
+     * @param CalendarData $calendarData
+     */
+    public function onCalendarCreateSuccess(CalendarData $calendarData)
+    {
+        $url = $this->router->generate('sg_calendar');
+        $calendarData->setResponse(new RedirectResponse($url));
     }
 
     /**
-     * @param CalendarEvent $calendarEvent
+     * Set Response.
+     *
+     * @param CalendarData $calendarData
      */
-    public function addSuccessFlash(CalendarEvent $calendarEvent)
+    public function onCalendarUpdateSuccess(CalendarData $calendarData)
     {
-        $eventName = $calendarEvent->getName();
+        $url = $this->router->generate('sg_calendar');
+        $calendarData->setResponse(new RedirectResponse($url));
+    }
+
+    /**
+     * Set Response.
+     *
+     * @param CalendarData $calendarData
+     */
+    public function onCalendarRemoveSuccess(CalendarData $calendarData)
+    {
+        $url = $this->router->generate('sg_calendar');
+        $calendarData->setResponse(new RedirectResponse($url));
+    }
+
+
+    //-------------------------------------------------
+    // Common
+    //-------------------------------------------------
+
+    /**
+     * Set FlashBag.
+     *
+     * @param Event $event
+     */
+    public function addSuccessFlash(Event $event)
+    {
+        $eventName = $event->getName();
         $this->session->getFlashBag()->add('success', $this->translator->trans(self::$messages[$eventName], array(), 'flashes'));
     }
 
@@ -110,7 +175,13 @@ class CalendarSubscriber implements EventSubscriberInterface
             SgCalendarEvents::EVENT_REMOVE_SUCCESS => 'onEventRemoveSuccess',
             SgCalendarEvents::EVENT_CREATE_COMPLETED => 'addSuccessFlash',
             SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlash'
+            SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::CALENDAR_CREATE_SUCCESS => 'onCalendarCreateSuccess',
+            SgCalendarEvents::CALENDAR_UPDATE_SUCCESS => 'onCalendarUpdateSuccess',
+            SgCalendarEvents::CALENDAR_REMOVE_SUCCESS => 'onCalendarRemoveSuccess',
+            SgCalendarEvents::CALENDAR_CREATE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::CALENDAR_UPDATE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::CALENDAR_REMOVE_COMPLETED => 'addSuccessFlash'
         );
     }
 }

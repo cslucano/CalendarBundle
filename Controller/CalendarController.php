@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sg\CalendarBundle\Event\CalendarData;
+use Sg\CalendarBundle\SgCalendarEvents;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
@@ -74,9 +76,16 @@ class CalendarController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $calendarData = new CalendarData($calendar);
+
             $this->getCalendarManager()->updateCalendar($calendar);
 
-            return $this->redirect($this->generateUrl('sg_calendar_get_calendar', array('id' => $calendar->getId())));
+            // Set (redirect) response and flash message
+            $dispatcher = $this->getDispatcher();
+            $dispatcher->dispatch(SgCalendarEvents::CALENDAR_CREATE_SUCCESS, $calendarData);
+            $dispatcher->dispatch(SgCalendarEvents::CALENDAR_CREATE_COMPLETED, $calendarData);
+
+            return $calendarData->getResponse();
         }
 
         return array(
@@ -193,9 +202,16 @@ class CalendarController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $calendarData = new CalendarData($calendar);
+
             $this->getCalendarManager()->updateCalendar($calendar);
 
-            return $this->redirect($this->generateUrl('sg_calendar_get_calendar', array('id' => $id)));
+            // Set (redirect) response and flash message
+            $dispatcher = $this->getDispatcher();
+            $dispatcher->dispatch(SgCalendarEvents::CALENDAR_UPDATE_SUCCESS, $calendarData);
+            $dispatcher->dispatch(SgCalendarEvents::CALENDAR_UPDATE_COMPLETED, $calendarData);
+
+            return $calendarData->getResponse();
         }
 
         return array(
@@ -258,9 +274,16 @@ class CalendarController extends Controller
         $removeForm->handleRequest($request);
 
         if ($removeForm->isValid()) {
+            $calendarData = new CalendarData($calendar);
+
             $this->getCalendarManager()->removeCalendar($calendar);
 
-            return $this->redirect($this->generateUrl('sg_calendar'));
+            // Set (redirect) response and flash message
+            $dispatcher = $this->getDispatcher();
+            $dispatcher->dispatch(SgCalendarEvents::CALENDAR_REMOVE_SUCCESS, $calendarData);
+            $dispatcher->dispatch(SgCalendarEvents::CALENDAR_REMOVE_COMPLETED, $calendarData);
+
+            return $calendarData->getResponse();
         }
 
         return array(
@@ -318,6 +341,14 @@ class CalendarController extends Controller
     private function getSecurity()
     {
         return $this->container->get('security.context');
+    }
+
+    /**
+     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    private function getDispatcher()
+    {
+        return $this->container->get('event_dispatcher');
     }
 
     /**
