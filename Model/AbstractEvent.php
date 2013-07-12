@@ -12,6 +12,8 @@ use \DateTime;
 /**
  * Class AbstractEvent
  *
+ * @todo: the class may move to Sg\CalendarBundle\Doctrine
+ *
  * @ORM\MappedSuperclass
  * @Assert\Callback(methods={"isEndValid"})
  *
@@ -90,6 +92,7 @@ abstract class AbstractEvent implements EventInterface
      *     referencedColumnName="id",
      *     nullable=false
      * )
+     * @Assert\NotBlank()
      */
     protected $calendar;
 
