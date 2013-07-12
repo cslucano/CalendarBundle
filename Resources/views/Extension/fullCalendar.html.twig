@@ -153,15 +153,19 @@
             });
 
             $('.eventcheckboxes').click(function() {
-                var cal = $(this).attr("value");
+                var calendarId = $(this).attr("value");
+                var eventsUrl = $(this).attr("name");
+                var fc = $("#" + "{{ fullcalendar_id }}");
 
-                var event_url = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
-                event_url = event_url.replace("placeholder_id", cal);
+                var events = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
+                events = events.replace("placeholder_id", calendarId);
 
                 if( $(this).is(":checked")) {
-                    $("#" + "{{ fullcalendar_id }}").fullCalendar("addEventSource", event_url);
+                    fc.fullCalendar("addEventSource", events);
+                    fc.fullCalendar("addEventSource", eventsUrl);
                 } else {
-                    $("#" + "{{ fullcalendar_id }}").fullCalendar("removeEventSource", event_url);
+                    fc.fullCalendar("removeEventSource", events);
+                    fc.fullCalendar("removeEventSource", eventsUrl);
                 }
             });
 
