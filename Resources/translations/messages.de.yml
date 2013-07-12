@@ -48,6 +48,11 @@ calendar: # the bundle name
             month: "Monat"
             week: "Woche"
             day: "Tag"
+    action: # crud
+        new: "Neu"
+        show: "Zeigen"
+        edit: "Ändern"
+        remove: "Löschen"
     calendar: # a controller
         action:
             index:
@@ -60,7 +65,7 @@ calendar: # the bundle name
                 title: "Kalender ändern"
                 submit: "Ändern"
             get:
-                title: "Neuer Kalender"
+                title: "Kalender"
             new:
                 title: "Neuer Kalender"
                 submit: "Speichern"

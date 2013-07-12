@@ -48,6 +48,11 @@ calendar: # the bundle name
             month: "Month"
             week: "Week"
             day: "Day"
+    action: # crud
+        new: "New"
+        show: "Show"
+        edit: "Edit"
+        remove: "Delete"
     calendar: # a controller
         action:
             index:

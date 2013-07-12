@@ -14,12 +14,12 @@
 
     {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
 
-        <a href="{{ path('sg_calendar_new_event') }}" class="btn btn-primary" type="button">
-            {{ 'calendar.calendar.action.index.newEvent'|trans({}, 'messages') }}
-        </a>
-
         <a href="{{ path('sg_calendar_new_calendar') }}" class="btn btn-primary" type="button">
             {{ 'calendar.calendar.action.index.newCalendar'|trans({}, 'messages') }}
+        </a>
+
+        <a href="{{ path('sg_calendar_new_event') }}" class="btn btn-primary" type="button">
+            {{ 'calendar.calendar.action.index.newEvent'|trans({}, 'messages') }}
         </a>
 
         <hr />
@@ -49,6 +49,15 @@
             <label class="checkbox">
                 <input class="eventcheckboxes" type="checkbox" name="calendar[]" value="{{ calendar.id }}">
                 {{ calendar.name }}
+                <a href="{{ path('sg_calendar_get_calendar', { 'id': calendar.id }) }}">
+                    {{ 'calendar.action.show'|trans({}, 'messages') }}
+                </a> |
+                <a href="{{ path('sg_calendar_edit_calendar', { 'id': calendar.id }) }}">
+                    {{ 'calendar.action.edit'|trans({}, 'messages') }}
+                </a> |
+                <a href="{{ path('sg_calendar_remove_calendar', { 'id': calendar.id }) }}">
+                    {{ 'calendar.action.remove'|trans({}, 'messages') }}
+                </a>
             </label>
         {% endfor %}
 
