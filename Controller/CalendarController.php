@@ -138,8 +138,10 @@ class CalendarController extends Controller
     {
         $calendar = $this->getCalendarById($id);
 
-        if (false === $this->getSecurity()->isGranted('view', $calendar)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('VIEW', $calendar)) {
+                throw new AccessDeniedException();
+            }
         }
 
         return array(
@@ -164,8 +166,10 @@ class CalendarController extends Controller
     {
         $calendar = $this->getCalendarById($id);
 
-        if (false === $this->getSecurity()->isGranted('edit', $calendar)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('EDIT', $calendar)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $editForm = $this->getCalendarFormFactory()->createForm($calendar, array('method' => 'PUT'));
@@ -194,8 +198,10 @@ class CalendarController extends Controller
     {
         $calendar = $this->getCalendarById($id);
 
-        if (false === $this->getSecurity()->isGranted('edit', $calendar)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('EDIT', $calendar)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $editForm = $this->getCalendarFormFactory()->createForm($calendar, array('method' => 'PUT'));
@@ -237,8 +243,10 @@ class CalendarController extends Controller
     {
         $calendar = $this->getCalendarById($id);
 
-        if (false === $this->getSecurity()->isGranted('delete', $calendar)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('DELETE', $calendar)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $removeForm = $this->createDeleteForm($id);
@@ -266,8 +274,10 @@ class CalendarController extends Controller
     {
         $calendar = $this->getCalendarById($id);
 
-        if (false === $this->getSecurity()->isGranted('delete', $calendar)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('DELETE', $calendar)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $removeForm = $this->createDeleteForm($id);

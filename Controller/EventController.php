@@ -194,8 +194,10 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (false === $this->getSecurity()->isGranted('view', $event)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('VIEW', $event)) {
+                throw new AccessDeniedException();
+            }
         }
 
         return array(
@@ -220,8 +222,10 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (false === $this->getSecurity()->isGranted('edit', $event)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('EDIT', $event)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $editForm = $this->getEventFormFactory()->createForm($event, array('method' => 'PUT'));
@@ -250,8 +254,10 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (false === $this->getSecurity()->isGranted('edit', $event)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('EDIT', $event)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $editForm = $this->getEventFormFactory()->createForm($event, array('method' => 'PUT'));
@@ -293,8 +299,10 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (false === $this->getSecurity()->isGranted('delete', $event)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('DELETE', $event)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $removeForm = $this->createDeleteForm($id);
@@ -322,8 +330,10 @@ class EventController extends Controller
     {
         $event = $this->getEventById($id);
 
-        if (false === $this->getSecurity()->isGranted('delete', $event)) {
-            throw new AccessDeniedException();
+        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+            if (false === $this->getSecurity()->isGranted('DELETE', $event)) {
+                throw new AccessDeniedException();
+            }
         }
 
         $removeForm = $this->createDeleteForm($id);
