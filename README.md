@@ -4,9 +4,21 @@ This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 applica
 
 **Status:** not yet ready, hard-development.
 
-### Screenshot
+## Screenshot
 
 <div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/screen.jpg"></div>
+
+## Roles
+
+* An admin (ROLE_ADMIN) has full access.
+* Each authenticated user (ROLE_USER) can create calendars and events.
+* Each authenticated user (ROLE_USER) can view, edit and delete their own calendar and events.
+* All guests can see all public calendars.
+
+## GCal Sources
+
+FullCalendar can display events from a public Google Calendar.
+These addresses can be entered using the calendar form.
 
 ## Installation
 
@@ -219,10 +231,10 @@ You can e.g. download a ZIP archive with the files from the Bootstrap repository
 
 The bundle layout file is: `src/Sg/CalendarBundle/Resources/views/layout.html.twig`. This is only an example and can be replaced.
 
-### Routing
+## Routing
 
 <div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/routes.jpg"></div>
 
-### Next Steps
+## Next Steps
 
 - [Overriding Forms](https://github.com/stwe/CalendarBundle/blob/master/Resources/doc/overriding_forms.md)
