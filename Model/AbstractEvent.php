@@ -217,8 +217,6 @@ abstract class AbstractEvent implements EventInterface
     {
         $this->allDay = true;
         $this->editable = false;
-        $this->start = new DateTime();
-        $this->end = new DateTime();
     }
 
     /**
@@ -558,10 +556,15 @@ abstract class AbstractEvent implements EventInterface
      */
     public function isEndValid(ExecutionContextInterface $context)
     {
-        $isValid = $this->start <= $this->end;
-
-        if (!$isValid) {
-            $context->addViolationAt('end', 'calendar.event.end_callback', array(), null);
+        if (null === $this->end) {
+            if (false === $this->allDay) {
+                $context->addViolationAt('allDay', 'calendar.event.allday_callback', array(), null);
+            }
+        } else {
+            $isValid = $this->start <= $this->end;
+            if (!$isValid) {
+                $context->addViolationAt('end', 'calendar.event.end_callback', array(), null);
+            }
         }
     }
 }

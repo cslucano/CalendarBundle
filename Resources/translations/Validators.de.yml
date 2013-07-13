@@ -1,3 +1,4 @@
 calendar: # the bundle name
     event: # an object name
-        end_callback: Ein Ereignis kann nicht enden, bevor es beginnt.
+        end_callback: "Ein Ereignis kann nicht enden, bevor es beginnt."
+        allday_callback: "Es wurde kein Ende angegeben. Umfasst das Ereignis den ganzen Tag?"
