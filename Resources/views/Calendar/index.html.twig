@@ -48,7 +48,11 @@
         {% for calendar in user_calendars %}
             <label class="checkbox">
                 <input class="eventcheckboxes" type="checkbox" name="{{ calendar.eventsUrl }}" value="{{ calendar.id }}">
-                {{ calendar.name }}
+                {% if calendar.visible %}
+                    <span class="text-error">{{ calendar.name }}</span>
+                {% else %}
+                    {{ calendar.name }}
+                {% endif %}
                 {% if is_granted('VIEW', calendar) %}
                     <a href="{{ path('sg_calendar_get_calendar', { 'id': calendar.id }) }}">
                         {{ 'calendar.action.show'|trans({}, 'messages') }}

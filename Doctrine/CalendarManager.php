@@ -95,8 +95,7 @@ class CalendarManager extends BaseCalendarManager
 
         $qb->getMaxResults($max);
 
-        // Array Hydration
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->execute();
     }
 
     /**
@@ -108,7 +107,6 @@ class CalendarManager extends BaseCalendarManager
         $qb->where('c.createdBy = :user');
         $qb->setParameter('user', $user);
 
-        // Array Hydration
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->execute();
     }
 }
