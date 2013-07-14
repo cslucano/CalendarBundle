@@ -82,14 +82,6 @@ class CalendarManager extends BaseCalendarManager
     /**
      * {@inheritDoc}
      */
-    public function findCalendars()
-    {
-        return $this->repository->findAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function findCalendarsByVisible($visible)
     {
         $qb = $this->repository->createQueryBuilder('c');

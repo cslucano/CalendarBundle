@@ -52,20 +52,6 @@ interface CalendarManagerInterface
     public function findCalendarBy(array $criteria);
 
     /**
-     * Find all calendars.
-     *
-     * @return array The calendars
-     */
-    public function findCalendars();
-
-    /**
-     * Returns the calendars fully qualified class name.
-     *
-     * @return string
-     */
-    public function getClass();
-
-    /**
      * Find all calendars by the given visibility.
      *
      * @param boolean $visible
@@ -82,4 +68,11 @@ interface CalendarManagerInterface
      * @return array The calendars
      */
     public function findCalendarsByUser(UserInterface $user);
+
+    /**
+     * Returns the calendars fully qualified class name.
+     *
+     * @return string
+     */
+    public function getClass();
 }
