@@ -38,6 +38,7 @@ class EventController extends Controller
      *
      * @return Response
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function cgetXhrAction(Request $request, $id)
     {
@@ -47,6 +48,12 @@ class EventController extends Controller
             $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
             if (!$calendar) {
                 throw $this->createNotFoundException('Unable to find Calendar entity.');
+            }
+
+            if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+                if (false === $this->getSecurity()->isGranted('GETEVENTS', $calendar)) {
+                    throw new AccessDeniedException();
+                }
             }
 
             $events = $this->getEventManager()->findEventsByCalendar($calendar);

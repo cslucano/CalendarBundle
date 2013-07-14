@@ -24,6 +24,7 @@ class CalendarVoter implements VoterInterface, CalendarVoterInterface
     public function supportsAttribute($attribute)
     {
         return in_array(strtolower($attribute), array(
+                'getevents',
                 'view',
                 'edit',
                 'delete',
@@ -58,7 +59,9 @@ class CalendarVoter implements VoterInterface, CalendarVoterInterface
                 return VoterInterface::ACCESS_DENIED;
             }
 
-            if (!$this->{"can".$attribute}($user, $object)) {
+            $suffix = ucfirst(strtolower($attribute));
+
+            if (!$this->{"can".$suffix}($user, $object)) {
                 return VoterInterface::ACCESS_DENIED;
             }
         }
@@ -70,6 +73,18 @@ class CalendarVoter implements VoterInterface, CalendarVoterInterface
     //-------------------------------------------------
     // CalendarVoterInterface
     //-------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     */
+    public function canGetevents(UserInterface $user, CalendarInterface $calendar)
+    {
+        if (true === $calendar->getVisible()) {
+            return true;
+        } else {
+            return $user->isEqualTo($calendar->getCreatedBy());
+        }
+    }
 
     /**
      * {@inheritDoc}
