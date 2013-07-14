@@ -22,12 +22,21 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                // doctrine
                 ->scalarNode('calendar_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
+                ->integerNode('max_results')
+                    ->defaultValue(10)
+                    ->min(1)
+                ->end()
+
+                // twig
                 ->scalarNode('fullcalendar_id')->defaultValue('sg_fullcalendar')->end()
                 ->scalarNode('datepicker_id')->defaultValue('sg_datepicker')->end()
                 ->scalarNode('first_day')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('time_format')->isRequired()->cannotBeEmpty()->end()
+
+                // forms
                 ->arrayNode('form')->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('event_name')->defaultValue('sg_calendar_eventtype')->end()
@@ -36,6 +45,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('calendar_type')->defaultValue('sg_calendar_calendartype')->end()
                     ->end()
                 ->end()
+
             ->end();
 
         return $treeBuilder;
