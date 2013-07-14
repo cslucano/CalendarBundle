@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                 // doctrine
                 ->scalarNode('calendar_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
-                ->integerNode('max_results')
+                ->integerNode('calendar_max_results')
                     ->defaultValue(10)
                     ->min(1)
                 ->end()

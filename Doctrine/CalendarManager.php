@@ -93,7 +93,7 @@ class CalendarManager extends BaseCalendarManager
             $qb->setParameter('user', $user);
         }
 
-        $qb->getMaxResults($max);
+        $qb->setMaxResults($max);
 
         return $qb->getQuery()->execute();
     }

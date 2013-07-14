@@ -28,7 +28,7 @@ class SgCalendarExtension extends Extension
         // doctrine
         $container->setParameter('sg_calendar.doctrine.calendar.class', $config['calendar_class']);
         $container->setParameter('sg_calendar.doctrine.event.class', $config['event_class']);
-        $container->setParameter('sg_calendar.doctrine.max_results', $config['max_results']);
+        $container->setParameter('sg_calendar.doctrine.calendar_max_results', $config['calendar_max_results']);
 
         // twig
         $container->setParameter('sg_calendar.twig.fullcalendar_id', $config['fullcalendar_id']);

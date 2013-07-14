@@ -39,19 +39,13 @@ class CalendarController extends Controller
     {
         $userCalendars = array();
         $visibleCalendars = array();
+        $maxResults = $this->container->getParameter('sg_calendar.doctrine.calendar_max_results');
 
         if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(
-                true,
-                $this->container->getParameter('sg_calendar.doctrine.max_results'),
-                $this->getUser()
-            );
+            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true, $maxResults, $this->getUser());
             $userCalendars = $this->getCalendarManager()->findCalendarsByUser($this->getUser());
         } else {
-            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(
-                true,
-                $this->container->getParameter('sg_calendar.doctrine.max_results')
-            );
+            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true, $maxResults);
         }
 
         return array(
