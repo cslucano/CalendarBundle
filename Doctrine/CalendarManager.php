@@ -82,13 +82,21 @@ class CalendarManager extends BaseCalendarManager
     /**
      * {@inheritDoc}
      */
-    public function findCalendarsByVisible($visible)
+    public function findCalendarsByVisible($visible, $max, UserInterface $user = null)
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->where('c.visible = :visible');
         $qb->setParameter('visible', $visible);
 
-        return $qb->getQuery()->execute();
+        if (!(null === $user)) {
+            $qb->andWhere('c.createdBy != :user');
+            $qb->setParameter('user', $user);
+        }
+
+        $qb->getMaxResults($max);
+
+        // Array Hydration
+        return $qb->getQuery()->getArrayResult();
     }
 
     /**
@@ -100,6 +108,7 @@ class CalendarManager extends BaseCalendarManager
         $qb->where('c.createdBy = :user');
         $qb->setParameter('user', $user);
 
-        return $qb->getQuery()->execute();
+        // Array Hydration
+        return $qb->getQuery()->getArrayResult();
     }
 }

@@ -54,11 +54,13 @@ interface CalendarManagerInterface
     /**
      * Find all calendars by the given visibility.
      *
-     * @param boolean $visible
+     * @param boolean       $visible The visibility of the calendar
+     * @param integer       $max     Limit the number of results returned from the query
+     * @param UserInterface $user    If a user passed, this is an exclusion criteria
      *
      * @return array The calendars
      */
-    public function findCalendarsByVisible($visible);
+    public function findCalendarsByVisible($visible, $max, UserInterface $user = null);
 
     /**
      * Find all calendars by the given user.

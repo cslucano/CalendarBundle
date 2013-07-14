@@ -37,11 +37,21 @@ class CalendarController extends Controller
      */
     public function indexAction()
     {
-        $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true);
-
         $userCalendars = array();
+        $visibleCalendars = array();
+
         if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(
+                true,
+                $this->container->getParameter('sg_calendar.doctrine.max_results'),
+                $this->getUser()
+            );
             $userCalendars = $this->getCalendarManager()->findCalendarsByUser($this->getUser());
+        } else {
+            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(
+                true,
+                $this->container->getParameter('sg_calendar.doctrine.max_results')
+            );
         }
 
         return array(
