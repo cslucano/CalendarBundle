@@ -58,7 +58,9 @@ class EventVoter implements VoterInterface, EventVoterInterface
                 return VoterInterface::ACCESS_DENIED;
             }
 
-            if (!$this->{"can".$attribute}($user, $object)) {
+            $suffix = ucfirst(strtolower($attribute));
+
+            if (!$this->{"can".$suffix}($user, $object)) {
                 return VoterInterface::ACCESS_DENIED;
             }
         }
