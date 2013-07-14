@@ -93,7 +93,7 @@ class EventType extends BaseType
         parent::buildForm($builder, $options);
 
         // custom field
-        $builder->add('location');
+        $builder->add('location', null, array('label' => 'Location'));
     }
 
     /**

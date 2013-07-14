@@ -1,4 +1,5 @@
 {% extends 'SgCalendarBundle::layout.html.twig' %}
+{% form_theme form 'SgCalendarBundle:Form:theme.html.twig' %}
 
 {% block title %}{{ 'calendar.calendar.action.new.title'|trans({}, 'messages') }}{% endblock %}
 
@@ -15,11 +16,11 @@
 
 {% block content %}
 
-    {{ form_start(form, {'action': path('sg_calendar_create_calendar') }) }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal well'}, 'action': path('sg_calendar_create_calendar') }) }}
         {{ form_widget(form) }}
-        <p>
-            <button formnovalidate="formnovalidate" type="submit">{{ 'calendar.calendar.action.new.submit'|trans({}, 'messages') }}</button>
-        </p>
+        <div class="form-actions">
+            <button formnovalidate="formnovalidate" class="btn btn-primary" type="submit">{{ 'calendar.calendar.action.new.submit'|trans({}, 'messages') }}</button>
+        </div>
     {{ form_end(form) }}
 
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'SgCalendarBundle::layout.html.twig' %}
+{% form_theme remove_form 'SgCalendarBundle:Form:theme.html.twig' %}
 
 {% block title %}{{ 'calendar.calendar.action.remove.title'|trans({}, 'messages') }}{% endblock %}
 
@@ -15,24 +16,16 @@
 
 {% block content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>{{ 'calendar.entity.calendar.name'|trans({}, 'messages') }}:</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-        </tbody>
-    </table>
-
     {% set confirmMsg = 'calendar.calendar.action.remove.confirm'|trans({}, 'messages') %}
 
-    {{ form_start(remove_form, {'action': path('sg_calendar_delete_calendar', { 'id': entity.id }) }) }}
+    {{ form_start(remove_form, {'attr': {'class': 'form-horizontal well'}, 'action': path('sg_calendar_delete_calendar', { 'id': entity.id }) }) }}
+        {{ 'calendar.entity.calendar.name'|trans({}, 'messages') }}: {{ entity.name }}
         {{ form_widget(remove_form) }}
-        <p>
-            <button formnovalidate="formnovalidate" type="submit" onclick="if(!confirm('{{ confirmMsg }}')) { return false; }">
+        <div class="form-actions">
+            <button formnovalidate="formnovalidate" class="btn btn-danger" type="submit" onclick="if(!confirm('{{ confirmMsg }}')) { return false; }">
                 {{ 'calendar.calendar.action.remove.submit'|trans({}, 'messages') }}
             </button>
-        </p>
+        </div>
     {{ form_end(remove_form) }}
 
 {% endblock %}
