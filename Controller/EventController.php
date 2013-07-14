@@ -45,10 +45,7 @@ class EventController extends Controller
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
-            $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
-            if (!$calendar) {
-                throw $this->createNotFoundException('Unable to find Calendar entity.');
-            }
+            $calendar = $this->getCalendarById($id);
 
             if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
                 if (false === $this->getSecurity()->isGranted('GETEVENTS', $calendar)) {
@@ -386,6 +383,24 @@ class EventController extends Controller
         }
 
         return $event;
+    }
+
+    /**
+     * Returns an Calendar by id.
+     *
+     * @param integer $id
+     *
+     * @return \Sg\CalendarBundle\Model\CalendarInterface
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function getCalendarById($id)
+    {
+        $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
+        if (!$calendar) {
+            throw $this->createNotFoundException('Unable to find Calendar entity.');
+        }
+
+        return $calendar;
     }
 
     /**
