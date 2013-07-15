@@ -29,7 +29,6 @@ class FullcalendarController extends AbstractBaseController
      * @ApiDoc()
      *
      * @return Response
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function cgetXhrAction(Request $request, $id)
@@ -72,6 +71,7 @@ class FullcalendarController extends AbstractBaseController
      * @ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function updateXhrAction(Request $request)
     {
@@ -91,6 +91,13 @@ class FullcalendarController extends AbstractBaseController
             $allDay = $params['allDay'];
 
             $event = $this->getEventById($id);
+
+            if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+                if (false === $this->getSecurity()->isGranted('EDIT', $event)) {
+                    throw new AccessDeniedException();
+                }
+            }
+
             $event->setStart($start);
             $event->setEnd($end);
             $event->setAllDay($allDay);
