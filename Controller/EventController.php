@@ -3,9 +3,7 @@
 namespace Sg\CalendarBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -20,97 +18,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  *
  * @package Sg\CalendarBundle\Controller
  */
-class EventController extends Controller
+class EventController extends AbstractBaseController
 {
-    //-------------------------------------------------
-    // Actions
-    //-------------------------------------------------
-
-    /**
-     * Returns all Events by a given Calendar-Id as JSON object via XHR.
-     *
-     * @param Request $request A Request instance
-     * @param integer $id      The Calendar entity id
-     *
-     * @Route("calendar/{id}/events", name="sg_calendar_get_xhr_events")
-     * @Method("GET")
-     * @ApiDoc()
-     *
-     * @return Response
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
-    public function cgetXhrAction(Request $request, $id)
-    {
-        $isAjax = $request->isXmlHttpRequest();
-
-        if ($isAjax) {
-            $calendar = $this->getCalendarById($id);
-
-            if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-                if (false === $this->getSecurity()->isGranted('GETEVENTS', $calendar)) {
-                    throw new AccessDeniedException();
-                }
-            }
-
-            $events = $this->getEventManager()->findEventsByCalendar($calendar);
-
-            $response = new Response();
-            $response->headers->set('Content-Type', 'application/json', 'charset=utf-8');
-
-            $generator = $this->getArrayGenerator();
-            $returnEvents = $generator->generateArray($events);
-
-            $response->setContent(json_encode($returnEvents));
-
-            return $response;
-        }
-
-        return new Response('This is not ajax.', 400);
-    }
-
-    /**
-     * Updates an existing Event entity via XHR.
-     * Drag and Drop functionality.
-     *
-     * @param Request $request A Request instance
-     *
-     * @Route("calendar/event/update", name="sg_calendar_update_xhr_event")
-     * @Method("POST")
-     * @ApiDoc()
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function updateXhrAction(Request $request)
-    {
-        $isAjax = $request->isXmlHttpRequest();
-
-        if ($isAjax) {
-            $params = $request->request->all();
-            $id = $params['id'];
-            $start = new \DateTime($params['start']);
-
-            if (!$params['end']) {
-                $end = null;
-            } else {
-                $end = new \DateTime($params['end']);
-            }
-
-            $allDay = $params['allDay'];
-
-            $event = $this->getEventById($id);
-            $event->setStart($start);
-            $event->setEnd($end);
-            $event->setAllDay($allDay);
-
-            $this->getEventManager()->updateEvent($event);
-
-            return new Response('This is ajax response.');
-        }
-
-        return new Response('This is not ajax.', 400);
-    }
-
     /**
      * Creates a new Event entity.
      *
@@ -360,114 +269,5 @@ class EventController extends Controller
             'entity' => $event,
             'remove_form' => $removeForm->createView()
         );
-    }
-
-
-    //-------------------------------------------------
-    // Private
-    //-------------------------------------------------
-
-    /**
-     * Returns an Event by id.
-     *
-     * @param integer $id
-     *
-     * @return \Sg\CalendarBundle\Model\EventInterface
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    private function getEventById($id)
-    {
-        $event = $this->getEventManager()->findEventBy(array('id' => $id));
-        if (!$event) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
-        }
-
-        return $event;
-    }
-
-    /**
-     * Returns an Calendar by id.
-     *
-     * @param integer $id
-     *
-     * @return \Sg\CalendarBundle\Model\CalendarInterface
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    private function getCalendarById($id)
-    {
-        $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
-        if (!$calendar) {
-            throw $this->createNotFoundException('Unable to find Calendar entity.');
-        }
-
-        return $calendar;
-    }
-
-    /**
-     * Creates a form to delete an Event entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-
-    //-------------------------------------------------
-    // Services
-    //-------------------------------------------------
-
-    /**
-     * @return \Symfony\Component\Security\Core\SecurityContext
-     */
-    private function getSecurity()
-    {
-        return $this->container->get('security.context');
-    }
-
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
-    private function getDispatcher()
-    {
-        return $this->container->get('event_dispatcher');
-    }
-
-    /**
-     * @return \Sg\CalendarBundle\Model\EventManagerInterface
-     */
-    private function getEventManager()
-    {
-        return $this->container->get('sg_calendar.event_manager');
-    }
-
-    /**
-     * @return \Sg\CalendarBundle\Model\CalendarManagerInterface
-     */
-    private function getCalendarManager()
-    {
-        return $this->container->get('sg_calendar.calendar_manager');
-    }
-
-    /**
-     * @return \Sg\CalendarBundle\Form\Factory\EventFormFactoryInterface
-     */
-    private function getEventFormFactory()
-    {
-        return $this->container->get('sg_calendar.form_factory.event');
-    }
-
-    /**
-     * @return \Sg\CalendarBundle\Generator\EventsToArray
-     */
-    private function getArrayGenerator()
-    {
-        return $this->container->get('sg_calendar.array_generator');
     }
 }

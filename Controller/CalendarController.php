@@ -4,7 +4,6 @@ namespace Sg\CalendarBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -19,12 +18,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  *
  * @package Sg\CalendarBundle\Controller
  */
-class CalendarController extends Controller
+class CalendarController extends AbstractBaseController
 {
-    //-------------------------------------------------
-    // Actions
-    //-------------------------------------------------
-
     /**
      * Shows all available Calendars, without the associated Events.
      *
@@ -304,80 +299,5 @@ class CalendarController extends Controller
             'entity' => $calendar,
             'remove_form' => $removeForm->createView()
         );
-    }
-
-
-    //-------------------------------------------------
-    // Private
-    //-------------------------------------------------
-
-    /**
-     * Return an Calendar by id.
-     *
-     * @param integer $id
-     *
-     * @return \Sg\CalendarBundle\Model\CalendarInterface
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
-    private function getCalendarById($id)
-    {
-        $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
-        if (!$calendar) {
-            throw $this->createNotFoundException('Unable to find Calendar entity.');
-        }
-
-        return $calendar;
-    }
-
-    /**
-     * Creates a form to delete a Calendar entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-
-    //-------------------------------------------------
-    // Services
-    //-------------------------------------------------
-
-    /**
-     * @return \Symfony\Component\Security\Core\SecurityContext
-     */
-    private function getSecurity()
-    {
-        return $this->container->get('security.context');
-    }
-
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
-    private function getDispatcher()
-    {
-        return $this->container->get('event_dispatcher');
-    }
-
-    /**
-     * @return \Sg\CalendarBundle\Model\CalendarManagerInterface
-     */
-    private function getCalendarManager()
-    {
-        return $this->container->get('sg_calendar.calendar_manager');
-    }
-
-    /**
-     * @return \Sg\CalendarBundle\Form\Factory\CalendarFormFactoryInterface
-     */
-    private function getCalendarFormFactory()
-    {
-        return $this->container->get('sg_calendar.form_factory.calendar');
     }
 }
