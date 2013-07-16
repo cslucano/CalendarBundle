@@ -4,6 +4,8 @@ namespace Sg\CalendarBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable as JoinTable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -160,6 +162,18 @@ abstract class AbstractEvent implements EventInterface
     protected $textColor;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="Symfony\Component\Security\Core\User\UserInterface"
+     * )
+     * @JoinTable(
+     *     name="events_attendees"
+     * )
+     */
+    protected $attendees;
+
+    /**
      * Create datetime.
      *
      * @var DateTime $createdAt
@@ -217,6 +231,7 @@ abstract class AbstractEvent implements EventInterface
     {
         $this->allDay = true;
         $this->editable = false;
+        $this->attendees = new ArrayCollection();
     }
 
     /**
@@ -472,6 +487,22 @@ abstract class AbstractEvent implements EventInterface
     public function getTextColor()
     {
         return $this->textColor;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttendees()
+    {
+        return $this->attendees;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasAttendee(UserInterface $user)
+    {
+        return $this->getAttendees()->contains($user);
     }
 
     /**

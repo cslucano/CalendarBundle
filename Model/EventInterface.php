@@ -226,6 +226,22 @@ interface EventInterface
     public function getTextColor();
 
     /**
+     * Get attendees.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendees();
+
+    /**
+     * Has attendee.
+     *
+     * @param UserInterface $user
+     *
+     * @return boolean
+     */
+    public function hasAttendee(UserInterface $user);
+
+    /**
      * Set createdAt.
      *
      * @param DateTime $createdAt
