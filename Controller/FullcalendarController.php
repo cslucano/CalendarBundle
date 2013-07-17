@@ -40,7 +40,7 @@ class FullcalendarController extends AbstractBaseController
 
             if (false === $calendar->getVisible()) {
                 if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-                    if (false === $this->getSecurity()->isGranted('VIEW', $calendar)) {
+                    if (false === $this->getSecurity()->isGranted('OWNER', $calendar)) {
                         throw new AccessDeniedException();
                     }
                 }
@@ -95,7 +95,7 @@ class FullcalendarController extends AbstractBaseController
             $event = $this->getEventById($id);
 
             if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-                if (false === $this->getSecurity()->isGranted('EDIT', $event)) {
+                if (false === $this->getSecurity()->isGranted('OWNER', $event)) {
                     throw new AccessDeniedException();
                 }
             }

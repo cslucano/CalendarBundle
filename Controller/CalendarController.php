@@ -138,7 +138,7 @@ class CalendarController extends AbstractBaseController
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-            if (false === $this->getSecurity()->isGranted('VIEW', $calendar)) {
+            if (false === $this->getSecurity()->isGranted('OWNER', $calendar)) {
                 throw new AccessDeniedException();
             }
         }
@@ -166,7 +166,7 @@ class CalendarController extends AbstractBaseController
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-            if (false === $this->getSecurity()->isGranted('EDIT', $calendar)) {
+            if (false === $this->getSecurity()->isGranted('OWNER', $calendar)) {
                 throw new AccessDeniedException();
             }
         }
@@ -198,7 +198,7 @@ class CalendarController extends AbstractBaseController
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-            if (false === $this->getSecurity()->isGranted('EDIT', $calendar)) {
+            if (false === $this->getSecurity()->isGranted('OWNER', $calendar)) {
                 throw new AccessDeniedException();
             }
         }
@@ -243,7 +243,7 @@ class CalendarController extends AbstractBaseController
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-            if (false === $this->getSecurity()->isGranted('DELETE', $calendar)) {
+            if (false === $this->getSecurity()->isGranted('OWNER', $calendar)) {
                 throw new AccessDeniedException();
             }
         }
@@ -274,7 +274,7 @@ class CalendarController extends AbstractBaseController
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-            if (false === $this->getSecurity()->isGranted('DELETE', $calendar)) {
+            if (false === $this->getSecurity()->isGranted('OWNER', $calendar)) {
                 throw new AccessDeniedException();
             }
         }
