@@ -107,10 +107,13 @@ class EventController extends AbstractBaseController
     public function getAction($id)
     {
         $event = $this->getEventById($id);
+        $calendar = $event->getCalendar();
 
-        if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-            if (false === $this->getSecurity()->isGranted('VIEW', $event)) {
-                throw new AccessDeniedException();
+        if (false === $calendar->getVisible()) {
+            if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+                if (false === $this->getSecurity()->isGranted('VIEW', $calendar)) {
+                    throw new AccessDeniedException();
+                }
             }
         }
 
