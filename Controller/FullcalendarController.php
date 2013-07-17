@@ -38,9 +38,11 @@ class FullcalendarController extends AbstractBaseController
         if ($isAjax) {
             $calendar = $this->getCalendarById($id);
 
-            if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
-                if (false === $this->getSecurity()->isGranted('GETEVENTS', $calendar)) {
-                    throw new AccessDeniedException();
+            if (false === $calendar->getVisible()) {
+                if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
+                    if (false === $this->getSecurity()->isGranted('VIEW', $calendar)) {
+                        throw new AccessDeniedException();
+                    }
                 }
             }
 
