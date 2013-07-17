@@ -271,19 +271,32 @@ assetic:
        jquery_js:
            inputs:
                - %kernel.root_dir%/../vendor/arshaw/fullcalendar/jquery/jquery-1.9.1.min.js
+           output: js/jquery.js
+       img_bootstrap_glyphicons_black:
+           inputs:
+               - %kernel.root_dir%/../vendor/twitter/bootstrap/img/glyphicons-halflings.png
+           output: img/glyphicons-halflings.png
+       img_bootstrap_glyphicons_white:
+           inputs:
+               - %kernel.root_dir%/../vendor/twitter/bootstrap/img/glyphicons-halflings-white.png
+           output: img/glyphicons-halflings-white.png
        bootstrap_css:
            inputs:
                - %kernel.root_dir%/../vendor/twitter/bootstrap/docs/assets/css/bootstrap.css
+           output: css/bootstrap.css
        bootstrap_js:
            inputs:
                - %kernel.root_dir%/../vendor/twitter/bootstrap/docs/assets/js/bootstrap.js
+           output: js/bootstrap.js
        fullcalendar_css:
            inputs:
                - %kernel.root_dir%/../vendor/arshaw/fullcalendar/fullcalendar/fullcalendar.css
+           output: css/fullcalendar.css
        fullcalendar_js:
            inputs:
                - %kernel.root_dir%/../vendor/arshaw/fullcalendar/fullcalendar/fullcalendar.js
                - %kernel.root_dir%/../vendor/arshaw/fullcalendar/fullcalendar/gcal.js
+           output: js/fullcalendar.js
 ```
 
 This bundle provides a layout that uses the Bootstrap framework.
