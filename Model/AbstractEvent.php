@@ -168,7 +168,9 @@ abstract class AbstractEvent implements EventInterface
      *     targetEntity="Symfony\Component\Security\Core\User\UserInterface"
      * )
      * @JoinTable(
-     *     name="events_attendees"
+     *     name="events_attendees",
+     *     joinColumns={@JoinColumn(name="event_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")}
      * )
      */
     protected $attendees;
