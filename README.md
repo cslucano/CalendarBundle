@@ -8,11 +8,11 @@ This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 applica
 
 <div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/screen.jpg"></div>
 
-## Roles
+## Access Control
 
 * An admin (ROLE_ADMIN) has full access.
-* Each authenticated user (ROLE_USER) can create calendars and events.
-* Each authenticated user (ROLE_USER) can view, edit and delete their own calendar and events.
+* Each authenticated user can create calendars and events.
+* Each authenticated user can view, edit and delete their own calendar and events.
 * All guests can see all public calendars.
 
 ## GCal Sources
