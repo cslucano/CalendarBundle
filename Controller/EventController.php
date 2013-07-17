@@ -290,6 +290,8 @@ class EventController extends AbstractBaseController
     {
         $event = $this->getEventById($id);
 
+        // @todo: access control
+
         if (!$event->hasAttendee($this->getUser())) {
             $event->getAttendees()->add($this->getUser());
         }
@@ -315,6 +317,8 @@ class EventController extends AbstractBaseController
     public function unattendAction($id)
     {
         $event = $this->getEventById($id);
+
+        // @todo: access control
 
         if ($event->hasAttendee($this->getUser())) {
             $event->getAttendees()->removeElement($this->getUser());
