@@ -162,6 +162,15 @@ abstract class AbstractEvent implements EventInterface
     protected $textColor;
 
     /**
+     * Other users can attend or not attend.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(name="attendable", type="boolean", nullable=true)
+     */
+    protected $attendable;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(
@@ -233,6 +242,7 @@ abstract class AbstractEvent implements EventInterface
     {
         $this->allDay = true;
         $this->editable = false;
+        $this->attendable = false;
         $this->attendees = new ArrayCollection();
     }
 
@@ -489,6 +499,24 @@ abstract class AbstractEvent implements EventInterface
     public function getTextColor()
     {
         return $this->textColor;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setAttendable($attendable)
+    {
+        $this->attendable = $attendable;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttendable()
+    {
+        return $this->attendable;
     }
 
     /**

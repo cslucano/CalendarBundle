@@ -42,6 +42,7 @@ class EventType extends AbstractType
             ->add('url', null, array('label' => 'calendar.entity.event.url', 'translation_domain' => 'messages'))
             ->add('className', null, array('label' => 'calendar.entity.event.className', 'translation_domain' => 'messages'))
             ->add('editable', null, array('label' => 'calendar.entity.event.editable', 'translation_domain' => 'messages'))
+            ->add('attendable', null, array('label' => 'calendar.entity.event.attendable', 'translation_domain' => 'messages'))
             ->add('color', null, array('label' => 'calendar.entity.event.color', 'translation_domain' => 'messages'))
             ->add('bgColor', null, array('label' => 'calendar.entity.event.bgColor', 'translation_domain' => 'messages'))
             ->add('borderColor', null, array('label' => 'calendar.entity.event.borderColor', 'translation_domain' => 'messages'))

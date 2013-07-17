@@ -99,6 +99,7 @@ calendar: # the bundle name
             url: "Url"
             className: "Css-class"
             editable: "Editable"
+            attendable: "Allow attend"
             color: "Color"
             bgColor: "Background color"
             borderColor: "Border color"

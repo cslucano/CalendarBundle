@@ -226,6 +226,22 @@ interface EventInterface
     public function getTextColor();
 
     /**
+     * Set attendable.
+     *
+     * @param boolean $attendable
+     *
+     * @return self
+     */
+    public function setAttendable($attendable);
+
+    /**
+     * Get attendable.
+     *
+     * @return boolean
+     */
+    public function getAttendable();
+
+    /**
      * Get attendees.
      *
      * @return \Doctrine\Common\Collections\Collection
