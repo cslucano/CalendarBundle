@@ -13,16 +13,6 @@ use Sg\CalendarBundle\Model\CalendarInterface;
 interface CalendarVoterInterface
 {
     /**
-     * Checks if the user should be able to get all calendar events.
-     *
-     * @param UserInterface     $user     The logged in user
-     * @param CalendarInterface $calendar An Calendar instance
-     *
-     * @return boolean
-     */
-    public function canGetevents(UserInterface $user, CalendarInterface $calendar);
-
-    /**
      * Checks if the user should be able to view an calendar.
      *
      * @param UserInterface     $user     The logged in user

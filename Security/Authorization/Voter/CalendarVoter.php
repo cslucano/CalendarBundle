@@ -24,7 +24,6 @@ class CalendarVoter implements VoterInterface, CalendarVoterInterface
     public function supportsAttribute($attribute)
     {
         return in_array(strtolower($attribute), array(
-                'getevents',
                 'view',
                 'edit',
                 'delete',
@@ -73,18 +72,6 @@ class CalendarVoter implements VoterInterface, CalendarVoterInterface
     //-------------------------------------------------
     // CalendarVoterInterface
     //-------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-    public function canGetevents(UserInterface $user, CalendarInterface $calendar)
-    {
-        if (true === $calendar->getVisible()) {
-            return true;
-        } else {
-            return $user->isEqualTo($calendar->getCreatedBy());
-        }
-    }
 
     /**
      * {@inheritDoc}
