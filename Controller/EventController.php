@@ -3,6 +3,7 @@
 namespace Sg\CalendarBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -269,5 +270,58 @@ class EventController extends AbstractBaseController
             'entity' => $event,
             'remove_form' => $removeForm->createView()
         );
+    }
+
+    /**
+     * Attend an Event.
+     *
+     * @param integer $id The entity id
+     *
+     * @Route("calendar/event/{id}/attend", name="sg_calendar_attend_event")
+     * @Method("GET")
+     * @ApiDoc()
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function attendAction($id)
+    {
+        $event = $this->getEventById($id);
+
+        if (!$event->hasAttendee($this->getUser())) {
+            $event->getAttendees()->add($this->getUser());
+        }
+
+        $this->getEventManager()->updateEvent($event);
+
+        return $this->redirect($this->generateUrl('sg_calendar_get_event', array(
+                    'id' => $event->getId()
+                )));
+    }
+
+    /**
+     * Unattend an Event.
+     *
+     * @param integer $id The entity id
+     *
+     * @Route("calendar/event/{id}/unattend", name="sg_calendar_unattend_event")
+     * @Method("GET")
+     * @ApiDoc()
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function unattendAction($id)
+    {
+        $event = $this->getEventById($id);
+
+        if ($event->hasAttendee($this->getUser())) {
+            $event->getAttendees()->removeElement($this->getUser());
+        }
+
+        $this->getEventManager()->updateEvent($event);
+
+        return $this->redirect($this->generateUrl('sg_calendar_get_event', array(
+                    'id' => $event->getId()
+                )));
+
     }
 }

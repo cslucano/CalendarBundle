@@ -11,6 +11,25 @@
 {% endblock %}
 
 {% block sidebar %}
+    {% if (entity.attendees|length > 0) %}
+        <p>Teilnehmer: bisher {{ entity.attendees|length }}</p>
+    {% else %}
+        <p>Teilnehmer: bisher keiner</p>
+    {% endif %}
+
+    <ul class='unstyled'>
+        {% for attendee in entity.attendees %}
+            <li><i class='icon-user'></i> {{ attendee }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {% if entity.hasAttendee(app.user) %}
+            <a href="{{ path('sg_calendar_unattend_event', {'id': entity.id}) }}">Nicht teilnehmen</a>
+        {% else %}
+            <a href="{{ path('sg_calendar_attend_event', {'id': entity.id}) }}">Teilnehmen</a>
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
