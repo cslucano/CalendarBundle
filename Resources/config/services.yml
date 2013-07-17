@@ -72,12 +72,8 @@ services:
 
     # Security
 
-    sg_calendar.voter.access.event.owner:
-        class: Sg\CalendarBundle\Security\Authorization\Voter\EventVoter
-        tags:
-            - { name: security.voter }
-
-    sg_calendar.voter.access.calendar.owner:
-        class: Sg\CalendarBundle\Security\Authorization\Voter\CalendarVoter
+    sg_calendar.voter.access.owner:
+        class: Sg\CalendarBundle\Security\Authorization\Voter\OwnerVoter
+        public: false
         tags:
             - { name: security.voter }
