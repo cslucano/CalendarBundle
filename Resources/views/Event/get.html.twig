@@ -119,14 +119,12 @@
                 {{ 'calendar.calendar.action.index.title'|trans({}, 'messages') }}
             </a>
         </li>
-        {% if is_granted('EDIT', entity) %}
+        {% if is_granted('OWNER', entity) %}
             <li>
                 <a href="{{ path('sg_calendar_edit_event', { 'id': entity.id }) }}">
                     {{ 'calendar.event.action.edit.title'|trans({}, 'messages') }}
                 </a>
             </li>
-        {% endif %}
-        {% if is_granted('DELETE', entity) %}
             <li>
                 <a href="{{ path('sg_calendar_remove_event', { 'id': entity.id }) }}">
                     {{ 'calendar.event.action.remove.title'|trans({}, 'messages') }}

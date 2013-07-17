@@ -53,17 +53,13 @@
                 {% else %}
                     {{ calendar.name }}
                 {% endif %}
-                {% if is_granted('VIEW', calendar) %}
+                {% if is_granted('OWNER', calendar) %}
                     <a href="{{ path('sg_calendar_get_calendar', { 'id': calendar.id }) }}">
                         {{ 'calendar.action.show'|trans({}, 'messages') }}
                     </a> |
-                {% endif %}
-                {% if is_granted('EDIT', calendar) %}
                     <a href="{{ path('sg_calendar_edit_calendar', { 'id': calendar.id }) }}">
                         {{ 'calendar.action.edit'|trans({}, 'messages') }}
                     </a> |
-                {% endif %}
-                {% if is_granted('DELETE', calendar) %}
                     <a href="{{ path('sg_calendar_remove_calendar', { 'id': calendar.id }) }}">
                         {{ 'calendar.action.remove'|trans({}, 'messages') }}
                     </a>
