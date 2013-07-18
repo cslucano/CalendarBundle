@@ -285,18 +285,34 @@ class EventController extends AbstractBaseController
      * @ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function attendAction($id)
     {
         $event = $this->getEventById($id);
 
-        // @todo: access control
+        // Teilnehmer nicht erlaubt
+        if (false === $event->getAttendable()) {
+            throw new AccessDeniedException();
+        }
+
+        // kein User
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
+        // eingeloggt, aber nicht der eigentümer?
+        if (false === $this->getSecurity()->isGranted('OWNER', $event)) {
+            // dann sollte der Kalender öffentlich sein
+            if (false === $event->getCalendar()->getVisible()) {
+                throw new AccessDeniedException();
+            }
+        }
 
         if (!$event->hasAttendee($this->getUser())) {
             $event->getAttendees()->add($this->getUser());
+            $this->getEventManager()->updateEvent($event);
         }
-
-        $this->getEventManager()->updateEvent($event);
 
         return $this->redirect($this->generateUrl('sg_calendar_get_event', array(
                     'id' => $event->getId()
@@ -313,18 +329,34 @@ class EventController extends AbstractBaseController
      * @ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function unattendAction($id)
     {
         $event = $this->getEventById($id);
 
-        // @todo: access control
+        // Teilnehmer nicht erlaubt
+        if (false === $event->getAttendable()) {
+            throw new AccessDeniedException();
+        }
+
+        // kein User
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
+        // eingeloggt, aber nicht der eigentümer?
+        if (false === $this->getSecurity()->isGranted('OWNER', $event)) {
+            // dann sollte der Kalender öffentlich sein
+            if (false === $event->getCalendar()->getVisible()) {
+                throw new AccessDeniedException();
+            }
+        }
 
         if ($event->hasAttendee($this->getUser())) {
             $event->getAttendees()->removeElement($this->getUser());
+            $this->getEventManager()->updateEvent($event);
         }
-
-        $this->getEventManager()->updateEvent($event);
 
         return $this->redirect($this->generateUrl('sg_calendar_get_event', array(
                     'id' => $event->getId()
