@@ -36,7 +36,7 @@ class CalendarController extends AbstractBaseController
         $visibleCalendars = array();
         $maxResults = $this->container->getParameter('sg_calendar.doctrine.calendar_max_results');
 
-        if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true, $maxResults, $this->getUser());
             $userCalendars = $this->getCalendarManager()->findCalendarsByUser($this->getUser());
         } else {
@@ -67,7 +67,7 @@ class CalendarController extends AbstractBaseController
     {
         $calendar = $this->getCalendarManager()->newCalendar();
 
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
         }
 
@@ -108,7 +108,7 @@ class CalendarController extends AbstractBaseController
     {
         $calendar = $this->getCalendarManager()->newCalendar();
 
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
         }
 

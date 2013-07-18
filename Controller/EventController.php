@@ -38,7 +38,7 @@ class EventController extends AbstractBaseController
     {
         $event = $this->getEventManager()->newEvent();
 
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
         }
 
@@ -79,7 +79,7 @@ class EventController extends AbstractBaseController
     {
         $event = $this->getEventManager()->newEvent();
 
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
         }
 
