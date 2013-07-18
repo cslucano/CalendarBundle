@@ -12,9 +12,7 @@
 
 {% block sidebar %}
     {% if (entity.attendees|length > 0) %}
-        <p>Teilnehmer: bisher {{ entity.attendees|length }}</p>
-    {% else %}
-        <p>Teilnehmer: bisher keiner</p>
+        <p>{{ 'calendar.event.action.get.attendees'|trans({}, 'messages') }}: {{ entity.attendees|length }}</p>
     {% endif %}
 
     <ul class='unstyled'>
@@ -23,11 +21,15 @@
         {% endfor %}
     </ul>
 
-    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {% if is_granted('ATTEND', entity) %}
         {% if entity.hasAttendee(app.user) %}
-            <a href="{{ path('sg_calendar_unattend_event', {'id': entity.id}) }}">Nicht teilnehmen</a>
+            <a href="{{ path('sg_calendar_unattend_event', {'id': entity.id}) }}">
+                {{ 'calendar.event.action.get.unattend'|trans({}, 'messages') }}
+            </a>
         {% else %}
-            <a href="{{ path('sg_calendar_attend_event', {'id': entity.id}) }}">Teilnehmen</a>
+            <a href="{{ path('sg_calendar_attend_event', {'id': entity.id}) }}">
+                {{ 'calendar.event.action.get.attend'|trans({}, 'messages') }}
+            </a>
         {% endif %}
     {% endif %}
 {% endblock %}
@@ -76,7 +78,7 @@
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.attendable'|trans({}, 'messages') }}</th>
-                <td>{{ entity.editable }}</td>
+                <td>{{ entity.attendable }}</td>
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.color'|trans({}, 'messages') }}</th>

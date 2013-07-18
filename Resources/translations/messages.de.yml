@@ -80,6 +80,9 @@ calendar: # the bundle name
                 submit: "Ändern"
             get:
                 title: "Ereignis"
+                attend: "Teilnahme zusagen"
+                unattend: "Teilnahme absagen"
+                attendees: "Teilnehmer"
             new:
                 title: "Neues Ereignis"
                 submit: "Speichern"

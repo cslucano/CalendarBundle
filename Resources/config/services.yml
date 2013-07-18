@@ -77,3 +77,9 @@ services:
         public: false
         tags:
             - { name: security.voter }
+
+    sg_calendar.voter.access.attend:
+        class: Sg\CalendarBundle\Security\Authorization\Voter\AttendVoter
+        public: false
+        tags:
+            - { name: security.voter }

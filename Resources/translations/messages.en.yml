@@ -80,6 +80,9 @@ calendar: # the bundle name
                 submit: "Edit"
             get:
                 title: "Event"
+                attend: "Attend"
+                unattend: "Not attend"
+                attendees: "Attendees"
             new:
                 title: "New Event"
                 submit: "Create"

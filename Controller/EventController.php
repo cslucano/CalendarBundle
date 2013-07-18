@@ -291,22 +291,8 @@ class EventController extends AbstractBaseController
     {
         $event = $this->getEventById($id);
 
-        // Teilnehmer nicht erlaubt
-        if (false === $event->getAttendable()) {
+        if (false === $this->getSecurity()->isGranted('ATTEND', $event)) {
             throw new AccessDeniedException();
-        }
-
-        // kein User
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedException();
-        }
-
-        // eingeloggt, aber nicht der eigentümer?
-        if (false === $this->getSecurity()->isGranted('OWNER', $event)) {
-            // dann sollte der Kalender öffentlich sein
-            if (false === $event->getCalendar()->getVisible()) {
-                throw new AccessDeniedException();
-            }
         }
 
         if (!$event->hasAttendee($this->getUser())) {
@@ -335,22 +321,8 @@ class EventController extends AbstractBaseController
     {
         $event = $this->getEventById($id);
 
-        // Teilnehmer nicht erlaubt
-        if (false === $event->getAttendable()) {
+        if (false === $this->getSecurity()->isGranted('ATTEND', $event)) {
             throw new AccessDeniedException();
-        }
-
-        // kein User
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedException();
-        }
-
-        // eingeloggt, aber nicht der eigentümer?
-        if (false === $this->getSecurity()->isGranted('OWNER', $event)) {
-            // dann sollte der Kalender öffentlich sein
-            if (false === $event->getCalendar()->getVisible()) {
-                throw new AccessDeniedException();
-            }
         }
 
         if ($event->hasAttendee($this->getUser())) {

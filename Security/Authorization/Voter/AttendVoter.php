@@ -7,18 +7,18 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class OwnerVoter
+ * Class AttendVoter
  *
  * @package Sg\CalendarBundle\Security\Authorization\Voter
  */
-class OwnerVoter implements VoterInterface
+class AttendVoter implements VoterInterface
 {
     /**
      * {@inheritdoc}
      */
     public function supportsAttribute($attribute)
     {
-        return 'OWNER' === $attribute;
+        return 'ATTEND' === $attribute;
     }
 
     /**
@@ -26,7 +26,7 @@ class OwnerVoter implements VoterInterface
      */
     public function supportsClass($class)
     {
-        return true;
+        return in_array('Sg\CalendarBundle\Model\EventInterface', class_implements($class));
     }
 
     /**
@@ -49,10 +49,16 @@ class OwnerVoter implements VoterInterface
             return VoterInterface::ACCESS_DENIED;
         }
 
-        if ( $user->isEqualTo($object->getCreatedBy()) ) {
-            return VoterInterface::ACCESS_GRANTED;
+        if ( false === $object->getAttendable() ) {
+            return VoterInterface::ACCESS_DENIED;
         }
 
-        return VoterInterface::ACCESS_DENIED;
+        if ( !($user->isEqualTo($object->getCreatedBy())) ) {
+            if ( false === $object->getCalendar()->getVisible() ) {
+                return VoterInterface::ACCESS_DENIED;
+            }
+        }
+
+        return VoterInterface::ACCESS_GRANTED;
     }
 }
