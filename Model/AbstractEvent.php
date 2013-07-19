@@ -24,7 +24,7 @@ use \DateTime;
 abstract class AbstractEvent implements EventInterface
 {
     /**
-     * Uniquely identifies the given event.
+     * Identifier of the event.
      *
      * @var integer
      *
@@ -35,7 +35,16 @@ abstract class AbstractEvent implements EventInterface
     protected $id;
 
     /**
-     * The text on an event's element.
+     * Status of the event.
+     *
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     */
+    protected $status;
+
+    /**
+     * Title of the event.
      *
      * @var string
      *
@@ -54,7 +63,7 @@ abstract class AbstractEvent implements EventInterface
     protected $allDay;
 
     /**
-     * The date/time an event begins.
+     * The start time of the event.
      *
      * @var DateTime
      *
@@ -63,7 +72,7 @@ abstract class AbstractEvent implements EventInterface
     protected $start;
 
     /**
-     * The date/time an event ends.
+     * The end time of the event.
      *
      * @var DateTime
      *
@@ -72,7 +81,7 @@ abstract class AbstractEvent implements EventInterface
     protected $end;
 
     /**
-     * The event description.
+     * Description of the event.
      *
      * @var text
      *
@@ -171,6 +180,8 @@ abstract class AbstractEvent implements EventInterface
     protected $attendable;
 
     /**
+     * The attendees of the event.
+     *
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(
@@ -185,7 +196,7 @@ abstract class AbstractEvent implements EventInterface
     protected $attendees;
 
     /**
-     * Create datetime.
+     * Creation time of the event.
      *
      * @var DateTime $createdAt
      *
@@ -194,7 +205,7 @@ abstract class AbstractEvent implements EventInterface
     protected $createdAt;
 
     /**
-     * Update datetime.
+     * Last modification time of the event.
      *
      * @var DateTime $updatedAt
      *
@@ -240,6 +251,7 @@ abstract class AbstractEvent implements EventInterface
      */
     public function __construct()
     {
+        $this->status = self::STATUS_CONFIRMED;
         $this->allDay = true;
         $this->editable = false;
         $this->attendable = false;
@@ -265,6 +277,26 @@ abstract class AbstractEvent implements EventInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setStatus($status)
+    {
+        if (!in_array($status, array(self::STATUS_CONFIRMED, self::STATUS_TENTATIVE, self::STATUS_CANCELLED))) {
+            throw new \InvalidArgumentException("Invalid status");
+        }
+
+        $this->status = $status;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**

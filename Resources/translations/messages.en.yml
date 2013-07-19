@@ -93,6 +93,7 @@ calendar: # the bundle name
     entity: # all entities
         event: # an entity
             id: "Id"
+            status: "Status"
             title: "Title"
             allDay: "All day"
             start: "Start"
@@ -114,9 +115,15 @@ calendar: # the bundle name
         calendar: # an other entity
             id: "id"
             name: "Name"
+            description: "Description"
             eventsUrl: "Google Calendar Url"
             visible: "Share calendar"
             createdAt: "Created at"
             updatedAt: "Updated at"
             createdBy: "Created by"
             updatedBy: "Updated by"
+    status:
+        event:
+            confirmed: "confirmed"
+            tentative: "tentative"
+            cancelled: "cancelled"

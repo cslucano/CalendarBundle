@@ -21,7 +21,7 @@ use \DateTime;
 class AbstractCalendar implements CalendarInterface
 {
     /**
-     * Uniquely identifies the given calendar.
+     * Identifier of the calendar.
      *
      * @var integer
      *
@@ -42,7 +42,16 @@ class AbstractCalendar implements CalendarInterface
     protected $name;
 
     /**
-     * The gcal. events url.
+     * Description of the calendar.
+     *
+     * @var text
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    protected $description;
+
+    /**
+     * The gcal. events url of the calendar.
      * e.g. https://www.google.com/calendar/feeds/german__de%40holiday.calendar.google.com/public/basic
      *
      * @var string
@@ -52,7 +61,7 @@ class AbstractCalendar implements CalendarInterface
     protected $eventsUrl;
 
     /**
-     * The events.
+     * The events of the calendar.
      *
      * @var ArrayCollection
      *
@@ -75,7 +84,7 @@ class AbstractCalendar implements CalendarInterface
     protected $visible;
 
     /**
-     * Create datetime.
+     * Creation time of the calendar.
      *
      * @var DateTime
      *
@@ -84,7 +93,7 @@ class AbstractCalendar implements CalendarInterface
     protected $createdAt;
 
     /**
-     * Update datetime.
+     * Last modification time of the calendar.
      *
      * @var DateTime
      *
@@ -171,6 +180,24 @@ class AbstractCalendar implements CalendarInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

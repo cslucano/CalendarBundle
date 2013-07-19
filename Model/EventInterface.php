@@ -13,6 +13,28 @@ use \DateTime;
 interface EventInterface
 {
     /**
+     * The event is confirmed. This is the default status.
+     *
+     * @var string
+     */
+    const STATUS_CONFIRMED = 'confirmed';
+
+    /**
+     * The event is tentatively confirmed.
+     *
+     * @var string
+     */
+    const STATUS_TENTATIVE = 'tentative';
+
+    /**
+     * The event is cancelled.
+     *
+     * @var string
+     */
+    const STATUS_CANCELLED = 'cancelled';
+
+
+    /**
      * Get id.
      *
      * @return integer

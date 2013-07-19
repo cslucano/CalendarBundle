@@ -36,6 +36,20 @@ interface CalendarInterface
     public function getName();
 
     /**
+     * Set description.
+     *
+     * @param text $description
+     *
+     * @return self
+     */
+    public function setDescription($description);
+
+    /**
+     * @return text
+     */
+    public function getDescription();
+
+    /**
      * Set eventsUrl.
      *
      * @param string $eventsUrl

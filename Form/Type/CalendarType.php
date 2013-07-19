@@ -34,6 +34,7 @@ class CalendarType extends AbstractType
     {
         $builder
             ->add('name', null, array('label' => 'calendar.entity.calendar.name', 'translation_domain' => 'messages'))
+            ->add('description', null, array('label' => 'calendar.entity.calendar.description', 'translation_domain' => 'messages'))
             ->add('eventsUrl', null, array('label' => 'calendar.entity.calendar.eventsUrl', 'translation_domain' => 'messages'))
             ->add('visible', null, array('label' => 'calendar.entity.calendar.visible', 'translation_domain' => 'messages'));
     }

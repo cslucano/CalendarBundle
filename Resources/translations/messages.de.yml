@@ -93,6 +93,7 @@ calendar: # the bundle name
     entity: # all entities
         event: # an entity
             id: "Id"
+            status: "Status"
             title: "Titel"
             allDay: "Ganztägig"
             start: "Beginn"
@@ -114,9 +115,15 @@ calendar: # the bundle name
         calendar: # an other entity
             id: "Id"
             name: "Name"
+            description: "Beschreibung"
             eventsUrl: "Google Kalender Url"
             visible: "Kalender freigeben"
             createdAt: "Erstellt am"
             updatedAt: "Geändert am"
             createdBy: "Erstellt von"
             updatedBy: "Geändert von"
+    status:
+        event:
+            confirmed: "bestätigt"
+            tentative: "vorläufig"
+            cancelled: "storniert"

@@ -5,6 +5,7 @@ namespace Sg\CalendarBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 /**
  * Class EventType
@@ -46,7 +47,16 @@ class EventType extends AbstractType
             ->add('color', null, array('label' => 'calendar.entity.event.color', 'translation_domain' => 'messages'))
             ->add('bgColor', null, array('label' => 'calendar.entity.event.bgColor', 'translation_domain' => 'messages'))
             ->add('borderColor', null, array('label' => 'calendar.entity.event.borderColor', 'translation_domain' => 'messages'))
-            ->add('textColor', null, array('label' => 'calendar.entity.event.textColor', 'translation_domain' => 'messages'));
+            ->add('textColor', null, array('label' => 'calendar.entity.event.textColor', 'translation_domain' => 'messages'))
+            ->add('status', 'choice', array(
+                    'choices' => array(
+                        EventInterface::STATUS_CONFIRMED => 'calendar.status.event.confirmed',
+                        EventInterface::STATUS_TENTATIVE => 'calendar.status.event.tentative',
+                        EventInterface::STATUS_CANCELLED => 'calendar.status.event.cancelled',
+                    ),
+                    'label' => 'calendar.entity.event.status',
+                    'translation_domain' => 'messages'
+                ));
     }
 
     /**
