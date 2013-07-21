@@ -3,6 +3,7 @@
 namespace Sg\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sg\CalendarBundle\Entity\Recurrence;
 use \DateTime;
 
 /**
@@ -104,6 +105,31 @@ interface EventInterface
      * @return DateTime
      */
     public function getEnd();
+
+    /**
+     * Add recurrence.
+     *
+     * @param Recurrence $recurrence
+     *
+     * @return self
+     */
+    public function addRecurrence(Recurrence $recurrence);
+
+    /**
+     * Remove recurrence.
+     *
+     * @param Recurrence $recurrence
+     *
+     * @return self
+     */
+    public function removeRecurrence(Recurrence $recurrence);
+
+    /**
+     * Get recurrence.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecurrences();
 
     /**
      * Set description.

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sg\CalendarBundle\Entity\Recurrence;
 use \DateTime;
 
 /**
@@ -79,6 +80,18 @@ abstract class AbstractEvent implements EventInterface
      * @ORM\Column(name="end", type="datetime", nullable=true)
      */
     protected $end;
+
+    /**
+     * The recurrences of the event.
+     *
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Sg\CalendarBundle\Entity\Recurrence",
+     *     mappedBy="event"
+     * )
+     */
+    protected $recurrences;
 
     /**
      * Description of the event.
@@ -255,6 +268,7 @@ abstract class AbstractEvent implements EventInterface
         $this->allDay = true;
         $this->editable = false;
         $this->attendable = false;
+        $this->recurrences = new ArrayCollection();
         $this->attendees = new ArrayCollection();
     }
 
@@ -369,6 +383,32 @@ abstract class AbstractEvent implements EventInterface
     public function getEnd()
     {
         return $this->end;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addRecurrence(Recurrence $recurrence)
+    {
+        $this->recurrences[] = $recurrence;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeRecurrence(Recurrence $recurrence)
+    {
+        $this->recurrences->removeElement($recurrence);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRecurrences()
+    {
+        return $this->recurrences;
     }
 
     /**
