@@ -21,7 +21,7 @@ class EventsToArray
     /**
      * Ctor.
      *
-     * @param UrlGeneratorInterface $router A UrlGeneratorInterface instance
+     * @param UrlGeneratorInterface $router A UrlGeneratorInterface
      */
     public function __construct(UrlGeneratorInterface $router)
     {
@@ -29,7 +29,7 @@ class EventsToArray
     }
 
     /**
-     * Convert Events to an array.
+     * Convert all Events to an array.
      *
      * @param EventInterface[] $events
      *
@@ -40,7 +40,28 @@ class EventsToArray
         $returnEvents = array();
 
         foreach ($events as $event) {
+
+            // add event
             $returnEvents[] = $this->toArray($event);
+
+            // add pre calculated recurring events
+            $recurrences = $event->getRecurrences();
+            /**
+             * @var \Sg\CalendarBundle\Entity\Recurrence $recurrence
+             */
+            foreach ($recurrences as $recurrence) {
+                $calculations = $recurrence->getCalculations();
+
+                /**
+                 * @var \Sg\CalendarBundle\Entity\Calculation $calculation
+                 */
+                foreach ($calculations as $calculation) {
+                    $start = $calculation->getStart();
+
+                    $returnEvents[] = $this->toArray($event, $start);
+                }
+            }
+
         }
 
         return $returnEvents;
@@ -49,18 +70,24 @@ class EventsToArray
     /**
      * Convert Event to an array.
      *
-     * @param EventInterface $event
+     * @param EventInterface $event An EventInterface
+     * @param \DateTime      $start Start value of a recurring event
      *
      * @return array
      */
-    private function toArray($event)
+    private function toArray($event, $start=null)
     {
         $result = array();
 
         $result['id'] = $event->getId();
         $result['title'] = $event->getTitle();
         $result['allDay'] = $event->getAllDay();
-        $result['start'] = $event->getStart()->format(DATE_ISO8601);
+
+        if ($start !== null) {
+            $result['start'] = $start->format(DATE_ISO8601);
+        } else {
+            $result['start'] = $event->getStart()->format(DATE_ISO8601);
+        }
 
         if ($event->getEnd() !== null) {
             $result['end'] = $event->getEnd()->format(DATE_ISO8601);
