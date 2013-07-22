@@ -125,7 +125,7 @@ interface EventInterface
     public function removeRecurrence(Recurrence $recurrence);
 
     /**
-     * Get recurrence.
+     * Get recurrences.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -141,6 +141,8 @@ interface EventInterface
     public function setDescription($description);
 
     /**
+     * Get description.
+     *
      * @return text
      */
     public function getDescription();

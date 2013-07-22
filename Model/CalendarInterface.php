@@ -45,6 +45,8 @@ interface CalendarInterface
     public function setDescription($description);
 
     /**
+     * Get description.
+     *
      * @return text
      */
     public function getDescription();

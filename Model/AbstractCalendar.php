@@ -75,7 +75,7 @@ class AbstractCalendar implements CalendarInterface
     protected $events;
 
     /**
-     * This property affects whether an calendar is shown.
+     * Determines whether the calendar is private or public.
      *
      * @var boolean
      *
