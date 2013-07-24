@@ -5,6 +5,7 @@ namespace Sg\CalendarBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sg\CalendarBundle\Model\RecurrenceInterface;
 use Sg\CalendarBundle\Model\EventInterface;
 
 /**
@@ -44,8 +45,6 @@ class Recurrence implements RecurrenceInterface
     protected $event;
 
     /**
-     * Specifies which day of the week an recurrence falls on.
-     *
      * @var string
      *
      * @ORM\Column(name="weekday", type="string", length=255, nullable=false)
@@ -53,10 +52,6 @@ class Recurrence implements RecurrenceInterface
     protected $weekday;
 
     /**
-     * Specifies the calendar month of the year as a number from 1 to 12.
-     * This column only applies when Period is 'Y' (Yearly).
-     * When not applicable, it should have the value 0.
-     *
      * @var integer
      *
      * @ORM\Column(name="month", type="integer", nullable=false)
@@ -90,7 +85,7 @@ class Recurrence implements RecurrenceInterface
     protected $end;
 
     /**
-     * Pre calculated start data.
+     * The calculated events.
      *
      * @var ArrayCollection
      *
@@ -121,7 +116,7 @@ class Recurrence implements RecurrenceInterface
      */
     public function __toString()
     {
-        return $this->id;
+        return 'Recurrence #' . $this->id;
     }
 
 

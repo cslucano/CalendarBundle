@@ -1,11 +1,11 @@
 <?php
 
-namespace Sg\CalendarBundle\Entity;
+namespace Sg\CalendarBundle\Model;
 
 /**
  * Class RecurrenceInterface
  *
- * @package Sg\CalendarBundle\Entity
+ * @package Sg\CalendarBundle\Model
  */
 interface RecurrenceInterface
 {

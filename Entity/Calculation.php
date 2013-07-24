@@ -4,6 +4,8 @@ namespace Sg\CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
+use Sg\CalendarBundle\Model\CalculationInterface;
+use Sg\CalendarBundle\Model\RecurrenceInterface;
 use \DateTime;
 
 /**
@@ -14,10 +16,10 @@ use \DateTime;
  *
  * @package Sg\CalendarBundle\Entity
  */
-class Calculation
+class Calculation implements CalculationInterface
 {
     /**
-     * The identifier.
+     * Identifier of the calculation.
      *
      * @var integer
      *
@@ -43,7 +45,7 @@ class Calculation
     protected $recurrence;
 
     /**
-     * The new calculated start time of the event.
+     * The calculated start time of the event.
      *
      * @var DateTime
      *
@@ -51,11 +53,18 @@ class Calculation
      */
     protected $start;
 
+    /**
+     * The calculated end time of the event.
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(name="end", type="datetime", nullable=false)
+     */
+    protected $end;
+
 
     /**
-     * Get id.
-     *
-     * @return integer 
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -63,11 +72,7 @@ class Calculation
     }
 
     /**
-     * Set start.
-     *
-     * @param DateTime $start
-     *
-     * @return Calculation
+     * {@inheritdoc}
      */
     public function setStart($start)
     {
@@ -77,9 +82,7 @@ class Calculation
     }
 
     /**
-     * Get start.
-     *
-     * @return DateTime
+     * {@inheritdoc}
      */
     public function getStart()
     {
@@ -87,13 +90,27 @@ class Calculation
     }
 
     /**
-     * Set recurrence.
-     *
-     * @param Recurrence $recurrence
-     *
-     * @return Calculation
+     * {@inheritdoc}
      */
-    public function setRecurrence(Recurrence $recurrence)
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRecurrence(RecurrenceInterface $recurrence)
     {
         $this->recurrence = $recurrence;
 
@@ -101,9 +118,7 @@ class Calculation
     }
 
     /**
-     * Get recurrence.
-     *
-     * @return Recurrence
+     * {@inheritdoc}
      */
     public function getRecurrence()
     {
