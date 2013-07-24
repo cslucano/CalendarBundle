@@ -1,5 +1,5 @@
 {% extends 'SgCalendarBundle::layout.html.twig' %}
-{% form_theme edit_form 'SgCalendarBundle:Form:theme.html.twig' %}
+{% form_theme form 'SgCalendarBundle:Form:theme.html.twig' %}
 
 {% block title %}{{ 'calendar.event.action.edit.title'|trans({}, 'messages') }}{% endblock %}
 
@@ -16,11 +16,13 @@
 
 {% block content %}
 
-    {{ form_start(edit_form, {'attr': {'class': 'form-horizontal well'}, 'action': path('sg_calendar_update_event', { 'id': entity.id }) }) }}
-        {{ form_widget(edit_form) }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal well'}, 'action': path('sg_calendar_update_event', { 'id': entity.id }) }) }}
+
+        {% include "SgCalendarBundle:Event:form_content.html.twig" %}
+
         <div class="form-actions">
             <button formnovalidate="formnovalidate" class="btn btn-primary" type="submit">{{ 'calendar.event.action.edit.submit'|trans({}, 'messages') }}</button>
         </div>
-    {{ form_end(edit_form) }}
+    {{ form_end(form, {'render_rest': false}) }}
 
 {% endblock %}

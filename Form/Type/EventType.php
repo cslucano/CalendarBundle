@@ -56,6 +56,14 @@ class EventType extends AbstractType
                     ),
                     'label' => 'calendar.entity.event.status',
                     'translation_domain' => 'messages'
+                ))
+            ->add('recurrences', 'collection', array(
+                    'type' => new RecurrenceType(),
+                    'label' => 'Recurrences',
+                    'allow_add' => true,    // default: false
+                    'allow_delete' => true, // default: false
+                    //'prototype' => true,  // is default
+                    'by_reference' => false // default: true
                 ));
     }
 

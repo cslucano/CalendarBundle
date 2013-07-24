@@ -17,10 +17,12 @@
 {% block content %}
 
     {{ form_start(form, {'attr': {'class': 'form-horizontal well'}, 'action': path('sg_calendar_create_event') }) }}
-        {{ form_widget(form) }}
+
+        {% include "SgCalendarBundle:Event:form_content.html.twig" %}
+
         <div class="form-actions">
             <button formnovalidate="formnovalidate" class="btn btn-primary" type="submit">{{ 'calendar.event.action.new.submit'|trans({}, 'messages') }}</button>
         </div>
-    {{ form_end(form) }}
+    {{ form_end(form, {'render_rest': false}) }}
 
 {% endblock %}
