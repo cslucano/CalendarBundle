@@ -26,7 +26,6 @@
                 {{ form_row(recurrence.period) }}
                 {{ form_row(recurrence.multiple) }}
                 {{ form_row(recurrence.end) }}
-                {{ form_row(recurrence.event) }}
             </li>
         {% endfor %}
 
@@ -34,10 +33,7 @@
 </fieldset>
 
 <script type="text/javascript">
-    // Get the ul that holds the collection
     var collectionHolder = $('ul.recurrences');
-
-    // setup an "add" link
     var $addLink = $('<a href="#" class="add_link">Hinzufügen</a>');
     var $newLinkLi = $('<li></li>').append($addLink);
 
@@ -46,54 +42,37 @@
         $FormLi.append($removeFormA);
 
         $removeFormA.on('click', function(e) {
-            // prevent the link from creating a "#" on the URL
             e.preventDefault();
-
-            // remove the li
             $FormLi.remove();
         });
     }
 
     function addForm(collectionHolder, $newLinkLi) {
-        // Get the data-prototype explained earlier
         var prototype = collectionHolder.data('prototype');
-
-        // get the new index
         var index = collectionHolder.data('index');
-
-        // Replace '__name__' in the prototype's HTML to
-        // instead be a number based on how many items we have
         var newForm = prototype.replace(/__name__/g, index);
 
-        // increase the index with one for the next recurrence
         collectionHolder.data('index', index + 1);
 
-        // Display the form in the page in an li, before the "Add" link li
         var $newFormLi = $('<li class="recurrence_form"></li>').append(newForm);
         $newLinkLi.before($newFormLi);
 
-        // add a delete link to the new form
         addFormDeleteLink($newFormLi);
+
+        sg_calendar_datepicker.initDatePicker();
     }
 
     jQuery(document).ready(function() {
-        // add a delete link to all of the existing form li elements
         collectionHolder.find('li.recurrence_form').each(function() {
             addFormDeleteLink($(this));
         });
 
-        // add the "add" anchor
         collectionHolder.append($newLinkLi);
 
-        // count the current form inputs we have (e.g. 2), use that as the new
-        // index when inserting a new item (e.g. 2)
         collectionHolder.data('index', collectionHolder.find(':input').length);
 
         $addLink.on('click', function(e) {
-            // prevent the link from creating a "#" on the URL
             e.preventDefault();
-
-            // add a new form (see next code block)
             addForm(collectionHolder, $newLinkLi);
         });
     });
