@@ -88,7 +88,9 @@ abstract class AbstractEvent implements EventInterface
      *
      * @ORM\OneToMany(
      *     targetEntity="Sg\CalendarBundle\Entity\Recurrence",
-     *     mappedBy="event"
+     *     mappedBy="event",
+     *     cascade={"persist"},
+     *     orphanRemoval=true
      * )
      */
     protected $recurrences;
