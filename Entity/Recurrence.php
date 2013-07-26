@@ -81,6 +81,8 @@ class Recurrence implements RecurrenceInterface
      * Date on which recurrence expires.
      *
      * @var \DateTime
+     *
+     * @ORM\Column(name="end", type="datetime", nullable=false)
      */
     protected $end;
 
