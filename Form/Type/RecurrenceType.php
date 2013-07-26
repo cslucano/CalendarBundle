@@ -45,8 +45,7 @@ class RecurrenceType extends AbstractType
                     'label' => 'Periode'
                 ))
             ->add('multiple', null, array('label' => 'Multiplikator'))
-            ->add('end', 'datePicker', array('label' => 'Ende'))
-            ->add('event', null, array('label' => 'Ereignis'));
+            ->add('end', 'datePicker', array('label' => 'Ende'));
     }
 
     /**
