@@ -36,7 +36,10 @@ class EventController extends AbstractBaseController
      */
     public function postAction(Request $request)
     {
-        $event = $this->getEventManager()->newEvent();
+        /**
+         * @var \Sg\CalendarBundle\Model\EventInterface $event
+         */
+        $event = $this->getEventManager()->create();
 
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -48,7 +51,7 @@ class EventController extends AbstractBaseController
         if ($form->isValid()) {
             $eventData = new EventData($event);
 
-            $this->getEventManager()->updateEvent($event);
+            $this->getEventManager()->save($event);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
@@ -77,7 +80,7 @@ class EventController extends AbstractBaseController
      */
     public function newAction()
     {
-        $event = $this->getEventManager()->newEvent();
+        $event = $this->getEventManager()->create();
 
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -149,7 +152,7 @@ class EventController extends AbstractBaseController
 
         return array(
             'entity' => $event,
-            'edit_form' => $editForm->createView()
+            'form' => $editForm->createView()
         );
     }
 
@@ -183,7 +186,7 @@ class EventController extends AbstractBaseController
         if ($editForm->isValid()) {
             $eventData = new EventData($event);
 
-            $this->getEventManager()->updateEvent($event);
+            $this->getEventManager()->save($event);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
@@ -195,7 +198,7 @@ class EventController extends AbstractBaseController
 
         return array(
             'entity' => $event,
-            'edit_form' => $editForm->createView()
+            'form' => $editForm->createView()
         );
     }
 
@@ -259,7 +262,7 @@ class EventController extends AbstractBaseController
         if ($removeForm->isValid()) {
             $eventData = new EventData($event);
 
-            $this->getEventManager()->removeEvent($event);
+            $this->getEventManager()->remove($event);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
@@ -297,7 +300,7 @@ class EventController extends AbstractBaseController
 
         if (!$event->hasAttendee($this->getUser())) {
             $event->getAttendees()->add($this->getUser());
-            $this->getEventManager()->updateEvent($event);
+            $this->getEventManager()->save($event);
         }
 
         return $this->redirect($this->generateUrl('sg_calendar_get_event', array(
@@ -327,7 +330,7 @@ class EventController extends AbstractBaseController
 
         if ($event->hasAttendee($this->getUser())) {
             $event->getAttendees()->removeElement($this->getUser());
-            $this->getEventManager()->updateEvent($event);
+            $this->getEventManager()->save($event);
         }
 
         return $this->redirect($this->generateUrl('sg_calendar_get_event', array(
