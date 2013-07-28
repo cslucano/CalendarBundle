@@ -104,7 +104,7 @@ class FullcalendarController extends AbstractBaseController
             $event->setEnd($end);
             $event->setAllDay($allDay);
 
-            $this->getEventManager()->updateEvent($event);
+            $this->getEventManager()->save($event);
 
             return new Response('This is ajax response.');
         }

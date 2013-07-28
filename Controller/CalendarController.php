@@ -65,7 +65,10 @@ class CalendarController extends AbstractBaseController
      */
     public function postAction(Request $request)
     {
-        $calendar = $this->getCalendarManager()->newCalendar();
+        /**
+         * @var \Sg\CalendarBundle\Model\CalendarInterface $calendar
+         */
+        $calendar = $this->getCalendarManager()->create();
 
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -77,7 +80,7 @@ class CalendarController extends AbstractBaseController
         if ($form->isValid()) {
             $calendarData = new CalendarData($calendar);
 
-            $this->getCalendarManager()->updateCalendar($calendar);
+            $this->getCalendarManager()->save($calendar);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
@@ -106,7 +109,7 @@ class CalendarController extends AbstractBaseController
      */
     public function newAction()
     {
-        $calendar = $this->getCalendarManager()->newCalendar();
+        $calendar = $this->getCalendarManager()->create();
 
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -209,7 +212,7 @@ class CalendarController extends AbstractBaseController
         if ($editForm->isValid()) {
             $calendarData = new CalendarData($calendar);
 
-            $this->getCalendarManager()->updateCalendar($calendar);
+            $this->getCalendarManager()->save($calendar);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
@@ -285,7 +288,7 @@ class CalendarController extends AbstractBaseController
         if ($removeForm->isValid()) {
             $calendarData = new CalendarData($calendar);
 
-            $this->getCalendarManager()->removeCalendar($calendar);
+            $this->getCalendarManager()->remove($calendar);
 
             // Set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
