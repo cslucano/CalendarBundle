@@ -78,4 +78,12 @@ class ModelManager extends BaseManager
     {
         return $this->repository->findOneBy($criteria);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function find($id)
+    {
+        return $this->repository->find($id);
+    }
 }

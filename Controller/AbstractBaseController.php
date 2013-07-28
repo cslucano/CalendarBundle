@@ -21,7 +21,7 @@ abstract class AbstractBaseController extends Controller
      */
     protected function getCalendarById($id)
     {
-        $calendar = $this->getCalendarManager()->findCalendarBy(array('id' => $id));
+        $calendar = $this->getCalendarManager()->find($id);
         if (!$calendar) {
             throw $this->createNotFoundException('Unable to find Calendar entity.');
         }
@@ -39,7 +39,7 @@ abstract class AbstractBaseController extends Controller
      */
     protected function getEventById($id)
     {
-        $event = $this->getEventManager()->findEventBy(array('id' => $id));
+        $event = $this->getEventManager()->find($id);
         if (!$event) {
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
@@ -79,7 +79,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\CalendarManagerInterface
+     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
      */
     protected function getCalendarManager()
     {
@@ -87,7 +87,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\EventManagerInterface
+     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
      */
     protected function getEventManager()
     {

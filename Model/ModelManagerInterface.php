@@ -55,6 +55,15 @@ interface ModelManagerInterface
     function findOneBy(array $criteria = array());
 
     /**
+     * Finds an object by its primary key / identifier.
+     *
+     * @param mixed $id The identifier
+     *
+     * @return object
+     */
+    function find($id);
+
+    /**
      * Returns the objects's fully qualified class name.
      *
      * @return string
