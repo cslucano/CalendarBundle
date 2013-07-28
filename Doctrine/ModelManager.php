@@ -42,9 +42,9 @@ class ModelManager extends BaseManager
     /**
      * {@inheritDoc}
      */
-    public function save($calendar, $andFlush = true)
+    public function save($object, $andFlush = true)
     {
-        $this->em->persist($calendar);
+        $this->em->persist($object);
 
         if (true === $andFlush) {
             $this->em->flush();
@@ -54,9 +54,9 @@ class ModelManager extends BaseManager
     /**
      * {@inheritDoc}
      */
-    public function remove($calendar, $andFlush = true)
+    public function remove($object, $andFlush = true)
     {
-        $this->em->remove($calendar);
+        $this->em->remove($object);
 
         if (true === $andFlush) {
             $this->em->flush();
