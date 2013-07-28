@@ -2,85 +2,23 @@
 
 namespace Sg\CalendarBundle\Doctrine;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sg\CalendarBundle\Model\CalendarInterface;
-use Sg\CalendarBundle\Model\AbstractCalendarManager as BaseCalendarManager;
 
 /**
  * Class CalendarManager
  *
  * @package Sg\CalendarBundle\Doctrine
  */
-class CalendarManager extends BaseCalendarManager
+class CalendarManager extends ModelManager
 {
     /**
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
-     * @var EntityRepository
-     */
-    protected $repository;
-
-
-    //-------------------------------------------------
-    // Ctor.
-    //-------------------------------------------------
-
-    /**
-     * Ctor.
+     * Find all calendars by given visibility.
      *
-     * @param EntityManager $em    An EntityManager instance
-     * @param string        $class The class name of calendar entity
-     */
-    public function __construct(EntityManager $em, $class)
-    {
-        $this->em = $em;
-        $this->repository = $em->getRepository($class);
-
-        $metadata = $em->getClassMetadata($class);
-        $this->class = $metadata->getName();
-    }
-
-
-    //-------------------------------------------------
-    // CalendarManagerInterface
-    //-------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-    public function removeCalendar(CalendarInterface $calendar)
-    {
-        $this->em->remove($calendar);
-        $this->em->flush();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function updateCalendar(CalendarInterface $calendar, $andFlush = true)
-    {
-        $this->em->persist($calendar);
-
-        if ($andFlush) {
-            $this->em->flush();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findCalendarBy(array $criteria)
-    {
-        return $this->repository->findOneBy($criteria);
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param boolean       $visible The visibility of the calendar
+     * @param string        $max     Limit the number of results returned from the query
+     * @param UserInterface $user    If a user passed, this is an exclusion criteria
+     *
+     * @return mixed
      */
     public function findCalendarsByVisible($visible, $max, UserInterface $user = null)
     {
@@ -99,7 +37,11 @@ class CalendarManager extends BaseCalendarManager
     }
 
     /**
-     * {@inheritDoc}
+     * Find all calendars by given user.
+     *
+     * @param UserInterface $user
+     *
+     * @return mixed
      */
     public function findCalendarsByUser(UserInterface $user)
     {
