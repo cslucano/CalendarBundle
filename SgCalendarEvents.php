@@ -42,6 +42,11 @@ final class SgCalendarEvents
     /**
      * @var string
      */
+    const EVENT_CALCULATE_RECURRENCES = 'sg_calendar.event.calculate.recurrences';
+
+    /**
+     * @var string
+     */
     const CALENDAR_CREATE_SUCCESS = 'sg_calendar.calendar.create.success';
 
     /**

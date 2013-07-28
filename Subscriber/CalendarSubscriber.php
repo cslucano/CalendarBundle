@@ -3,8 +3,11 @@
 namespace Sg\CalendarBundle\Subscriber;
 
 use Sg\CalendarBundle\SgCalendarEvents;
+use Sg\CalendarBundle\Model\RecurrenceInterface;
+use Sg\CalendarBundle\Entity\Calculation;
 use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\Event\CalendarData;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -35,6 +38,12 @@ class CalendarSubscriber implements EventSubscriberInterface
     private $translator;
 
     /**
+     * @var EntityManager
+     */
+    protected $em;
+
+
+    /**
      * @var array
      */
     private static $messages = array(
@@ -57,12 +66,14 @@ class CalendarSubscriber implements EventSubscriberInterface
      * @param Session               $session    A Session instance
      * @param UrlGeneratorInterface $router     A UrlGeneratorInterface instance
      * @param TranslatorInterface   $translator A TranslatorInterface instance
+     * @param EntityManager         $em         An EntityManager instance
      */
-    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator)
+    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator, EntityManager $em)
     {
         $this->session = $session;
         $this->router = $router;
         $this->translator = $translator;
+        $this->em = $em;
     }
 
 
@@ -103,6 +114,42 @@ class CalendarSubscriber implements EventSubscriberInterface
     {
         $url = $this->router->generate('sg_calendar');
         $eventData->setResponse(new RedirectResponse($url));
+    }
+
+    /**
+     * Calculate recurrences.
+     *
+     * @param EventData $eventData
+     */
+    public function onEventHasRecurrences(EventData $eventData)
+    {
+        $event = $eventData->getEvent();
+        $eventStart = $event->getStart();
+
+        /**
+         * @var \Sg\CalendarBundle\Entity\Recurrence $recurrence
+         */
+        foreach ($event->getRecurrences() as $recurrence) {
+            $recurrencePeriod = $recurrence->getPeriod();
+            $recurrenceEnd = $recurrence->getEnd();
+
+            if (RecurrenceInterface::PERIOD_WEEKLY === $recurrencePeriod) {
+                $intervall = new \DateInterval('P7D');
+                $p = new \DatePeriod($eventStart, $intervall, $recurrenceEnd, \DatePeriod::EXCLUDE_START_DATE);
+                $i = 0;
+                foreach ($p as $item) {
+                    //print $item->format(\DateTime::ISO8601).'<br>';
+                    $calc[$i] = new Calculation();
+                    $calc[$i]->setRecurrence($recurrence);
+                    $calc[$i]->setStart($item);
+                    $calc[$i]->setEnd($item);
+                    $this->em->persist($calc[$i]);
+                    $i++;
+                }
+            }
+        }
+
+        $this->em->flush();
     }
 
 
@@ -176,6 +223,7 @@ class CalendarSubscriber implements EventSubscriberInterface
             SgCalendarEvents::EVENT_CREATE_COMPLETED => 'addSuccessFlash',
             SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlash',
             SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::EVENT_CALCULATE_RECURRENCES => 'onEventHasRecurrences',
             SgCalendarEvents::CALENDAR_CREATE_SUCCESS => 'onCalendarCreateSuccess',
             SgCalendarEvents::CALENDAR_UPDATE_SUCCESS => 'onCalendarUpdateSuccess',
             SgCalendarEvents::CALENDAR_REMOVE_SUCCESS => 'onCalendarRemoveSuccess',

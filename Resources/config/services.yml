@@ -54,7 +54,7 @@ services:
 
     sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\Subscriber\CalendarSubscriber
-        arguments: [@session, @router, @translator]
+        arguments: [@session, @router, @translator, @doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_subscriber }
 
