@@ -41,14 +41,14 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
     public function load(ObjectManager $manager)
     {
 
-        $calendar = $this->getCalendarManager()->newCalendar();
+        $calendar = $this->getCalendarManager()->create();
         $calendar->setName('UserCalendar');
         $calendar->setCreatedAt(new \DateTime());
         $calendar->setUpdatedAt(new \DateTime());
         $calendar->setCreatedBy($this->getReference('user'));
         $calendar->setUpdatedBy($this->getReference('user'));
 
-        $event = $this->getEventManager()->newEvent();
+        $event = $this->getEventManager()->create();
         $event->setCalendar($calendar);
         $event->setTitle('UserTestevent');
         $event->setStart(new \DateTime());
@@ -66,7 +66,7 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\CalendarManagerInterface
+     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
      */
     private function getCalendarManager()
     {
@@ -74,7 +74,7 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\EventManagerInterface
+     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
      */
     protected function getEventManager()
     {
