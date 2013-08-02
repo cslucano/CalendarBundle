@@ -92,6 +92,7 @@ abstract class AbstractEvent implements EventInterface
      *     cascade={"persist"},
      *     orphanRemoval=true
      * )
+     * @Assert\Valid()
      */
     protected $recurrences;
 
