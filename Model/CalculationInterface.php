@@ -2,7 +2,6 @@
 
 namespace Sg\CalendarBundle\Model;
 
-use Sg\CalendarBundle\Model\RecurrenceInterface;
 use \DateTime;
 
 /**

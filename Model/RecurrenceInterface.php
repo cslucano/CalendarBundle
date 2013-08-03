@@ -2,6 +2,8 @@
 
 namespace Sg\CalendarBundle\Model;
 
+use \DateTime;
+
 /**
  * Class RecurrenceInterface
  *
@@ -9,27 +11,119 @@ namespace Sg\CalendarBundle\Model;
  */
 interface RecurrenceInterface
 {
-    //-------------------------------------------------
-    // Specifies the most appropriate periods
-    //-------------------------------------------------
+    /**
+     * @var string
+     */
+    const PERIOD_DAILY   = 'daily';
 
-    const PERIOD_DAILY   = 'day';
-    const PERIOD_WEEKLY  = 'week';
-    const PERIOD_MONTHLY = 'month';
-    const PERIOD_YEARLY  = 'year';
+    /**
+     * @var string
+     */
+    const PERIOD_WEEKLY  = 'weekly';
+
+    /**
+     * @var string
+     */
+    const PERIOD_MONTHLY = 'monthly';
+
+    /**
+     * @var string
+     */
+    const PERIOD_YEARLY  = 'yearly';
 
 
-    //-------------------------------------------------
-    // Determines the day(s) of the week
-    //-------------------------------------------------
+    /**
+     * Get id.
+     *
+     * @return integer
+     */
+    public function getId();
 
-    const WEEKDAY_NONE      = 'none';
-    const WEEKDAY_MONDAY    = 'monday';
-    const WEEKDAY_TUESDAY   = 'tuesday';
-    const WEEKDAY_WEDNESDAY = 'wednesday';
-    const WEEKDAY_THURSDAY  = 'thursday';
-    const WEEKDAY_FRIDAY    = 'friday';
-    const WEEKDAY_SATURDAY  = 'saturday';
-    const WEEKDAY_SUNDAY    = 'sunday';
-    const WEEKDAY_ALL       = 'all';
+    /**
+     * Set period.
+     *
+     * @param string $period
+     *
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    public function setPeriod($period);
+
+    /**
+     * Get period.
+     *
+     * @return string
+     */
+    public function getPeriod();
+
+    /**
+     * Set multiple.
+     *
+     * @param integer $multiple
+     *
+     * @return self
+     */
+    public function setMultiple($multiple);
+
+    /**
+     * Get multiple.
+     *
+     * @return integer
+     */
+    public function getMultiple();
+
+    /**
+     * Set end.
+     *
+     * @param DateTime $end
+     *
+     * @return self
+     */
+    public function setEnd($end);
+
+    /**
+     * Get end.
+     *
+     * @return DateTime
+     */
+    public function getEnd();
+
+    /**
+     * Add calculation.
+     *
+     * @param CalculationInterface $calculation
+     *
+     * @return self
+     */
+    public function addCalculation(CalculationInterface $calculation);
+
+    /**
+     * Remove calculation.
+     *
+     * @param CalculationInterface $calculation
+     */
+    public function removeCalculation(CalculationInterface $calculation);
+
+    /**
+     * Get calculations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCalculations();
+
+    /**
+     * Set event.
+     *
+     * @param EventInterface $event
+     *
+     * @return self
+     */
+    public function setEvent(EventInterface $event);
+
+    /**
+     * Get event.
+     *
+     * @return EventInterface
+     */
+    public function getEvent();
 }

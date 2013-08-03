@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sg\CalendarBundle\Entity\Recurrence;
+use Sg\CalendarBundle\Model\RecurrenceInterface;
 use \DateTime;
 
 /**
@@ -87,7 +87,7 @@ abstract class AbstractEvent implements EventInterface
      * @var ArrayCollection
      *
      * @ORM\OneToMany(
-     *     targetEntity="Sg\CalendarBundle\Entity\Recurrence",
+     *     targetEntity="Sg\CalendarBundle\Model\RecurrenceInterface",
      *     mappedBy="event",
      *     cascade={"persist"},
      *     orphanRemoval=true
@@ -391,7 +391,7 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function addRecurrence(Recurrence $recurrence)
+    public function addRecurrence(RecurrenceInterface $recurrence)
     {
         $recurrence->setEvent($this);
         $this->recurrences[] = $recurrence;
@@ -402,7 +402,7 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function removeRecurrence(Recurrence $recurrence)
+    public function removeRecurrence(RecurrenceInterface $recurrence)
     {
         $this->recurrences->removeElement($recurrence);
         $recurrence->setEvent(null);
