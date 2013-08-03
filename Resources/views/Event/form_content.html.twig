@@ -21,8 +21,6 @@
 
         {% for recurrence in form.recurrences %}
             <li class="recurrence_form">
-                {{ form_row(recurrence.weekday) }}
-                {{ form_row(recurrence.month) }}
                 {{ form_row(recurrence.period) }}
                 {{ form_row(recurrence.multiple) }}
                 {{ form_row(recurrence.end) }}

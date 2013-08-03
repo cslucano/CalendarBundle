@@ -20,27 +20,12 @@ class RecurrenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('weekday', 'choice', array(
-                    'choices' => array(
-                        RecurrenceInterface::WEEKDAY_NONE => 'none',
-                        RecurrenceInterface::WEEKDAY_MONDAY => 'monday',
-                        RecurrenceInterface::WEEKDAY_TUESDAY => 'tuesday',
-                        RecurrenceInterface::WEEKDAY_WEDNESDAY => 'wednesday',
-                        RecurrenceInterface::WEEKDAY_THURSDAY => 'thursday',
-                        RecurrenceInterface::WEEKDAY_FRIDAY => 'friday',
-                        RecurrenceInterface::WEEKDAY_SATURDAY => 'saturday',
-                        RecurrenceInterface::WEEKDAY_SUNDAY => 'sunday',
-                        RecurrenceInterface::WEEKDAY_ALL => 'all'
-                    ),
-                    'label' => 'Wochentag'
-                ))
-            ->add('month', null, array('label' => 'Monat'))
             ->add('period', 'choice', array(
                     'choices' => array(
-                        RecurrenceInterface::PERIOD_DAILY => 'day',
-                        RecurrenceInterface::PERIOD_WEEKLY => 'week',
-                        RecurrenceInterface::PERIOD_MONTHLY => 'month',
-                        RecurrenceInterface::PERIOD_YEARLY => 'year'
+                        RecurrenceInterface::PERIOD_DAILY => 'daily',
+                        RecurrenceInterface::PERIOD_WEEKLY => 'weekly',
+                        RecurrenceInterface::PERIOD_MONTHLY => 'monthly',
+                        RecurrenceInterface::PERIOD_YEARLY => 'yearly'
                     ),
                     'label' => 'Periode'
                 ))
