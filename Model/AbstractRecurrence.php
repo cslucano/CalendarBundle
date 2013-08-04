@@ -97,7 +97,7 @@ class AbstractRecurrence implements RecurrenceInterface
      */
     public function __construct()
     {
-        $this->multiple = 0;
+        $this->multiple = 1;
         $this->calculations = new ArrayCollection();
     }
 
