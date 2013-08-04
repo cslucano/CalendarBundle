@@ -160,19 +160,26 @@ class CalculateRecurrences
      */
     private function saveCalcs(RecurrenceInterface $recurrence)
     {
-        /**
-         * @var \Sg\CalendarBundle\Model\CalculationInterface[] $calc
-         */
-        for ($i = 0; $i < $this->counter; $i++) {
-            $calc[$i] = $this->calculationManager->create();
-            $calc[$i]->setRecurrence($recurrence);
-            $calc[$i]->setStart($this->starts[$i]);
-            if (count($this->ends) > 0) {
-                $calc[$i]->setEnd($this->ends[$i]);
-            } else {
-                $calc[$i]->setEnd(null);
+        foreach ($recurrence->getCalculations() as $calculation) {
+            $this->calculationManager->remove($calculation);
+        }
+
+        if (0 === $recurrence->getCalculations()->count()) {
+            /**
+             * @var \Sg\CalendarBundle\Model\CalculationInterface[] $calc
+             */
+            for ($i = 0; $i < $this->counter; $i++) {
+                $calc[$i] = $this->calculationManager->create();
+
+                $calc[$i]->setStart($this->starts[$i]);
+                if ( (isset($this->ends) &&  count($this->ends) > 0) ) {
+                    $calc[$i]->setEnd($this->ends[$i]);
+                } else {
+                    $calc[$i]->setEnd(null);
+                }
+
+                $recurrence->addCalculation($calc[$i]);
             }
-            $this->calculationManager->save($calc[$i]);
         }
     }
 
@@ -188,7 +195,7 @@ class CalculateRecurrences
     {
         $this->counter = 0;
 
-        if (count($this->ends) > 0) {
+        if ( (isset($this->ends) &&  count($this->ends) > 0) ) {
             if (count($this->starts) < count($this->ends)) {
                 $this->counter = count($this->starts);
             } else {
