@@ -29,7 +29,7 @@ class EventsToArray
     }
 
     /**
-     * Convert all Events to an array.
+     * Convert all events to an array.
      *
      * @param EventInterface[] $events
      *
@@ -41,10 +41,8 @@ class EventsToArray
 
         foreach ($events as $event) {
 
-            // add event
             $returnEvents[] = $this->toArray($event);
 
-            // add pre calculated recurring events
             $recurrences = $event->getRecurrences();
             /**
              * @var \Sg\CalendarBundle\Entity\Recurrence $recurrence
@@ -57,8 +55,9 @@ class EventsToArray
                  */
                 foreach ($calculations as $calculation) {
                     $start = $calculation->getStart();
+                    $end = $calculation->getEnd();
 
-                    $returnEvents[] = $this->toArray($event, $start);
+                    $returnEvents[] = $this->toArray($event, $start, $end);
                 }
             }
 
@@ -72,10 +71,11 @@ class EventsToArray
      *
      * @param EventInterface $event An EventInterface
      * @param \DateTime      $start Start value of a recurring event
+     * @param \DateTime      $end   End value of a recurring event
      *
      * @return array
      */
-    private function toArray($event, $start=null)
+    private function toArray($event, $start = null, $end = null)
     {
         $result = array();
 
@@ -85,12 +85,14 @@ class EventsToArray
 
         if ($start !== null) {
             $result['start'] = $start->format(DATE_ISO8601);
+            if ($end !== null) {
+                $result['end'] = $end->format(DATE_ISO8601);
+            }
         } else {
             $result['start'] = $event->getStart()->format(DATE_ISO8601);
-        }
-
-        if ($event->getEnd() !== null) {
-            $result['end'] = $event->getEnd()->format(DATE_ISO8601);
+            if ($event->getEnd() !== null) {
+                $result['end'] = $event->getEnd()->format(DATE_ISO8601);
+            }
         }
 
         if ($event->getUrl() !== null) {
