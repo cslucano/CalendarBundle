@@ -80,7 +80,9 @@ class AbstractRecurrence implements RecurrenceInterface
      *
      * @ORM\OneToMany(
      *     targetEntity="Sg\CalendarBundle\Model\CalculationInterface",
-     *     mappedBy="recurrence"
+     *     mappedBy="recurrence",
+     *     cascade={"persist"},
+     *     orphanRemoval=true
      * )
      */
     protected $calculations;
@@ -95,7 +97,7 @@ class AbstractRecurrence implements RecurrenceInterface
      */
     public function __construct()
     {
-        $this->multiple = 1;
+        $this->multiple = 0;
         $this->calculations = new ArrayCollection();
     }
 

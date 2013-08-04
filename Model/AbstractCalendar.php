@@ -12,8 +12,6 @@ use \DateTime;
 /**
  * Class AbstractCalendar
  *
- * @todo: the class may move to Sg\CalendarBundle\Doctrine
- *
  * @ORM\MappedSuperclass
  *
  * @package Sg\CalendarBundle\Model
