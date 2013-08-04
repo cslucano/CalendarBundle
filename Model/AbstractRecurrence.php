@@ -190,6 +190,7 @@ class AbstractRecurrence implements RecurrenceInterface
      */
     public function addCalculation(CalculationInterface $calculation)
     {
+        $calculation->setRecurrence($this);
         $this->calculations[] = $calculation;
 
         return $this;

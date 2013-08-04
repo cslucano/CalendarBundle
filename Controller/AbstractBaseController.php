@@ -95,6 +95,22 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
+     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
+     */
+    protected function getRecurrenceManager()
+    {
+        return $this->container->get('sg_calendar.recurrence_manager');
+    }
+
+    /**
+     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
+     */
+    protected function getCalculationManager()
+    {
+        return $this->container->get('sg_calendar.calculation_manager');
+    }
+
+    /**
      * @return \Sg\CalendarBundle\Form\Factory\CalendarFormFactoryInterface
      */
     protected function getCalendarFormFactory()

@@ -51,14 +51,14 @@ class EventController extends AbstractBaseController
         if ($form->isValid()) {
             $eventData = new EventData($event);
 
-            $this->getEventManager()->save($event);
-
             // Calculate recurrences, set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
 
             if ($event->getRecurrences()->count() > 0) {
                 $dispatcher->dispatch(SgCalendarEvents::EVENT_CALCULATE_RECURRENCES, $eventData);
             }
+
+            $this->getEventManager()->save($event);
 
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_SUCCESS, $eventData);
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_COMPLETED, $eventData);
@@ -191,14 +191,14 @@ class EventController extends AbstractBaseController
         if ($editForm->isValid()) {
             $eventData = new EventData($event);
 
-            $this->getEventManager()->save($event);
-
             // Calculate recurrences, set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
 
             if ($event->getRecurrences()->count() > 0) {
                 $dispatcher->dispatch(SgCalendarEvents::EVENT_CALCULATE_RECURRENCES, $eventData);
             }
+
+            $this->getEventManager()->save($event);
 
             $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_SUCCESS, $eventData);
             $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_COMPLETED, $eventData);
