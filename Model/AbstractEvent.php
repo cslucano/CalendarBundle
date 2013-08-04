@@ -403,7 +403,6 @@ abstract class AbstractEvent implements EventInterface
     public function removeRecurrence(RecurrenceInterface $recurrence)
     {
         $this->recurrences->removeElement($recurrence);
-        $recurrence->setEvent(null);
     }
 
     /**
