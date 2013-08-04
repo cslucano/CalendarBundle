@@ -18,6 +18,14 @@ services:
         class: Sg\CalendarBundle\Doctrine\CalendarManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%]
 
+    sg_calendar.recurrence_manager:
+        class: Sg\CalendarBundle\Doctrine\RecurrenceManager
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.recurrence.class%]
+
+    sg_calendar.calculation_manager:
+        class: Sg\CalendarBundle\Doctrine\CalculationManager
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calculation.class%]
+
     # Forms
 
     sg_calendar.form_type.event.default:
@@ -54,7 +62,7 @@ services:
 
     sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\Subscriber\CalendarSubscriber
-        arguments: [@session, @router, @translator, @doctrine.orm.entity_manager]
+        arguments: [@session, @router, @translator, @sg_calendar.calculate_recurrences]
         tags:
             - { name: kernel.event_subscriber }
 
@@ -69,6 +77,10 @@ services:
     sg_calendar.array_generator:
         class: Sg\CalendarBundle\Generator\EventsToArray
         arguments: [@router]
+
+    sg_calendar.calculate_recurrences:
+        class: Sg\CalendarBundle\Generator\CalculateRecurrences
+        arguments: [@sg_calendar.calculation_manager]
 
     # Security
 
