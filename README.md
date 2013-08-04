@@ -230,9 +230,11 @@ doctrine:
     orm:
         # ...
         resolve_target_entities:
-            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User
-            Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar
-            Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event
+            Sg\CalendarBundle\Model\RecurrenceInterface: Sg\CalendarBundle\Entity\Recurrence   # CalendarBundle default
+            Sg\CalendarBundle\Model\CalculationInterface: Sg\CalendarBundle\Entity\Calculation # CalendarBundle default
+            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User      # your User entity
+            Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar           # your Calendar entity
+            Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event                 # your Event entity
 ```
 
 ### Step 6: Configure the SgCalendarBundle
@@ -244,8 +246,8 @@ Add the following configuration to your `config.yml` file:
 
 sg_calendar:
     calendar_class: Sg\UserBundle\Entity\Calendar # or SgUserBundle:Calendar
-    event_class: Sg\UserBundle\Entity\Event # or SgUserBundle:Event
-    first_day: 1 # Monday
+    event_class: Sg\UserBundle\Entity\Event       # or SgUserBundle:Event
+    first_day: 1                                  # Monday
     time_format: "HH:mm"
 ```
 
