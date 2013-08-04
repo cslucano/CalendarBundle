@@ -53,8 +53,13 @@ class EventController extends AbstractBaseController
 
             $this->getEventManager()->save($event);
 
-            // Set (redirect) response and flash message
+            // Calculate recurrences, set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
+
+            if ($event->getRecurrences()->count() > 0) {
+                $dispatcher->dispatch(SgCalendarEvents::EVENT_CALCULATE_RECURRENCES, $eventData);
+            }
+
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_SUCCESS, $eventData);
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_COMPLETED, $eventData);
 
@@ -188,8 +193,13 @@ class EventController extends AbstractBaseController
 
             $this->getEventManager()->save($event);
 
-            // Set (redirect) response and flash message
+            // Calculate recurrences, set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
+
+            if ($event->getRecurrences()->count() > 0) {
+                $dispatcher->dispatch(SgCalendarEvents::EVENT_CALCULATE_RECURRENCES, $eventData);
+            }
+
             $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_SUCCESS, $eventData);
             $dispatcher->dispatch(SgCalendarEvents::EVENT_UPDATE_COMPLETED, $eventData);
 

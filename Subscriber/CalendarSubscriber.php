@@ -3,11 +3,9 @@
 namespace Sg\CalendarBundle\Subscriber;
 
 use Sg\CalendarBundle\SgCalendarEvents;
-use Sg\CalendarBundle\Model\RecurrenceInterface;
-use Sg\CalendarBundle\Entity\Calculation;
 use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\Event\CalendarData;
-use Doctrine\ORM\EntityManager;
+use Sg\CalendarBundle\Generator\CalculateRecurrences;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -38,10 +36,9 @@ class CalendarSubscriber implements EventSubscriberInterface
     private $translator;
 
     /**
-     * @var EntityManager
+     * @var CalculateRecurrences
      */
-    protected $em;
-
+    protected $calculateRecurrences;
 
     /**
      * @var array
@@ -64,16 +61,16 @@ class CalendarSubscriber implements EventSubscriberInterface
      * Ctor.
      *
      * @param Session               $session    A Session instance
-     * @param UrlGeneratorInterface $router     A UrlGeneratorInterface instance
-     * @param TranslatorInterface   $translator A TranslatorInterface instance
-     * @param EntityManager         $em         An EntityManager instance
+     * @param UrlGeneratorInterface $router     A UrlGeneratorInterface
+     * @param TranslatorInterface   $translator A TranslatorInterface
+     * @param CalculateRecurrences  $calc       A CalculateRecurrences instance
      */
-    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator, EntityManager $em)
+    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator, CalculateRecurrences $calc)
     {
         $this->session = $session;
         $this->router = $router;
         $this->translator = $translator;
-        $this->em = $em;
+        $this->calculateRecurrences = $calc;
     }
 
 
@@ -123,33 +120,7 @@ class CalendarSubscriber implements EventSubscriberInterface
      */
     public function onEventHasRecurrences(EventData $eventData)
     {
-        $event = $eventData->getEvent();
-        $eventStart = $event->getStart();
-
-        /**
-         * @var \Sg\CalendarBundle\Entity\Recurrence $recurrence
-         */
-        foreach ($event->getRecurrences() as $recurrence) {
-            $recurrencePeriod = $recurrence->getPeriod();
-            $recurrenceEnd = $recurrence->getEnd();
-
-            if (RecurrenceInterface::PERIOD_WEEKLY === $recurrencePeriod) {
-                $intervall = new \DateInterval('P7D');
-                $p = new \DatePeriod($eventStart, $intervall, $recurrenceEnd, \DatePeriod::EXCLUDE_START_DATE);
-                $i = 0;
-                foreach ($p as $item) {
-                    //print $item->format(\DateTime::ISO8601).'<br>';
-                    $calc[$i] = new Calculation();
-                    $calc[$i]->setRecurrence($recurrence);
-                    $calc[$i]->setStart($item);
-                    $calc[$i]->setEnd($item);
-                    $this->em->persist($calc[$i]);
-                    $i++;
-                }
-            }
-        }
-
-        $this->em->flush();
+        $this->calculateRecurrences->calc($eventData->getEvent());
     }
 
 
