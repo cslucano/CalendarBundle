@@ -36,7 +36,7 @@
 
 {% block content %}
 
-    <table>
+    <table class="table table-striped">
         <tbody>
             <tr>
                 <th>{{ 'calendar.entity.event.id'|trans({}, 'messages') }}</th>
@@ -118,6 +118,21 @@
             </tr>
         </tbody>
     </table>
+
+    {% for recurrence in entity.recurrences %}
+        <ul>
+            <li>{{ recurrence.period }}</li>
+            <ul>
+                {% for calculation in recurrence.calculations %}
+                    <li>{{ calculation.start|date('Y-m-d H:i:s') }} -
+                        {% if calculation.end %}
+                            {{ calculation.end|date('Y-m-d H:i:s') }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </ul>
+    {% endfor %}
 
     <ul>
         <li>
