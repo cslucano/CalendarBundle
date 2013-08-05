@@ -15,4 +15,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Recurrence extends BaseRecurrence
 {
+    /**
+     * Ctor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // your own logic
+    }
 }
