@@ -30,7 +30,16 @@ class RecurrenceType extends AbstractType
                     'label' => 'calendar.entity.recurrence.period',
                     'translation_domain' => 'messages'
                 ))
-            ->add('multiple', 'integer', array('label' => 'calendar.entity.recurrence.multiple', 'translation_domain' => 'messages'))
+            ->add('multiple', 'choice', array(
+                    'choices' => array(
+                        1 => 1,
+                        2 => 2,
+                        3 => 3,
+                        4 => 4
+                    ),
+                    'label' => 'calendar.entity.recurrence.multiple',
+                    'translation_domain' => 'messages'
+                ))
             ->add('end', 'datePicker', array('label' => 'calendar.entity.recurrence.end', 'translation_domain' => 'messages'));
     }
 
