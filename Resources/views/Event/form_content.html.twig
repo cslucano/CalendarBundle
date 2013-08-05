@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>Event</legend>
+    <legend>{{ 'calendar.form.legend.event'|trans({}, 'messages') }}</legend>
     {{ form_errors(form) }}
     {{ form_row(form.title) }}
     {{ form_row(form.allDay) }}
@@ -16,7 +16,7 @@
 </fieldset>
 
 <fieldset>
-    <legend>Recurrences</legend>
+    <legend>{{ 'calendar.form.legend.recurrences'|trans({}, 'messages') }}</legend>
     <ul class="recurrences unstyled" data-prototype="{{ form_widget(form.recurrences.vars.prototype)|e }}">
 
         {% for recurrence in form.recurrences %}
@@ -32,11 +32,11 @@
 
 <script type="text/javascript">
     var collectionHolder = $('ul.recurrences');
-    var $addLink = $('<a href="#" class="add_link">Hinzufügen</a>');
+    var $addLink = $('<a href="#" class="add_link">{{ "calendar.action.add"|trans({}, "messages") }}</a>');
     var $newLinkLi = $('<li></li>').append($addLink);
 
     function addFormDeleteLink($FormLi) {
-        var $removeFormA = $('<a href="#">Löschen</a>');
+        var $removeFormA = $('<a href="#">{{ "calendar.action.remove"|trans({}, "messages") }}</a>');
         $FormLi.append($removeFormA);
 
         $removeFormA.on('click', function(e) {

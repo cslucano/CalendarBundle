@@ -50,6 +50,7 @@ calendar: # the bundle name
             day: "Day"
     action: # crud
         new: "New"
+        add: "Add"
         show: "Show"
         edit: "Edit"
         remove: "Delete"
@@ -98,6 +99,7 @@ calendar: # the bundle name
             allDay: "All day"
             start: "Start"
             end: "End"
+            recurrences: "Recurrences"
             description: "Description"
             calendar: "Calendar"
             url: "Url"
@@ -122,8 +124,21 @@ calendar: # the bundle name
             updatedAt: "Updated at"
             createdBy: "Created by"
             updatedBy: "Updated by"
+        recurrence:
+            period: "Repeats"
+            multiple: "Repeat every"
+            end: "Ends"
     status:
         event:
             confirmed: "confirmed"
             tentative: "tentative"
             cancelled: "cancelled"
+    form:
+        legend:
+            event: "Event"
+            recurrences: "Recurrences"
+    period:
+        daily: "daily"
+        weekly: "weekly"
+        monthly: "monthly"
+        yearly: "yearly"

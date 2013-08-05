@@ -59,7 +59,8 @@ class EventType extends AbstractType
                 ))
             ->add('recurrences', 'collection', array(
                     'type' => new RecurrenceType(),
-                    'label' => 'Recurrences',
+                    'label' => 'calendar.entity.event.recurrences',
+                    'translation_domain' => 'messages',
                     'allow_add' => true,    // default: false
                     'allow_delete' => true, // default: false
                     //'prototype' => true,  // is default

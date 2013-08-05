@@ -50,6 +50,7 @@ calendar: # the bundle name
             day: "Tag"
     action: # crud
         new: "Neu"
+        add: "Hinzufügen"
         show: "Zeigen"
         edit: "Ändern"
         remove: "Löschen"
@@ -98,6 +99,7 @@ calendar: # the bundle name
             allDay: "Ganztägig"
             start: "Beginn"
             end: "Ende"
+            recurrences: "Wiederholen"
             description: "Beschreibung"
             calendar: "Kalender"
             url: "Url"
@@ -122,8 +124,21 @@ calendar: # the bundle name
             updatedAt: "Geändert am"
             createdBy: "Erstellt von"
             updatedBy: "Geändert von"
+        recurrence:
+            period: "Wird wiederholt"
+            multiple: "Wiederholen alle"
+            end: "Endet"
     status:
         event:
             confirmed: "bestätigt"
             tentative: "vorläufig"
             cancelled: "storniert"
+    form:
+        legend:
+            event: "Ereignis"
+            recurrences: "Wiederholen"
+    period:
+        daily: "täglich"
+        weekly: "wöchentlich"
+        monthly: "monatlich"
+        yearly: "jährlich"
