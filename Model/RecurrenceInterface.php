@@ -12,21 +12,29 @@ use \DateTime;
 interface RecurrenceInterface
 {
     /**
+     * Occurs every day.
+     *
      * @var string
      */
     const PERIOD_DAILY   = 'daily';
 
     /**
+     * Occurs every week.
+     *
      * @var string
      */
     const PERIOD_WEEKLY  = 'weekly';
 
     /**
+     * Occurs every month.
+     *
      * @var string
      */
     const PERIOD_MONTHLY = 'monthly';
 
     /**
+     * Occurs every year.
+     *
      * @var string
      */
     const PERIOD_YEARLY  = 'yearly';

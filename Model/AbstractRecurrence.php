@@ -46,7 +46,8 @@ class AbstractRecurrence implements RecurrenceInterface
     protected $event;
 
     /**
-     * The period-length.
+     * The period of this recurrence specified by a constant. Possible values
+     * are PERIOD_DAILY, PERIOD_WEEKLY, PERIOD_MONTHLY, PERIOD_YEARLY.
      *
      * @var string
      *
@@ -55,7 +56,7 @@ class AbstractRecurrence implements RecurrenceInterface
     protected $period;
 
     /**
-     * Specifies how many intervals of Period-length are between occurrences
+     * Specifies how many intervals of period between the occurrences.
      * (i.e., every 4 days, every 3 weeks, or every 6 months).
      *
      * @var integer
