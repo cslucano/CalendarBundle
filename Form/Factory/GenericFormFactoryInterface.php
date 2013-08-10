@@ -5,11 +5,11 @@ namespace Sg\CalendarBundle\Form\Factory;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Class EventFormFactoryInterface
+ * Class GenericFormFactoryInterface
  *
  * @package Sg\CalendarBundle\Form\Factory
  */
-interface EventFormFactoryInterface
+interface GenericFormFactoryInterface
 {
     /**
      * Returns a form.

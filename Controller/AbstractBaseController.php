@@ -111,7 +111,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Form\Factory\CalendarFormFactoryInterface
+     * @return \Sg\CalendarBundle\Form\Factory\CalendarFormFactory
      */
     protected function getCalendarFormFactory()
     {
@@ -119,7 +119,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Form\Factory\EventFormFactoryInterface
+     * @return \Sg\CalendarBundle\Form\Factory\EventFormFactory
      */
     protected function getEventFormFactory()
     {

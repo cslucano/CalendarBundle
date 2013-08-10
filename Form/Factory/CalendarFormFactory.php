@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormTypeInterface;
  *
  * @package Sg\CalendarBundle\Form\Factory
  */
-class CalendarFormFactory implements CalendarFormFactoryInterface
+class CalendarFormFactory implements GenericFormFactoryInterface
 {
     /**
      * @var FormFactoryInterface
@@ -48,7 +48,7 @@ class CalendarFormFactory implements CalendarFormFactoryInterface
 
 
     //-------------------------------------------------
-    // CalendarFormFactoryInterface
+    // GenericFormFactoryInterface
     //-------------------------------------------------
 
     /**
