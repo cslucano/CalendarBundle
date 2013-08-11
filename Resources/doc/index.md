@@ -1,12 +1,8 @@
-# SgCalendarBundle
+# Getting Started With SgCalendarBundle
 
 This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 application. Compatible with Doctrine ORM.
 
-**Status:** not yet ready, hard-development.
-
-## Screenshot
-
-<div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/screen.jpg"></div>
+*WARNING*: This is not a final/stable bundle.
 
 ## Access Control
 
@@ -26,7 +22,7 @@ These addresses can be entered using the calendar form.
 
 * This version of the bundle requires Symfony 2.3.x.
 * Also FOSUserBundle needs to be installed and configured beforehand. Please follow all steps described [here](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
-* Finally, Bootstrap 2.3.x and FullCalendar 1.6.1 should be installed.
+* Finally, Bootstrap 2.3 and FullCalendar 1.6 should be installed.
 
 Your composer.json should look like this:
 
@@ -37,18 +33,18 @@ Your composer.json should look like this:
             "type": "package",
             "package": {
                 "name": "arshaw/fullcalendar",
-                "version": "1.6.1",
+                "version": "1.6.3",
                 "dist": {
                     "type": "zip",
-                    "url": "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.6.1.zip"
+                    "url": "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.6.3.zip"
                 }
             }
         }
     ],
     "require": {
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "arshaw/fullcalendar": "1.6.1",
-        "twitter/bootstrap": "2.3.*",
+        "arshaw/fullcalendar": "1.6.3",
+        "twitter/bootstrap": "v2.3.2",
         "sg/calendarbundle": "dev-master"
     },
 }
