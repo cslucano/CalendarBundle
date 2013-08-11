@@ -15,6 +15,20 @@ use Sg\CalendarBundle\Model\RecurrenceInterface;
 class RecurrenceType extends AbstractType
 {
     /**
+     * @var string
+     */
+    private $class;
+
+
+    /**
+     * @param string $class The Recurrence class name
+     */
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -49,7 +63,7 @@ class RecurrenceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Sg\CalendarBundle\Entity\Recurrence'
+            'data_class' => $this->class
         ));
     }
 
@@ -58,6 +72,6 @@ class RecurrenceType extends AbstractType
      */
     public function getName()
     {
-        return 'sg_calendarbundle_recurrencetype';
+        return 'sg_calendar_recurrencetype';
     }
 }

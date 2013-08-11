@@ -8,6 +8,7 @@ services:
         tags:
             - { name: twig.extension }
 
+
     # Model
 
     sg_calendar.event_manager:
@@ -26,7 +27,10 @@ services:
         class: Sg\CalendarBundle\Doctrine\CalculationManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calculation.class%]
 
+
     # Forms
+
+    ## Default form types
 
     sg_calendar.form_type.event.default:
         class: Sg\CalendarBundle\Form\Type\EventType
@@ -40,6 +44,14 @@ services:
         tags:
             - { name: form.type, alias: sg_calendar_calendartype }
 
+    sg_calendar.form_type.recurrence.default:
+        class: Sg\CalendarBundle\Form\Type\RecurrenceType
+        arguments: [%sg_calendar.doctrine.recurrence.class%]
+        tags:
+            - { name: form.type, alias: sg_calendar_recurrencetype }
+
+    ## Datepicker / Datetimepicker
+
     sg_calendar.form_type.datepicker:
         class: Sg\CalendarBundle\Form\Type\DatePickerType
         tags:
@@ -50,6 +62,8 @@ services:
         tags:
             - { name: form.type, alias: dateTimePicker }
 
+    ## Form factories
+
     sg_calendar.form_factory.event:
         class: Sg\CalendarBundle\Form\Factory\EventFormFactory
         arguments: [@form.factory, %sg_calendar.form.event.name%, %sg_calendar.form.event.type%]
@@ -57,6 +71,7 @@ services:
     sg_calendar.form_factory.calendar:
         class: Sg\CalendarBundle\Form\Factory\CalendarFormFactory
         arguments: [@form.factory, %sg_calendar.form.calendar.name%, %sg_calendar.form.calendar.type%]
+
 
     # Subcriber / Listener
 
@@ -72,6 +87,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+
     # Helper
 
     sg_calendar.array_generator:
@@ -81,6 +97,7 @@ services:
     sg_calendar.calculate_recurrences:
         class: Sg\CalendarBundle\Generator\CalculateRecurrences
         arguments: [@sg_calendar.calculation_manager]
+
 
     # Security
 

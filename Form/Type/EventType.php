@@ -58,7 +58,7 @@ class EventType extends AbstractType
                     'translation_domain' => 'messages'
                 ))
             ->add('recurrences', 'collection', array(
-                    'type' => new RecurrenceType(),
+                    'type' => 'sg_calendar_recurrencetype',
                     'label' => 'calendar.entity.event.recurrences',
                     'translation_domain' => 'messages',
                     'allow_add' => true,    // default: false
