@@ -268,7 +268,7 @@ assetic:
     assets:
        jquery_js:
            inputs:
-               - %kernel.root_dir%/../vendor/arshaw/fullcalendar/jquery/jquery-1.9.1.min.js
+               - %kernel.root_dir%/../vendor/arshaw/fullcalendar/jquery/jquery-1.10.2.min.js
            output: js/jquery.js
        img_bootstrap_glyphicons_black:
            inputs:
