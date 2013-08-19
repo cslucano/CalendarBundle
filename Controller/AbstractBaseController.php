@@ -97,9 +97,9 @@ abstract class AbstractBaseController extends Controller
     /**
      * @return \Sg\CalendarBundle\Model\ModelManagerInterface
      */
-    protected function getRecurrenceManager()
+    protected function getRruleManager()
     {
-        return $this->container->get('sg_calendar.recurrence_manager');
+        return $this->container->get('sg_calendar.rrule_manager');
     }
 
     /**
