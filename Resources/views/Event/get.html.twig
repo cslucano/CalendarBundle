@@ -119,18 +119,10 @@
         </tbody>
     </table>
 
-    {% for recurrence in entity.recurrences %}
+    {% for rrule in entity.rrules %}
         <ul>
-            <li>{{ recurrence.period }}</li>
-            <ul>
-                {% for calculation in recurrence.calculations %}
-                    <li>{{ calculation.start|date('Y-m-d H:i:s') }} -
-                        {% if calculation.end %}
-                            {{ calculation.end|date('Y-m-d H:i:s') }}
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
+            <li>{{ rrule.freq }}</li>
+            <li>{{ rrule.dtstart|date('Y-m-d H:i:s') }}</li>
         </ul>
     {% endfor %}
 
