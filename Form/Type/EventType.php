@@ -57,9 +57,9 @@ class EventType extends AbstractType
                     'label' => 'calendar.entity.event.status',
                     'translation_domain' => 'messages'
                 ))
-            ->add('recurrences', 'collection', array(
-                    'type' => 'sg_calendar_recurrencetype',
-                    'label' => 'calendar.entity.event.recurrences',
+            ->add('rrules', 'collection', array(
+                    'type' => 'sg_calendar_rruletype',
+                    'label' => 'calendar.entity.event.rrules',
                     'translation_domain' => 'messages',
                     'allow_add' => true,    // default: false
                     'allow_delete' => true, // default: false

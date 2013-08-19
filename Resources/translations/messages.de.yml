@@ -99,7 +99,7 @@ calendar: # the bundle name
             allDay: "Ganztägig"
             start: "Beginn"
             end: "Ende"
-            recurrences: "Wiederholen"
+            rrules: "Wiederholen"
             description: "Beschreibung"
             calendar: "Kalender"
             url: "Url"
@@ -136,7 +136,7 @@ calendar: # the bundle name
     form:
         legend:
             event: "Ereignis"
-            recurrences: "Wiederholen"
+            rrules: "Wiederholen"
     period:
         daily: "täglich"
         weekly: "wöchentlich"
