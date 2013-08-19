@@ -9,8 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sg\CalendarBundle\Model\RecurrenceInterface;
-use \DateTime;
+use DateTime;
 
 /**
  * Class AbstractEvent
@@ -80,19 +79,19 @@ abstract class AbstractEvent implements EventInterface
     protected $end;
 
     /**
-     * The recurrences of the event.
+     * The rrules of the event.
      *
      * @var ArrayCollection
      *
      * @ORM\OneToMany(
-     *     targetEntity="Sg\CalendarBundle\Model\RecurrenceInterface",
+     *     targetEntity="Sg\CalendarBundle\Model\RruleInterface",
      *     mappedBy="event",
      *     cascade={"persist"},
      *     orphanRemoval=true
      * )
      * @Assert\Valid()
      */
-    protected $recurrences;
+    protected $rrules;
 
     /**
      * Description of the event.
@@ -269,7 +268,7 @@ abstract class AbstractEvent implements EventInterface
         $this->allDay = true;
         $this->editable = false;
         $this->attendable = false;
-        $this->recurrences = new ArrayCollection();
+        $this->rrules = new ArrayCollection();
         $this->attendees = new ArrayCollection();
     }
 
@@ -389,10 +388,10 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function addRecurrence(RecurrenceInterface $recurrence)
+    public function addRrule(RruleInterface $rrule)
     {
-        $recurrence->setEvent($this);
-        $this->recurrences[] = $recurrence;
+        $rrule->setEvent($this);
+        $this->rrules[] = $rrule;
 
         return $this;
     }
@@ -400,17 +399,17 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function removeRecurrence(RecurrenceInterface $recurrence)
+    public function removeRrule(RruleInterface $rrule)
     {
-        $this->recurrences->removeElement($recurrence);
+        $this->rrules->removeElement($rrule);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getRecurrences()
+    public function getRrules()
     {
-        return $this->recurrences;
+        return $this->rrules;
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Sg\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use \DateTime;
+use DateTime;
 
 /**
  * Class EventInterface
@@ -17,21 +17,21 @@ interface EventInterface
      *
      * @var string
      */
-    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_CONFIRMED = 'CONFIRMED';
 
     /**
      * The event is tentatively confirmed.
      *
      * @var string
      */
-    const STATUS_TENTATIVE = 'tentative';
+    const STATUS_TENTATIVE = 'TENTATIVE';
 
     /**
      * The event is cancelled.
      *
      * @var string
      */
-    const STATUS_CANCELLED = 'cancelled';
+    const STATUS_CANCELLED = 'CANCELLED';
 
 
     /**
@@ -106,29 +106,29 @@ interface EventInterface
     public function getEnd();
 
     /**
-     * Add recurrence.
+     * Add rrule.
      *
-     * @param RecurrenceInterface $recurrence
-     *
-     * @return self
-     */
-    public function addRecurrence(RecurrenceInterface $recurrence);
-
-    /**
-     * Remove recurrence.
-     *
-     * @param RecurrenceInterface $recurrence
+     * @param RruleInterface $rrule
      *
      * @return self
      */
-    public function removeRecurrence(RecurrenceInterface $recurrence);
+    public function addRrule(RruleInterface $rrule);
 
     /**
-     * Get recurrences.
+     * Remove rrule.
+     *
+     * @param RruleInterface $rrule
+     *
+     * @return self
+     */
+    public function removeRrule(RruleInterface $rrule);
+
+    /**
+     * Get rrules.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRecurrences();
+    public function getRrules();
 
     /**
      * Set description.
