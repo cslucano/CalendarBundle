@@ -65,6 +65,10 @@
                 </tr>
             {% endif %}
             <tr>
+                <th>{{ 'calendar.entity.event.description'|trans({}, 'messages') }}</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
                 <th>{{ 'calendar.entity.event.calendar'|trans({}, 'messages') }}</th>
                 <td>{{ entity.calendar }}</td>
             </tr>
@@ -116,15 +120,18 @@
                 <th>{{ 'calendar.entity.event.updatedBy'|trans({}, 'messages') }}</th>
                 <td>{{ entity.updatedBy }}</td>
             </tr>
+            <tr>
+                <th>{{ 'calendar.entity.event.rrules'|trans({}, 'messages') }}</th>
+                <td>
+                    {% for rrule in entity.rrules %}
+                        <ul>
+                            <li>{{ rrule.freq }}</li>
+                        </ul>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
-
-    {% for rrule in entity.rrules %}
-        <ul>
-            <li>{{ rrule.freq }}</li>
-            <li>{{ rrule.dtstart|date('Y-m-d H:i:s') }}</li>
-        </ul>
-    {% endfor %}
 
     <ul>
         <li>

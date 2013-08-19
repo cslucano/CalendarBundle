@@ -1,13 +1,13 @@
 calendar: # the bundle name
     flash:
-        error:
-        notice:
-        success:
-            event: # the success flash messages related to the object
+        error: # the error flash messages related to the object
+        notice: # the notice flash messages related to the object
+        success: # the success flash messages related to the object
+            event:
                 created: "Das Ereignis wurde erfolgreich angelegt."
                 updated: "Das Ereignis wurde erfolgreich geändert."
                 removed: "Das Ereignis wurde erfolgreich gelöscht."
-            calendar: # the success flash messages related to the object
+            calendar:
                 created: "Der Kalender wurde erfolgreich angelegt."
                 updated: "Der Kalender wurde erfolgreich geändert."
                 removed: "Der Kalender wurde erfolgreich gelöscht."
