@@ -3,7 +3,7 @@
 namespace Sg\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use \DateTime;
+use DateTime;
 
 /**
  * Class CalendarInterface
@@ -80,6 +80,8 @@ interface CalendarInterface
      * Remove event.
      *
      * @param EventInterface $event
+     *
+     * @return self
      */
     public function removeEvent(EventInterface $event);
 

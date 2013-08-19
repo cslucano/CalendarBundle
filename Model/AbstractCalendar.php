@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use \DateTime;
+use DateTime;
 
 /**
  * Class AbstractCalendar
@@ -232,6 +232,8 @@ class AbstractCalendar implements CalendarInterface
     public function removeEvent(EventInterface $event)
     {
         $this->events->removeElement($event);
+
+        return $this;
     }
 
     /**
