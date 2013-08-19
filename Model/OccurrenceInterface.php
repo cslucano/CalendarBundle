@@ -2,14 +2,14 @@
 
 namespace Sg\CalendarBundle\Model;
 
-use \DateTime;
+use DateTime;
 
 /**
- * Class CalculationInterface
+ * Class OccurrenceInterface
  *
  * @package Sg\CalendarBundle\Model
  */
-interface CalculationInterface
+interface OccurrenceInterface
 {
     /**
      * Get id.
@@ -51,18 +51,18 @@ interface CalculationInterface
     public function getEnd();
 
     /**
-     * Set recurrence.
+     * Set rrule.
      *
-     * @param RecurrenceInterface $recurrence
+     * @param RruleInterface $rrule
      *
      * @return self
      */
-    public function setRecurrence(RecurrenceInterface $recurrence);
+    public function setRrule(RruleInterface $rrule);
 
     /**
-     * Get recurrence.
+     * Get rrule.
      *
-     * @return RecurrenceInterface
+     * @return RruleInterface
      */
-    public function getRecurrence();
+    public function getRrule();
 }

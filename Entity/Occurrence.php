@@ -2,17 +2,17 @@
 
 namespace Sg\CalendarBundle\Entity;
 
-use Sg\CalendarBundle\Model\AbstractCalculation as BaseCalculation;
+use Sg\CalendarBundle\Model\AbstractOccurrence as BaseOccurrence;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Calculation
+ * Class Occurrence
  *
  * @ORM\Table()
  * @ORM\Entity()
  *
  * @package Sg\CalendarBundle\Entity
  */
-class Calculation extends BaseCalculation
+class Occurrence extends BaseOccurrence
 {
 }

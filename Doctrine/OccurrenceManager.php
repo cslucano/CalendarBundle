@@ -3,10 +3,10 @@
 namespace Sg\CalendarBundle\Doctrine;
 
 /**
- * Class CalculationManager
+ * Class OccurrenceManager
  *
  * @package Sg\CalendarBundle\Doctrine
  */
-class CalculationManager extends ModelManager
+class OccurrenceManager extends ModelManager
 {
 }

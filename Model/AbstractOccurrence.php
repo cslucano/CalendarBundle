@@ -4,16 +4,16 @@ namespace Sg\CalendarBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
-use \DateTime;
+use DateTime;
 
 /**
- * Class AbstractCalculation
+ * Class AbstractOccurrence
  *
  * @ORM\MappedSuperclass
  *
  * @package Sg\CalendarBundle\Model
  */
-class AbstractCalculation implements CalculationInterface
+class AbstractOccurrence implements OccurrenceInterface
 {
     /**
      * Identifier of the calculation.
@@ -27,19 +27,19 @@ class AbstractCalculation implements CalculationInterface
     protected $id;
 
     /**
-     * The recurrence.
+     * The rrule.
      *
-     * @var RecurrenceInterface
+     * @var RruleInterface
      *
      * @ORM\ManyToOne(
-     *     targetEntity="Sg\CalendarBundle\Model\RecurrenceInterface",
+     *     targetEntity="Sg\CalendarBundle\Model\RruleInterface",
      *     inversedBy="calculations"
      * )
      * @JoinColumn(
      *     nullable=false
      * )
      */
-    protected $recurrence;
+    protected $rrule;
 
     /**
      * The calculated start time of the event.
@@ -61,7 +61,7 @@ class AbstractCalculation implements CalculationInterface
 
 
     //-------------------------------------------------
-    // CalculationInterface
+    // OccurrenceInterface
     //-------------------------------------------------
 
     /**
@@ -111,9 +111,9 @@ class AbstractCalculation implements CalculationInterface
     /**
      * {@inheritdoc}
      */
-    public function setRecurrence(RecurrenceInterface $recurrence)
+    public function setRrule(RruleInterface $rrule)
     {
-        $this->recurrence = $recurrence;
+        $this->rrule = $rrule;
 
         return $this;
     }
@@ -121,8 +121,8 @@ class AbstractCalculation implements CalculationInterface
     /**
      * {@inheritdoc}
      */
-    public function getRecurrence()
+    public function getRrule()
     {
-        return $this->recurrence;
+        return $this->rrule;
     }
 }

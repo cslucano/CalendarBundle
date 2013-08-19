@@ -2,18 +2,18 @@
 
 namespace Sg\CalendarBundle\Entity;
 
-use Sg\CalendarBundle\Model\AbstractRecurrence as BaseRecurrence;
+use Sg\CalendarBundle\Model\AbstractRrule as BaseRrule;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Recurrence
+ * Class Rrule
  *
  * @ORM\Table()
  * @ORM\Entity()
  *
  * @package Sg\CalendarBundle\Entity
  */
-class Recurrence extends BaseRecurrence
+class Rrule extends BaseRrule
 {
     /**
      * Ctor.

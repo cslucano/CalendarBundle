@@ -3,10 +3,10 @@
 namespace Sg\CalendarBundle\Doctrine;
 
 /**
- * Class RecurrenceManager
+ * Class RruleManager
  *
  * @package Sg\CalendarBundle\Doctrine
  */
-class RecurrenceManager extends ModelManager
+class RruleManager extends ModelManager
 {
 }
