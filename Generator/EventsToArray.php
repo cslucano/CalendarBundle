@@ -43,19 +43,20 @@ class EventsToArray
 
             $returnEvents[] = $this->toArray($event);
 
-            $recurrences = $event->getRecurrences();
+            $rrules = $event->getRrules();
+
             /**
-             * @var \Sg\CalendarBundle\Entity\Recurrence $recurrence
+             * @var \Sg\CalendarBundle\Model\RruleInterface $rrule
              */
-            foreach ($recurrences as $recurrence) {
-                $calculations = $recurrence->getCalculations();
+            foreach ($rrules as $rrule) {
+                $occurrences = $rrule->getOccurrences();
 
                 /**
-                 * @var \Sg\CalendarBundle\Entity\Calculation $calculation
+                 * @var \Sg\CalendarBundle\Model\OccurrenceInterface $occurrence
                  */
-                foreach ($calculations as $calculation) {
-                    $start = $calculation->getStart();
-                    $end = $calculation->getEnd();
+                foreach ($occurrences as $occurrence) {
+                    $start = $occurrence->getStart();
+                    $end = $occurrence->getEnd();
 
                     $returnEvents[] = $this->toArray($event, $start, $end);
                 }
