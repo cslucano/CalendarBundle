@@ -42,7 +42,7 @@ final class SgCalendarEvents
     /**
      * @var string
      */
-    const EVENT_CALCULATE_RECURRENCES = 'sg_calendar.event.calculate.recurrences';
+    const EVENT_GENERATE_OCCURRENCES = 'sg_calendar.event.generate.occurrences';
 
     /**
      * @var string

@@ -77,7 +77,7 @@ services:
 
     sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\Subscriber\CalendarSubscriber
-        arguments: [@session, @router, @translator, @sg_calendar.calculate_recurrences]
+        arguments: [@session, @router, @translator, @sg_when.when, @sg_when.when_iterator, @sg_calendar.occurrence_manager]
         tags:
             - { name: kernel.event_subscriber }
 

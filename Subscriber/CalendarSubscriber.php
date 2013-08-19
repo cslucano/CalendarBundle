@@ -5,7 +5,9 @@ namespace Sg\CalendarBundle\Subscriber;
 use Sg\CalendarBundle\SgCalendarEvents;
 use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\Event\CalendarData;
-use Sg\CalendarBundle\Generator\CalculateRecurrences;
+use Sg\CalendarBundle\Model\ModelManagerInterface;
+use Sg\WhenBundle\When\When;
+use Sg\WhenBundle\When\WhenIterator;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -36,9 +38,19 @@ class CalendarSubscriber implements EventSubscriberInterface
     private $translator;
 
     /**
-     * @var CalculateRecurrences
+     * @var When
      */
-    protected $calculateRecurrences;
+    private $when;
+
+    /**
+     * @var WhenIterator
+     */
+    private $whenIterator;
+
+    /**
+     * @var ModelManagerInterface
+     */
+    private $occurrenceManager;
 
     /**
      * @var array
@@ -60,17 +72,22 @@ class CalendarSubscriber implements EventSubscriberInterface
     /**
      * Ctor.
      *
-     * @param Session               $session    A Session instance
-     * @param UrlGeneratorInterface $router     A UrlGeneratorInterface
-     * @param TranslatorInterface   $translator A TranslatorInterface
-     * @param CalculateRecurrences  $calc       A CalculateRecurrences instance
+     * @param Session               $session           A Session instance
+     * @param UrlGeneratorInterface $router            An UrlGeneratorInterface
+     * @param TranslatorInterface   $translator        A TranslatorInterface
+     * @param When                  $when              A When instance
+     * @param WhenIterator          $whenIterator      A WhenIterator instance
+     * @param ModelManagerInterface $occurrenceManager A ModelManagerInterface
      */
-    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator, CalculateRecurrences $calc)
+    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator,
+        When $when, WhenIterator $whenIterator, ModelManagerInterface $occurrenceManager)
     {
         $this->session = $session;
         $this->router = $router;
         $this->translator = $translator;
-        $this->calculateRecurrences = $calc;
+        $this->when = $when;
+        $this->whenIterator = $whenIterator;
+        $this->occurrenceManager = $occurrenceManager;
     }
 
 
@@ -114,13 +131,37 @@ class CalendarSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Calculate recurrences.
+     * Generate occurrences.
      *
      * @param EventData $eventData
      */
-    public function onEventHasRecurrences(EventData $eventData)
+    public function onEventHasRrules(EventData $eventData)
     {
-        $this->calculateRecurrences->calc($eventData->getEvent());
+        $event = $eventData->getEvent();
+
+        /**
+         * @var \Sg\CalendarBundle\Model\RruleInterface $rrule
+         */
+        foreach ($event->getRrules() as $rrule) {
+
+            $iterator = $this->whenIterator;
+
+            $iterator->recur($rrule->getDtstart(), $rrule->getFreq())
+                     ->interval($rrule->getIval())
+                     ->until($rrule->getUntil());
+
+            /**
+             * @var \Sg\CalendarBundle\Model\OccurrenceInterface $occurrence
+             */
+            foreach ($iterator as $result) {
+                $occurrence = $this->occurrenceManager->create();
+                $rrule->addOccurrence($occurrence);
+                $occurrence->setStart($result);
+                $occurrence->setEnd($result);
+                $occurrence->setRrule($rrule);
+            }
+
+        }
     }
 
 
@@ -194,7 +235,7 @@ class CalendarSubscriber implements EventSubscriberInterface
             SgCalendarEvents::EVENT_CREATE_COMPLETED => 'addSuccessFlash',
             SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlash',
             SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::EVENT_CALCULATE_RECURRENCES => 'onEventHasRecurrences',
+            SgCalendarEvents::EVENT_GENERATE_OCCURRENCES => 'onEventHasRrules',
             SgCalendarEvents::CALENDAR_CREATE_SUCCESS => 'onCalendarCreateSuccess',
             SgCalendarEvents::CALENDAR_UPDATE_SUCCESS => 'onCalendarUpdateSuccess',
             SgCalendarEvents::CALENDAR_REMOVE_SUCCESS => 'onCalendarRemoveSuccess',

@@ -51,11 +51,11 @@ class EventController extends AbstractBaseController
         if ($form->isValid()) {
             $eventData = new EventData($event);
 
-            // Calculate recurrences, set (redirect) response and flash message
+            // Generate occurrences, set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
 
-            if ($event->getRecurrences()->count() > 0) {
-                $dispatcher->dispatch(SgCalendarEvents::EVENT_CALCULATE_RECURRENCES, $eventData);
+            if ($event->getRrules()->count() > 0) {
+                $dispatcher->dispatch(SgCalendarEvents::EVENT_GENERATE_OCCURRENCES, $eventData);
             }
 
             $this->getEventManager()->save($event);
