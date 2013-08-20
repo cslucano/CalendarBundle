@@ -49,7 +49,6 @@ calendar: # the bundle name
             week: "Woche"
             day: "Tag"
     action: # crud
-        new: "Neu"
         add: "Hinzufügen"
         show: "Zeigen"
         edit: "Ändern"
@@ -124,10 +123,23 @@ calendar: # the bundle name
             updatedAt: "Geändert am"
             createdBy: "Erstellt von"
             updatedBy: "Geändert von"
-        recurrence:
-            period: "Wird wiederholt"
-            multiple: "Wiederholen alle"
-            end: "Endet"
+        rrule:
+            rule: "RRule per ICal RFC"
+            freq: "Wird wiederholt"
+            dtstart: "Beginnt am"
+            until: "Endet am"
+            count: "Endet nach"
+            ival: "Wiederholen alle"
+            wkst: "Wochenstart"
+            byweekday: "Wöchentlich am"
+            bymonth: "Monatlich am"
+            bysetpos: "Position"
+            bymonthday: "Monatlich am"
+            byyearday: "Jährlich am"
+            byweekno: "Wochennummer"
+            byhour: "Stündlich alle"
+            byminute: "Minütlich alle"
+            bysecond: "Sekündlich alle"
     status:
         event:
             confirmed: "bestätigt"
@@ -137,8 +149,11 @@ calendar: # the bundle name
         legend:
             event: "Ereignis"
             rrules: "Wiederholen"
-    period:
+    frequency:
         daily: "täglich"
         weekly: "wöchentlich"
         monthly: "monatlich"
         yearly: "jährlich"
+        hourly: "stündlich"
+        minutely: "minütlich"
+        secondly: "sekündlich"

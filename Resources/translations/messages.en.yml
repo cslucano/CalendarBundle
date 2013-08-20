@@ -49,7 +49,6 @@ calendar: # the bundle name
             week: "Week"
             day: "Day"
     action: # crud
-        new: "New"
         add: "Add"
         show: "Show"
         edit: "Edit"
@@ -124,10 +123,23 @@ calendar: # the bundle name
             updatedAt: "Updated at"
             createdBy: "Created by"
             updatedBy: "Updated by"
-        recurrence:
-            period: "Repeats"
-            multiple: "Repeat every"
-            end: "Ends"
+        rrule:
+            rule: "RRule per ICal RFC"
+            freq: "Frequency"
+            dtstart: "Recurrence start"
+            until: "Recurrence end"
+            count: "Recurrence count"
+            ival: "Interval"
+            wkst: "Week start day"
+            byweekday: "By weekday"
+            bymonth: "By month"
+            bysetpos: "By setpos"
+            bymonthday: "By month day"
+            byyearday: "By year day"
+            byweekno: "By weekno"
+            byhour: "By hour"
+            byminute: "By minute"
+            bysecond: "By second"
     status:
         event:
             confirmed: "confirmed"
@@ -137,8 +149,11 @@ calendar: # the bundle name
         legend:
             event: "Event"
             rrules: "Recurrences"
-    period:
+    frequency:
         daily: "daily"
         weekly: "weekly"
         monthly: "monthly"
         yearly: "yearly"
+        hourly: "hourly"
+        minutely: "minutely"
+        secondly: "secondly"
