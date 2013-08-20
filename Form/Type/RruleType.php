@@ -34,7 +34,11 @@ class RruleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('rule', null, array('label' => 'calendar.entity.rrule.rule', 'translation_domain' => 'messages'))
+            ->add('rule', null, array(
+                    'label' => 'calendar.entity.rrule.rule',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
             ->add('freq', 'choice', array(
                     'choices' => array(
                         RruleInterface::DAILY => 'calendar.frequency.daily',
@@ -46,35 +50,113 @@ class RruleType extends AbstractType
                         RruleInterface::SECONDLY => 'calendar.frequency.secondly'
                     ),
                     'label' => 'calendar.entity.rrule.freq',
-                    'translation_domain' => 'messages'
+                    'translation_domain' => 'messages',
+                    'required' => true
                 ))
-            ->add('dtstart', 'datePicker', array('label' => 'calendar.entity.rrule.dtstart', 'translation_domain' => 'messages'))
-            ->add('until', 'datePicker', array('label' => 'calendar.entity.rrule.until', 'translation_domain' => 'messages'))
-            ->add('count', null, array('label' => 'calendar.entity.rrule.count', 'translation_domain' => 'messages'))
-            ->add('ival', null, array('label' => 'calendar.entity.rrule.ival', 'translation_domain' => 'messages'))
-            ->add('wkst', null, array('label' => 'calendar.entity.rrule.wkst', 'translation_domain' => 'messages'))
+            ->add('dtstart', 'datePicker', array(
+                    'label' => 'calendar.entity.rrule.dtstart',
+                    'translation_domain' => 'messages',
+                    'required' => true
+                ))
+            ->add('until', 'datePicker', array(
+                    'label' => 'calendar.entity.rrule.until',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('count', null, array(
+                    'label' => 'calendar.entity.rrule.count',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('ival', null, array(
+                    'label' => 'calendar.entity.rrule.ival',
+                    'translation_domain' => 'messages',
+                    'required' => true
+                ))
+            ->add('wkst', 'choice', array(
+                    'multiple' => true,
+                    'choices'  => array(
+                        RruleInterface::MONDAY => 'calendar.fullcalendar.day.monday',
+                        RruleInterface::TUESDAY => 'calendar.fullcalendar.day.tuesday',
+                        RruleInterface::WEDNESDAY => 'calendar.fullcalendar.day.wednesday',
+                        RruleInterface::THURSDAY => 'calendar.fullcalendar.day.thursday',
+                        RruleInterface::FRIDAY => 'calendar.fullcalendar.day.friday',
+                        RruleInterface::SATURDAY => 'calendar.fullcalendar.day.saturday',
+                        RruleInterface::SUNDAY => 'calendar.fullcalendar.day.sunday'                    ),
+                    'label' => 'calendar.entity.rrule.wkst',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
             ->add('byweekday', 'choice', array(
                     'multiple' => true,
                     'choices'  => array(
-                        RruleInterface::MONDAY => 'calendar.fullcalendar.day.short.mon',
-                        RruleInterface::TUESDAY => 'calendar.fullcalendar.day.short.tue',
-                        RruleInterface::WEDNESDAY => 'calendar.fullcalendar.day.short.wed',
-                        RruleInterface::THURSDAY => 'calendar.fullcalendar.day.short.thu',
-                        RruleInterface::FRIDAY => 'calendar.fullcalendar.day.short.fri',
-                        RruleInterface::SATURDAY => 'calendar.fullcalendar.day.short.sat',
-                        RruleInterface::SUNDAY => 'calendar.fullcalendar.day.short.sun'
+                        RruleInterface::MONDAY => 'calendar.fullcalendar.day.monday',
+                        RruleInterface::TUESDAY => 'calendar.fullcalendar.day.tuesday',
+                        RruleInterface::WEDNESDAY => 'calendar.fullcalendar.day.wednesday',
+                        RruleInterface::THURSDAY => 'calendar.fullcalendar.day.thursday',
+                        RruleInterface::FRIDAY => 'calendar.fullcalendar.day.friday',
+                        RruleInterface::SATURDAY => 'calendar.fullcalendar.day.saturday',
+                        RruleInterface::SUNDAY => 'calendar.fullcalendar.day.sunday'
                     ),
                     'label' => 'calendar.entity.rrule.byweekday',
-                    'translation_domain' => 'messages'
+                    'translation_domain' => 'messages',
+                    'required' => false
                 ))
-            ->add('bymonth', null, array('label' => 'calendar.entity.rrule.bymonth', 'translation_domain' => 'messages'))
-            ->add('bysetpos', null, array('label' => 'calendar.entity.rrule.bysetpos', 'translation_domain' => 'messages'))
-            ->add('bymonthday', null, array('label' => 'calendar.entity.rrule.bymonthday', 'translation_domain' => 'messages'))
-            ->add('byyearday', null, array('label' => 'calendar.entity.rrule.byyearday', 'translation_domain' => 'messages'))
-            ->add('byweekno', null, array('label' => 'calendar.entity.rrule.byweekno', 'translation_domain' => 'messages'))
-            ->add('byhour', null, array('label' => 'calendar.entity.rrule.byhour', 'translation_domain' => 'messages'))
-            ->add('byminute', null, array('label' => 'calendar.entity.rrule.byminute', 'translation_domain' => 'messages'))
-            ->add('bysecond', null, array('label' => 'calendar.entity.rrule.bysecond', 'translation_domain' => 'messages'));
+            ->add('bymonth', 'choice', array(
+                    'multiple' => true,
+                    'choices'  => array(
+                        RruleInterface::JANUARY => 'calendar.fullcalendar.month.january',
+                        RruleInterface::FEBRUARY => 'calendar.fullcalendar.month.february',
+                        RruleInterface::MARCH => 'calendar.fullcalendar.month.march',
+                        RruleInterface::APRIL => 'calendar.fullcalendar.month.april',
+                        RruleInterface::MAY => 'calendar.fullcalendar.month.may',
+                        RruleInterface::JUNE => 'calendar.fullcalendar.month.june',
+                        RruleInterface::JULY => 'calendar.fullcalendar.month.july',
+                        RruleInterface::AUGUST => 'calendar.fullcalendar.month.august',
+                        RruleInterface::SEPTEMBER => 'calendar.fullcalendar.month.september',
+                        RruleInterface::OCTOBER => 'calendar.fullcalendar.month.october',
+                        RruleInterface::NOVEMBER => 'calendar.fullcalendar.month.november',
+                        RruleInterface::DECEMBER => 'calendar.fullcalendar.month.december'
+                    ),
+                    'label' => 'calendar.entity.rrule.bymonth',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('bysetpos', 'text', array(
+                    'label' => 'calendar.entity.rrule.bysetpos',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('bymonthday', 'text', array(
+                    'label' => 'calendar.entity.rrule.bymonthday',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('byyearday', 'text', array(
+                    'label' => 'calendar.entity.rrule.byyearday',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('byweekno', 'text', array(
+                    'label' => 'calendar.entity.rrule.byweekno',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('byhour', 'text', array(
+                    'label' => 'calendar.entity.rrule.byhour',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('byminute', 'text', array(
+                    'label' => 'calendar.entity.rrule.byminute',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ))
+            ->add('bysecond', 'text', array(
+                    'label' => 'calendar.entity.rrule.bysecond',
+                    'translation_domain' => 'messages',
+                    'required' => false
+                ));
     }
 
     /**
