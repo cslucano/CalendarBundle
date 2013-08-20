@@ -34,7 +34,7 @@ class AbstractRrule implements RruleInterface
      *
      * @ORM\ManyToOne(
      *     targetEntity="Sg\CalendarBundle\Model\EventInterface",
-     *     inversedBy="recurrences"
+     *     inversedBy="rrules"
      * )
      * @JoinColumn(
      *     nullable=false

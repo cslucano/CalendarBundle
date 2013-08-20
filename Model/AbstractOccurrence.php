@@ -33,7 +33,7 @@ class AbstractOccurrence implements OccurrenceInterface
      *
      * @ORM\ManyToOne(
      *     targetEntity="Sg\CalendarBundle\Model\RruleInterface",
-     *     inversedBy="calculations"
+     *     inversedBy="occurrences"
      * )
      * @JoinColumn(
      *     nullable=false
