@@ -7,7 +7,6 @@ use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\Event\CalendarData;
 use Sg\CalendarBundle\Model\ModelManagerInterface;
 use Sg\WhenBundle\When\When;
-use Sg\WhenBundle\When\WhenIterator;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -43,11 +42,6 @@ class CalendarSubscriber implements EventSubscriberInterface
     private $when;
 
     /**
-     * @var WhenIterator
-     */
-    private $whenIterator;
-
-    /**
      * @var ModelManagerInterface
      */
     private $occurrenceManager;
@@ -76,17 +70,15 @@ class CalendarSubscriber implements EventSubscriberInterface
      * @param UrlGeneratorInterface $router            An UrlGeneratorInterface
      * @param TranslatorInterface   $translator        A TranslatorInterface
      * @param When                  $when              A When instance
-     * @param WhenIterator          $whenIterator      A WhenIterator instance
      * @param ModelManagerInterface $occurrenceManager A ModelManagerInterface
      */
     public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator,
-        When $when, WhenIterator $whenIterator, ModelManagerInterface $occurrenceManager)
+        When $when, ModelManagerInterface $occurrenceManager)
     {
         $this->session = $session;
         $this->router = $router;
         $this->translator = $translator;
         $this->when = $when;
-        $this->whenIterator = $whenIterator;
         $this->occurrenceManager = $occurrenceManager;
     }
 
@@ -144,16 +136,59 @@ class CalendarSubscriber implements EventSubscriberInterface
          */
         foreach ($event->getRrules() as $rrule) {
 
-            $iterator = $this->whenIterator;
+            $when = $this->when;
 
-            $iterator->recur($rrule->getDtstart(), $rrule->getFreq())
-                     ->interval($rrule->getIval())
-                     ->until($rrule->getUntil());
+            // required
+            $when->startDate($rrule->getStart())
+                 ->freq($rrule->getFreq())
+                 ->interval($rrule->getIval());
+
+            // optional
+            if ($rrule->getCount()) {
+                $when->count($rrule->getCount());
+            }
+
+            if ($rrule->getUntil()) {
+                $when->until($rrule->getUntil());
+            }
+
+            if ($rrule->getWkst()) {
+                $when->wkst($rrule->getWkst());
+            }
+
+            if ($rrule->getBysetpos()) {
+                $when->bysetpos($rrule->getBysetpos());
+            }
+
+            if ($rrule->getByday()) {
+                $when->byday($rrule->getByday());
+            }
+
+            if ($rrule->getBymonth()) {
+                $when->bymonth($rrule->getBymonth());
+            }
+
+            if ($rrule->getBymonthday()) {
+                $when->bymonthday($rrule->getBymonthday());
+            }
+
+            if ($rrule->getByyearday()) {
+                $when->byyearday($rrule->getByyearday());
+            }
+
+            if ($rrule->getByweekno()) {
+                $when->byweekno($rrule->getByweekno());
+            }
+
+            // byhour, byminute, bysecond
+
+            // generate...
+            $when->generateOccurences();
 
             /**
              * @var \Sg\CalendarBundle\Model\OccurrenceInterface $occurrence
              */
-            foreach ($iterator as $result) {
+            foreach ($when->occurences as $result) {
                 $occurrence = $this->occurrenceManager->create();
                 $rrule->addOccurrence($occurrence);
                 $occurrence->setStart($result);
