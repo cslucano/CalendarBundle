@@ -43,7 +43,7 @@ class AbstractRrule implements RruleInterface
     protected $event;
 
     /**
-     * A RRule string.
+     * A RRule per ICal RFC.
      *
      * @var string
      *
@@ -67,7 +67,7 @@ class AbstractRrule implements RruleInterface
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
-    protected $dtstart;
+    protected $start;
 
     /**
      * Specify the limit of the recurrence.
@@ -97,7 +97,7 @@ class AbstractRrule implements RruleInterface
     protected $ival;
 
     /**
-     * The week start day.
+     * The workweek start day.
      *
      * @var string
      *
@@ -110,7 +110,7 @@ class AbstractRrule implements RruleInterface
      *
      * @ORM\Column(type="array", nullable=true)
      */
-    protected $byweekday;
+    protected $byday;
 
     /**
      * @var array
@@ -192,7 +192,8 @@ class AbstractRrule implements RruleInterface
      */
     public function __construct()
     {
-        $this->byweekday = array();
+        $this->ival = 1;
+        $this->byday = array();
         $this->bymonth = array();
         $this->bysetpos = array();
         $this->bymonthday = array();
@@ -264,9 +265,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setDtstart($dtstart)
+    public function setStart($start)
     {
-        $this->dtstart = $dtstart;
+        $this->start = $start;
 
         return $this;
     }
@@ -274,9 +275,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function getDtstart()
+    public function getStart()
     {
-        return $this->dtstart;
+        return $this->start;
     }
 
     /**
@@ -354,9 +355,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function addByweekday($weekday)
+    public function addByday($day)
     {
-        $this->byweekday[] = $weekday;
+        $this->byday[] = $day;
 
         return $this;
     }
@@ -364,9 +365,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setByweekday(array $byweekday)
+    public function setByday(array $days)
     {
-        $this->byweekday = $byweekday;
+        $this->byday = $days;
 
         return $this;
     }
@@ -374,9 +375,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function getByweekday()
+    public function getByday()
     {
-        return $this->byweekday;
+        return $this->byday;
     }
 
     /**
@@ -389,12 +390,19 @@ class AbstractRrule implements RruleInterface
         return $this;
     }
 
+    public function removeBymonth($month)
+    {
+        unset($this->bymonth[$month]);
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function setBymonth(array $bymonth)
+    public function setBymonth(array $months)
     {
-        $this->bymonth = $bymonth;
+        $this->bymonth = $months;
 
         return $this;
     }
@@ -420,9 +428,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setBysetpos(array $bysetpos)
+    public function setBysetpos(array $setpos)
     {
-        $this->bysetpos = $bysetpos;
+        $this->bysetpos = $setpos;
 
         return $this;
     }
@@ -448,9 +456,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setBymonthday(array $bymonthday)
+    public function setBymonthday(array $monthdays)
     {
-        $this->bymonthday = $bymonthday;
+        $this->bymonthday = $monthdays;
 
         return $this;
     }
@@ -476,9 +484,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setByyearday(array $byyearday)
+    public function setByyearday(array $yeardays)
     {
-        $this->byyearday = $byyearday;
+        $this->byyearday = $yeardays;
 
         return $this;
     }
@@ -504,9 +512,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setByweekno(array $byweekno)
+    public function setByweekno(array $weekno)
     {
-        $this->byweekno = $byweekno;
+        $this->byweekno = $weekno;
 
         return $this;
     }
@@ -532,9 +540,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setByhour(array $byhour)
+    public function setByhour(array $hours)
     {
-        $this->byhour = $byhour;
+        $this->byhour = $hours;
 
         return $this;
     }
@@ -560,9 +568,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setByminute(array $byminute)
+    public function setByminute(array $minutes)
     {
-        $this->byminute = $byminute;
+        $this->byminute = $minutes;
 
         return $this;
     }
@@ -588,9 +596,9 @@ class AbstractRrule implements RruleInterface
     /**
      * {@inheritdoc}
      */
-    public function setBysecond(array $bysecond)
+    public function setBysecond(array $seconds)
     {
-        $this->bysecond = $bysecond;
+        $this->bysecond = $seconds;
 
         return $this;
     }

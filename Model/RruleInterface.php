@@ -11,21 +11,21 @@ use DateTime;
  */
 interface RruleInterface
 {
-    const DAILY     = 'DAILY';
-    const WEEKLY    = 'WEEKLY';
-    const MONTHLY   = 'MONTHLY';
-    const YEARLY    = 'YEARLY';
-    const SECONDLY  = 'SECONDLY';
-    const MINUTELY  = 'MINUTELY';
-    const HOURLY    = 'HOURLY';
+    const DAILY     = 'daily';
+    const WEEKLY    = 'weekly';
+    const MONTHLY   = 'monthly';
+    const YEARLY    = 'yearly';
+    const SECONDLY  = 'secondly';
+    const MINUTELY  = 'minutely';
+    const HOURLY    = 'hourly';
 
-    const MONDAY    = 'MO';
-    const TUESDAY   = 'TU';
-    const WEDNESDAY = 'WE';
-    const THURSDAY  = 'TH';
-    const FRIDAY    = 'FR';
-    const SATURDAY  = 'SA';
-    const SUNDAY    = 'SU';
+    const MONDAY    = 'mo';
+    const TUESDAY   = 'tu';
+    const WEDNESDAY = 'we';
+    const THURSDAY  = 'th';
+    const FRIDAY    = 'fr';
+    const SATURDAY  = 'sa';
+    const SUNDAY    = 'su';
 
     const JANUARY   = 1;
     const FEBRUARY  = 2;
@@ -81,20 +81,20 @@ interface RruleInterface
     public function getFreq();
 
     /**
-     * Set dtstart.
+     * Set start.
      *
-     * @param DateTime $dtstart
+     * @param DateTime $start
      *
      * @return self
      */
-    public function setDtstart($dtstart);
+    public function setStart($start);
 
     /**
-     * Get dtstart.
+     * Get start.
      *
      * @return DateTime
      */
-    public function getDtstart();
+    public function getStart();
 
     /**
      * Set until.
@@ -161,29 +161,29 @@ interface RruleInterface
     public function getWkst();
 
     /**
-     * Add byweekday.
+     * Add byday.
      *
-     * @param string $weekday
-     *
-     * @return self
-     */
-    public function addByweekday($weekday);
-
-    /**
-     * Set byweekday.
-     *
-     * @param array $byweekday
+     * @param string $day
      *
      * @return self
      */
-    public function setByweekday(array $byweekday);
+    public function addByday($day);
 
     /**
-     * Get byweekday.
+     * Set byday.
+     *
+     * @param array $days
+     *
+     * @return self
+     */
+    public function setByday(array $days);
+
+    /**
+     * Get byday.
      *
      * @return array
      */
-    public function getByweekday();
+    public function getByday();
 
     /**
      * Add bymonth.
@@ -197,11 +197,11 @@ interface RruleInterface
     /**
      * Set bymonth.
      *
-     * @param array $bymonth
+     * @param array $months
      *
      * @return self
      */
-    public function setBymonth(array $bymonth);
+    public function setBymonth(array $months);
 
     /**
      * Get bymonth.
@@ -222,11 +222,11 @@ interface RruleInterface
     /**
      * Set bysetpos.
      *
-     * @param array $bysetpos
+     * @param array $setpos
      *
      * @return self
      */
-    public function setBysetpos(array $bysetpos);
+    public function setBysetpos(array $setpos);
 
     /**
      * Get bysetpos.
@@ -247,11 +247,11 @@ interface RruleInterface
     /**
      * Set bymonthday.
      *
-     * @param array $bymonthday
+     * @param array $monthdays
      *
      * @return self
      */
-    public function setBymonthday(array $bymonthday);
+    public function setBymonthday(array $monthdays);
 
     /**
      * Get bymonthday.
@@ -272,11 +272,11 @@ interface RruleInterface
     /**
      * Set byyearday.
      *
-     * @param array $byyearday
+     * @param array $yeardays
      *
      * @return self
      */
-    public function setByyearday(array $byyearday);
+    public function setByyearday(array $yeardays);
 
     /**
      * Get byyearday.
@@ -297,11 +297,11 @@ interface RruleInterface
     /**
      * Set byweekno.
      *
-     * @param array $byweekno
+     * @param array $weekno
      *
      * @return self
      */
-    public function setByweekno(array $byweekno);
+    public function setByweekno(array $weekno);
 
     /**
      * Get byweekno.
@@ -322,11 +322,11 @@ interface RruleInterface
     /**
      * Set byhour.
      *
-     * @param array $byhour
+     * @param array $hours
      *
      * @return self
      */
-    public function setByhour(array $byhour);
+    public function setByhour(array $hours);
 
     /**
      * Get byhour.
@@ -347,11 +347,11 @@ interface RruleInterface
     /**
      * Set byminute.
      *
-     * @param array $byminute
+     * @param array $minutes
      *
      * @return self
      */
-    public function setByminute(array $byminute);
+    public function setByminute(array $minutes);
 
     /**
      * Get byminute.
@@ -372,11 +372,11 @@ interface RruleInterface
     /**
      * Set bysecond.
      *
-     * @param array $bysecond
+     * @param array $seconds
      *
      * @return self
      */
-    public function setBysecond(array $bysecond);
+    public function setBysecond(array $seconds);
 
     /**
      * Get bysecond.
