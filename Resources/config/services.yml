@@ -19,14 +19,6 @@ services:
         class: Sg\CalendarBundle\Doctrine\CalendarManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%]
 
-    sg_calendar.rrule_manager:
-        class: Sg\CalendarBundle\Doctrine\RruleManager
-        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.rrule.class%]
-
-    sg_calendar.occurrence_manager:
-        class: Sg\CalendarBundle\Doctrine\OccurrenceManager
-        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.occurrence.class%]
-
 
     # Forms
 
@@ -44,12 +36,6 @@ services:
         tags:
             - { name: form.type, alias: sg_calendar_calendartype }
 
-    sg_calendar.form_type.rrule.default:
-        class: Sg\CalendarBundle\Form\Type\RruleType
-        arguments: [%sg_calendar.doctrine.rrule.class%]
-        tags:
-            - { name: form.type, alias: sg_calendar_rruletype }
-
     ## Datepicker / Datetimepicker
 
     sg_calendar.form_type.datepicker:
@@ -61,13 +47,6 @@ services:
         class: Sg\CalendarBundle\Form\Type\DateTimePickerType
         tags:
             - { name: form.type, alias: dateTimePicker }
-
-    ## Array
-
-    sg_calendar.form_type.array:
-        class: Sg\CalendarBundle\Form\Type\ArrayType
-        tags:
-            - { name: form.type, alias: array }
 
     ## Form factories
 

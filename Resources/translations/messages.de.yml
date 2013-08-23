@@ -123,23 +123,6 @@ calendar: # the bundle name
             updatedAt: "Geändert am"
             createdBy: "Erstellt von"
             updatedBy: "Geändert von"
-        rrule:
-            rule: "RRule per ICal RFC"
-            freq: "Wird wiederholt"
-            start: "Beginnt am"
-            until: "Endet am"
-            count: "Endet nach"
-            ival: "Wiederholen alle"
-            wkst: "Beginn der Arbeitswoche"
-            byday: "Wöchentlich am"
-            bymonth: "Monatlich im"
-            bysetpos: "Position (1 bis 366)"
-            bymonthday: "Tag im Monat (1 bis 31)"
-            byyearday: "Tag im Jahr (1 bis 366)"
-            byweekno: "Woche im Jahr (1 bis 53)"
-            byhour: "Stündlich alle (0 bis 23)"
-            byminute: "Minütlich alle (0 bis 59)"
-            bysecond: "Sekündlich alle (0 bis 60)"
     status:
         event:
             confirmed: "bestätigt"
@@ -149,11 +132,3 @@ calendar: # the bundle name
         legend:
             event: "Ereignis"
             rrules: "Wiederholen"
-    frequency:
-        daily: "täglich"
-        weekly: "wöchentlich"
-        monthly: "monatlich"
-        yearly: "jährlich"
-        hourly: "stündlich"
-        minutely: "minütlich"
-        secondly: "sekündlich"

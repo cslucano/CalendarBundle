@@ -123,23 +123,6 @@ calendar: # the bundle name
             updatedAt: "Updated at"
             createdBy: "Created by"
             updatedBy: "Updated by"
-        rrule:
-            rule: "RRule per ICal RFC"
-            freq: "Frequency"
-            start: "Recurrence start"
-            until: "Recurrence end"
-            count: "Recurrence count"
-            ival: "Interval"
-            wkst: "Workweek start"
-            byday: "By weekday"
-            bymonth: "By month"
-            bysetpos: "Position (1 bis 366)"
-            bymonthday: "By month day (1 bis 31)"
-            byyearday: "By year day (1 bis 366)"
-            byweekno: "By weekno (1 bis 53)"
-            byhour: "By hour (0 bis 23)"
-            byminute: "By minute (0 bis 59)"
-            bysecond: "By second (0 bis 60)"
     status:
         event:
             confirmed: "confirmed"
@@ -149,11 +132,3 @@ calendar: # the bundle name
         legend:
             event: "Event"
             rrules: "Recurrences"
-    frequency:
-        daily: "daily"
-        weekly: "weekly"
-        monthly: "monthly"
-        yearly: "yearly"
-        hourly: "hourly"
-        minutely: "minutely"
-        secondly: "secondly"
