@@ -120,16 +120,12 @@
                 <th>{{ 'calendar.entity.event.updatedBy'|trans({}, 'messages') }}</th>
                 <td>{{ entity.updatedBy }}</td>
             </tr>
-            <tr>
-                <th>{{ 'calendar.entity.event.rrules'|trans({}, 'messages') }}</th>
-                <td>
-                    {% for rrule in entity.rrules %}
-                        <ul>
-                            <li>{{ rrule.freq }}</li>
-                        </ul>
-                    {% endfor %}
-                </td>
-            </tr>
+            {% if entity.rrule is not null %}
+                <tr>
+                    <th>{{ 'calendar.entity.event.rrule'|trans({}, 'messages') }}</th>
+                    <td>{{ entity.rrule.freq }}</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 

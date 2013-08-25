@@ -98,7 +98,7 @@ calendar: # the bundle name
             allDay: "All day"
             start: "Start"
             end: "End"
-            rrules: "Recurrences"
+            rrule: "Recurrence"
             description: "Description"
             calendar: "Calendar"
             url: "Url"
