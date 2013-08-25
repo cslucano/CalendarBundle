@@ -2,6 +2,7 @@
 
 namespace Sg\CalendarBundle\Model;
 
+use Sg\RruleBundle\Model\RruleInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 
@@ -106,29 +107,20 @@ interface EventInterface
     public function getEnd();
 
     /**
-     * Add rrule.
+     * Set rrule.
      *
      * @param RruleInterface $rrule
      *
      * @return self
      */
-    public function addRrule(RruleInterface $rrule);
+    public function setRrule(RruleInterface $rrule);
 
     /**
-     * Remove rrule.
+     * Get rrule.
      *
-     * @param RruleInterface $rrule
-     *
-     * @return self
+     * @return RruleInterface
      */
-    public function removeRrule(RruleInterface $rrule);
-
-    /**
-     * Get rrules.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRrules();
+    public function getRrule();
 
     /**
      * Set description.

@@ -2,6 +2,7 @@
 
 namespace Sg\CalendarBundle\Model;
 
+use Sg\RruleBundle\Model\RruleInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable as JoinTable;
@@ -79,19 +80,20 @@ abstract class AbstractEvent implements EventInterface
     protected $end;
 
     /**
-     * The rrules of the event.
+     * The rrule.
      *
-     * @var ArrayCollection
+     * @var RruleInterface
      *
-     * @ORM\OneToMany(
-     *     targetEntity="Sg\CalendarBundle\Model\RruleInterface",
-     *     mappedBy="event",
-     *     cascade={"persist"},
+     * @ORM\OneToOne(
+     *     targetEntity="\Sg\RruleBundle\Model\RruleInterface",
+     *     cascade={"persist", "remove"},
      *     orphanRemoval=true
      * )
-     * @Assert\Valid()
+     * @ORM\JoinColumn(
+     *     nullable=true
+     * )
      */
-    protected $rrules;
+    protected $rrule;
 
     /**
      * Description of the event.
@@ -268,7 +270,6 @@ abstract class AbstractEvent implements EventInterface
         $this->allDay = true;
         $this->editable = false;
         $this->attendable = false;
-        $this->rrules = new ArrayCollection();
         $this->attendees = new ArrayCollection();
     }
 
@@ -388,10 +389,9 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function addRrule(RruleInterface $rrule)
+    public function setRrule(RruleInterface $rrule)
     {
-        $rrule->setEvent($this);
-        $this->rrules[] = $rrule;
+        $this->rrule = $rrule;
 
         return $this;
     }
@@ -399,17 +399,9 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function removeRrule(RruleInterface $rrule)
+    public function getRrule()
     {
-        $this->rrules->removeElement($rrule);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRrules()
-    {
-        return $this->rrules;
+        return $this->rrule;
     }
 
     /**
