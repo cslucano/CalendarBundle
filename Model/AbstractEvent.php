@@ -92,6 +92,7 @@ abstract class AbstractEvent implements EventInterface
      * @ORM\JoinColumn(
      *     nullable=true
      * )
+     * @Assert\Valid()
      */
     protected $rrule;
 
@@ -389,7 +390,7 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function setRrule(RruleInterface $rrule)
+    public function setRrule(RruleInterface $rrule = null)
     {
         $this->rrule = $rrule;
 
