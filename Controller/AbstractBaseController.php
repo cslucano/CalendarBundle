@@ -95,19 +95,19 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
+     * @return \Sg\RruleBundle\Model\ModelManagerInterface
      */
     protected function getRruleManager()
     {
-        return $this->container->get('sg_calendar.rrule_manager');
+        return $this->container->get('sg_rrule.rrule_manager');
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
+     * @return \Sg\RruleBundle\Model\ModelManagerInterface
      */
-    protected function getCalculationManager()
+    protected function getOccurrenceManager()
     {
-        return $this->container->get('sg_calendar.calculation_manager');
+        return $this->container->get('sg_rrule.occurrence_manager');
     }
 
     /**
