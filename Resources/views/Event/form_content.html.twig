@@ -17,57 +17,5 @@
 
 <fieldset>
     <legend>{{ 'calendar.form.legend.rrules'|trans({}, 'messages') }}</legend>
-    <ul class="rrules unstyled" data-prototype="{{ form_widget(form.rrules.vars.prototype)|e }}">
-
-        {% for rrule in form.rrules %}
-            <li class="rrule_form"></li>
-        {% endfor %}
-
-    </ul>
+    {{ form_widget(form.rrule) }}
 </fieldset>
-
-<script type="text/javascript">
-    var collectionHolder = $('ul.rrules');
-    var $addLink = $('<a href="#" class="add_link">{{ "calendar.action.add"|trans({}, "messages") }}</a>');
-    var $newLinkLi = $('<li></li>').append($addLink);
-
-    function addFormDeleteLink($FormLi) {
-        var $removeFormA = $('<a href="#">{{ "calendar.action.remove"|trans({}, "messages") }}</a>');
-        $FormLi.append($removeFormA);
-
-        $removeFormA.on('click', function(e) {
-            e.preventDefault();
-            $FormLi.remove();
-        });
-    }
-
-    function addForm(collectionHolder, $newLinkLi) {
-        var prototype = collectionHolder.data('prototype');
-        var index = collectionHolder.data('index');
-        var newForm = prototype.replace(/__name__/g, index);
-
-        collectionHolder.data('index', index + 1);
-
-        var $newFormLi = $('<li class="rrule_form"></li>').append(newForm);
-        $newLinkLi.before($newFormLi);
-
-        addFormDeleteLink($newFormLi);
-
-        sg_calendar_datepicker.initDatePicker();
-    }
-
-    jQuery(document).ready(function() {
-        collectionHolder.find('li.rrule_form').each(function() {
-            addFormDeleteLink($(this));
-        });
-
-        collectionHolder.append($newLinkLi);
-
-        collectionHolder.data('index', collectionHolder.find(':input').length);
-
-        $addLink.on('click', function(e) {
-            e.preventDefault();
-            addForm(collectionHolder, $newLinkLi);
-        });
-    });
-</script>
