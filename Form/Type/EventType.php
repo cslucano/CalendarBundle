@@ -57,15 +57,7 @@ class EventType extends AbstractType
                     'label' => 'calendar.entity.event.status',
                     'translation_domain' => 'messages'
                 ))
-            ->add('rrules', 'collection', array(
-                    'type' => 'sg_calendar_rruletype',
-                    'label' => 'calendar.entity.event.rrules',
-                    'translation_domain' => 'messages',
-                    'allow_add' => true,    // default: false
-                    'allow_delete' => true, // default: false
-                    //'prototype' => true,  // is default
-                    'by_reference' => false // default: true
-                ));
+            ->add('rrule', 'rrule', array('label' => 'calendar.entity.event.rrule', 'translation_domain' => 'messages'));
     }
 
     /**
