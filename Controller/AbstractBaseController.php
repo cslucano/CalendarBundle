@@ -48,6 +48,24 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
+     * Returns an Rrule by id.
+     *
+     * @param integer $id
+     *
+     * @return \Sg\RruleBundle\Model\RruleInterface
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    protected function getRruleById($id)
+    {
+        $rrule = $this->getRruleManager()->find($id);
+        if (!$rrule) {
+            throw $this->createNotFoundException('Unable to find Rrule entity.');
+        }
+
+        return $rrule;
+    }
+
+    /**
      * Creates a form to delete a entity by id.
      *
      * @param mixed $id The entity id
