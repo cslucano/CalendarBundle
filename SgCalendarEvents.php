@@ -42,11 +42,6 @@ final class SgCalendarEvents
     /**
      * @var string
      */
-    const EVENT_GENERATE_OCCURRENCES = 'sg_calendar.event.generate.occurrences';
-
-    /**
-     * @var string
-     */
     const CALENDAR_CREATE_SUCCESS = 'sg_calendar.calendar.create.success';
 
     /**
