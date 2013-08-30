@@ -51,15 +51,18 @@ class EventController extends AbstractBaseController
         if ($form->isValid()) {
             $eventData = new EventData($event);
 
-            // Generate occurrences, set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
 
-            if ($event->getRrules()->count() > 0) {
-                $dispatcher->dispatch(SgCalendarEvents::EVENT_GENERATE_OCCURRENCES, $eventData);
+            // remove the rrule if some form fields are empty
+            if ($event->getRrule()) {
+                if (!$event->getRrule()->getFreq() && !$event->getRrule()->getDtstart()) {
+                    $event->setRrule(null);
+                }
             }
 
             $this->getEventManager()->save($event);
 
+            // set (redirect) response and flash message
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_SUCCESS, $eventData);
             $dispatcher->dispatch(SgCalendarEvents::EVENT_CREATE_COMPLETED, $eventData);
 
@@ -86,6 +89,9 @@ class EventController extends AbstractBaseController
     public function newAction()
     {
         $event = $this->getEventManager()->create();
+        $rrule = $this->getRruleManager()->create();
+
+        $event->setRrule($rrule);
 
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -191,12 +197,8 @@ class EventController extends AbstractBaseController
         if ($editForm->isValid()) {
             $eventData = new EventData($event);
 
-            // Calculate recurrences, set (redirect) response and flash message
+            // set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
-
-            if ($event->getRecurrences()->count() > 0) {
-                $dispatcher->dispatch(SgCalendarEvents::EVENT_CALCULATE_RECURRENCES, $eventData);
-            }
 
             $this->getEventManager()->save($event);
 
