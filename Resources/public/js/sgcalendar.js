@@ -7,7 +7,6 @@ var sg_calendar_datepicker = (function() {
         initLocale : function() {
             if(global.locale) {
                 locale = global.locale;
-                console.log(locale)
             }
             else {
                 console.error('The locale is missing, default locale will be set (en)');
