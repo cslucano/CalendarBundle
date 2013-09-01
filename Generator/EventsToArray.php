@@ -40,19 +40,15 @@ class EventsToArray
         $returnEvents = array();
 
         foreach ($events as $event) {
-
             $returnEvents[] = $this->toArray($event);
 
-            $rrules = $event->getRrules();
+            $rrule = $event->getRrule();
 
-            /**
-             * @var \Sg\CalendarBundle\Model\RruleInterface $rrule
-             */
-            foreach ($rrules as $rrule) {
+            if ($rrule) {
                 $occurrences = $rrule->getOccurrences();
 
                 /**
-                 * @var \Sg\CalendarBundle\Model\OccurrenceInterface $occurrence
+                 * @var \Sg\RruleBundle\Model\OccurrenceInterface $occurrence
                  */
                 foreach ($occurrences as $occurrence) {
                     $start = $occurrence->getStart();
@@ -61,7 +57,6 @@ class EventsToArray
                     $returnEvents[] = $this->toArray($event, $start, $end);
                 }
             }
-
         }
 
         return $returnEvents;
