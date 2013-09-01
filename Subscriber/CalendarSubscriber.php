@@ -78,13 +78,7 @@ class CalendarSubscriber implements EventSubscriberInterface
     public function onEventCreateSuccess(EventData $eventData)
     {
         $event = $eventData->getEvent();
-
-        if ($event->getRrule()) {
-            $url = $this->router->generate('sg_rrule_generate_occurrences', array('id' => $event->getId()));
-        } else {
-            $url = $this->router->generate('sg_calendar_get_event', array('id' => $event->getId()));
-        }
-
+        $url = $this->router->generate('sg_calendar_get_event', array('id' => $event->getId()));
         $eventData->setResponse(new RedirectResponse($url));
     }
 
