@@ -270,7 +270,7 @@ assetic:
     assets:
        jquery_js:
            inputs:
-               - %kernel.root_dir%/../vendor/arshaw/fullcalendar/jquery/jquery-1.10.2.min.js
+               - %kernel.root_dir%/../vendor/arshaw/fullcalendar/lib/jquery.min.js
            output: js/jquery.js
        img_bootstrap_glyphicons_black:
            inputs:
@@ -294,7 +294,7 @@ assetic:
            output: css/fullcalendar.css
        fullcalendar_js:
            inputs:
-               - %kernel.root_dir%/../vendor/arshaw/fullcalendar/fullcalendar/fullcalendar.js
+               - %kernel.root_dir%/../vendor/arshaw/fullcalendar/fullcalendar/fullcalendar.min.js
                - %kernel.root_dir%/../vendor/arshaw/fullcalendar/fullcalendar/gcal.js
            output: js/fullcalendar.js
 ```
