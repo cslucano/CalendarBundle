@@ -18,10 +18,10 @@
             "type": "package",
             "package": {
                 "name": "arshaw/fullcalendar",
-                "version": "1.6.3",
+                "version": "1.6.4",
                 "dist": {
                     "type": "zip",
-                    "url": "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.6.3.zip"
+                    "url": "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.6.4.zip"
                 }
             }
         }
@@ -29,8 +29,9 @@
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "~2.3",
+        "sg/rrulebundle": "dev-master",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "arshaw/fullcalendar": "1.6.3",
+        "arshaw/fullcalendar": "1.6.4",
         "twitter/bootstrap": "v2.3.2"
     },
     "autoload": {
