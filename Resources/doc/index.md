@@ -22,6 +22,7 @@ These addresses can be entered using the calendar form.
 
 * This version of the bundle requires Symfony 2.3.x.
 * Also FOSUserBundle needs to be installed and configured beforehand. Please follow all steps described [here](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
+* The SgRruleBundle is part of SgCalendarBundle and must be installed.
 * Finally, Bootstrap 2.3 and FullCalendar 1.6 should be installed.
 
 Your composer.json should look like this:
@@ -33,17 +34,18 @@ Your composer.json should look like this:
             "type": "package",
             "package": {
                 "name": "arshaw/fullcalendar",
-                "version": "1.6.3",
+                "version": "1.6.4",
                 "dist": {
                     "type": "zip",
-                    "url": "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.6.3.zip"
+                    "url": "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.6.4.zip"
                 }
             }
         }
     ],
     "require": {
+        "sg/rrulebundle": "dev-master",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "arshaw/fullcalendar": "1.6.3",
+        "arshaw/fullcalendar": "1.6.4",
         "twitter/bootstrap": "v2.3.2",
         "sg/calendarbundle": "dev-master"
     },
@@ -226,11 +228,11 @@ doctrine:
     orm:
         # ...
         resolve_target_entities:
-            Sg\CalendarBundle\Model\RecurrenceInterface: Sg\CalendarBundle\Entity\Recurrence   # CalendarBundle default
-            Sg\CalendarBundle\Model\CalculationInterface: Sg\CalendarBundle\Entity\Calculation # CalendarBundle default
-            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User      # your User entity
-            Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar           # your Calendar entity
-            Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event                 # your Event entity
+            Sg\RruleBundle\Model\RruleInterface: Sg\RruleBundle\Entity\Rrule              # RruleBundle default
+            Sg\RruleBundle\Model\OccurrenceInterface: Sg\RruleBundle\Entity\Occurrence    # RruleBundle default
+            Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User # your User entity
+            Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar      # your Calendar entity
+            Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event            # your Event entity
 ```
 
 ### Step 6: Configure the SgCalendarBundle
@@ -324,7 +326,11 @@ The bundle layout file is: `src/Sg/CalendarBundle/Resources/views/layout.html.tw
             '@fullcalendar_js'
             'bundles/sgcalendar/js/jquery-ui-1.10.3.custom.min.js'
             'bundles/sgcalendar/js/jquery.ui.datepicker-de.js'
-            'bundles/sgcalendar/js/sgcalendar.js' %}
+            'bundles/sgcalendar/js/sgcalendar.js'
+            'bundles/sgrrule/js/underscore-min.js'
+            'bundles/sgrrule/js/rrule.js'
+            'bundles/sgrrule/js/nlp.js'
+            'bundles/sgrrule/js/moment.min.js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% endblock %}
