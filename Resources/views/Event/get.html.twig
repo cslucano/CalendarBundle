@@ -131,7 +131,7 @@
             {% if entity.rrule is not null %}
                 <tr>
                     <th>{{ 'calendar.entity.event.rrule'|trans({}, 'messages') }}</th>
-                    <td>{{ entity.rrule.freq }}</td>
+                    <td>{{ entity.rrule.rule }}</td>
                 </tr>
             {% endif %}
         </tbody>
