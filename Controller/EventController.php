@@ -58,8 +58,6 @@ class EventController extends AbstractBaseController
                 if (!$event->getRrule()->getFreq() && !$event->getRrule()->getDtstart()) {
                     $event->setRrule(null);
                 }
-            } else {
-                $event->getRrule()->setRevise(false);
             }
 
             $this->getEventManager()->save($event);
@@ -211,6 +209,21 @@ class EventController extends AbstractBaseController
 
             // set (redirect) response and flash message
             $dispatcher = $this->getDispatcher();
+
+            // remove the rrule if some form fields are empty
+            if ($event->getRrule()) {
+                if (!$event->getRrule()->getFreq() && !$event->getRrule()->getDtstart()) {
+                    $event->setRrule(null);
+                } else {
+                    // remove all occurrences ...
+                    $occurrences = $event->getRrule()->getOccurrences();
+                    foreach ($occurrences as $occurrence) {
+                        $this->getOccurrenceManager()->remove($occurrence);
+                    }
+                    // and recreate occurrences later
+                    $event->getRrule()->setRevise(true);
+                }
+            }
 
             $this->getEventManager()->save($event);
 
