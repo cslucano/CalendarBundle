@@ -58,6 +58,8 @@ class EventController extends AbstractBaseController
                 if (!$event->getRrule()->getFreq() && !$event->getRrule()->getDtstart()) {
                     $event->setRrule(null);
                 }
+            } else {
+                $event->getRrule()->setRevise(false);
             }
 
             $this->getEventManager()->save($event);
@@ -131,8 +133,18 @@ class EventController extends AbstractBaseController
             }
         }
 
+        $generateOccurrences = false;
+        if ($event->getRrule()) {
+            $generateOccurrences = $event->getRrule()->getRevise();
+            if (true === $generateOccurrences) {
+                $event->getRrule()->setRevise(false);
+                $this->getEventManager()->save($event);
+            }
+        }
+
         return array(
-            'entity' => $event
+            'entity' => $event,
+            'generateOccurrences' => $generateOccurrences
         );
     }
 
