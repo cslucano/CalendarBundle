@@ -11,7 +11,7 @@ Features include:
 - multi language
 - event resize, drag&drop
 - display events from a public gcal
-- recurring events (experimental)
+- recurring events (experiment with the [rrule.js library](https://github.com/jkbr/rrule) and the [SgRruleBundle](https://github.com/stwe/RruleBundle))
 - private and public events
 - multiple calendars
 
