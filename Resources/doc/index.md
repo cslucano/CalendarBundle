@@ -249,13 +249,33 @@ sg_calendar:
     time_format: "HH:mm"
 ```
 
-### Step 7: Update your database schema
+### Step 7: Import routing
+
+Add the following configuration to your `routing.yml` file:
+
+``` yaml
+# app/config/routing.yml
+
+# SgRruleBundle
+sg_rrule:
+    resource: "@SgRruleBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# SgCalendarBundle
+sg_calendar:
+    resource: "@SgCalendarBundle/Controller/"
+    type:     annotation
+    prefix:   /
+```
+
+### Step 8: Update your database schema
 
 ``` bash
 $ php app/console doctrine:schema:update --force
 ```
 
-### Step 8: Assetic Configuration
+### Step 9: Assetic Configuration
 
 ``` yaml
 # app/config/config.yml
@@ -406,7 +426,7 @@ The bundle layout file is: `src/Sg/CalendarBundle/Resources/views/layout.html.tw
 {% endblock %}
 ```
 
-## Routing
+## List of all available routes
 
 <div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/routes.jpg"></div>
 
