@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sg\CalendarBundle\Event\CalendarData;
 use Sg\CalendarBundle\SgCalendarEvents;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class CalendarController
@@ -26,7 +25,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/", name="sg_calendar")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      */
@@ -58,7 +56,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/create", name="sg_calendar_create_calendar")
      * @Method("POST")
      * @Template("SgCalendarBundle:Calendar:new.html.twig")
-     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -102,7 +99,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/new", name="sg_calendar_new_calendar")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -131,7 +127,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/{id}/show", name="sg_calendar_get_calendar")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -159,7 +154,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/{id}/edit", name="sg_calendar_edit_calendar")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -191,7 +185,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/{id}/update", name="sg_calendar_update_calendar")
      * @Method("PUT")
      * @Template("SgCalendarBundle:Calendar:edit.html.twig")
-     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -236,7 +229,6 @@ class CalendarController extends AbstractBaseController
      * @Route("/{id}/remove", name="sg_calendar_remove_calendar")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -267,7 +259,6 @@ class CalendarController extends AbstractBaseController
      *
      * @Route("/{id}/delete", name="sg_calendar_delete_calendar")
      * @Method("DELETE")
-     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException

@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\SgCalendarEvents;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class EventController
@@ -29,7 +28,6 @@ class EventController extends AbstractBaseController
      * @Route("calendar/event/create", name="sg_calendar_create_event")
      * @Method("POST")
      * @Template("SgCalendarBundle:Event:new.html.twig")
-     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -81,7 +79,6 @@ class EventController extends AbstractBaseController
      * @Route("calendar/event/new", name="sg_calendar_new_event")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -113,7 +110,6 @@ class EventController extends AbstractBaseController
      * @Route("calendar/event/{id}/show", name="sg_calendar_get_event")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -154,7 +150,6 @@ class EventController extends AbstractBaseController
      * @Route("calendar/event/{id}/edit", name="sg_calendar_edit_event")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -186,7 +181,6 @@ class EventController extends AbstractBaseController
      * @Route("calendar/event/{id}/update", name="sg_calendar_update_event")
      * @Method("PUT")
      * @Template("SgCalendarBundle:Event:edit.html.twig")
-     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -247,7 +241,6 @@ class EventController extends AbstractBaseController
      * @Route("calendar/event/{id}/remove", name="sg_calendar_remove_event")
      * @Method("GET")
      * @Template()
-     * @ApiDoc()
      *
      * @return array
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -278,7 +271,6 @@ class EventController extends AbstractBaseController
      *
      * @Route("calendar/event/{id}/delete", name="sg_calendar_delete_event")
      * @Method("DELETE")
-     * @ApiDoc()
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -322,7 +314,6 @@ class EventController extends AbstractBaseController
      *
      * @Route("calendar/event/{id}/attend", name="sg_calendar_attend_event")
      * @Method("GET")
-     * @ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
@@ -352,7 +343,6 @@ class EventController extends AbstractBaseController
      *
      * @Route("calendar/event/{id}/unattend", name="sg_calendar_unattend_event")
      * @Method("GET")
-     * @ApiDoc()
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
