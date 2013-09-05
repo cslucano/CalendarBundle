@@ -158,6 +158,11 @@ class EventController extends AbstractBaseController
     {
         $event = $this->getEventById($id);
 
+        if (null === $event->getRrule()) {
+            $rrule = $this->getRruleManager()->create();
+            $event->setRrule($rrule);
+        }
+
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
             if (false === $this->getSecurity()->isGranted('OWNER', $event)) {
                 throw new AccessDeniedException();
