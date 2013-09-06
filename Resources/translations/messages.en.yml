@@ -83,6 +83,7 @@ calendar: # the bundle name
                 attend: "Attend"
                 unattend: "Not attend"
                 attendees: "Attendees"
+                generateOccurrences: "Generate recurring events..."
             new:
                 title: "New Event"
                 submit: "Create"

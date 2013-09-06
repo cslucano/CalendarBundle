@@ -39,7 +39,7 @@
     {% if true == generateOccurrences %}
         <div class="alert alert-danger">
             <button class="close" data-dismiss="alert" type="button">×</button>
-            Generate occurrences...
+            {{ 'calendar.event.action.get.generateOccurrences'|trans({}, 'messages') }}
         </div>
         {% include "SgRruleBundle:Occurrences:generateOccurrences.html.twig" %}
     {% endif %}

@@ -83,6 +83,7 @@ calendar: # the bundle name
                 attend: "Teilnahme zusagen"
                 unattend: "Teilnahme absagen"
                 attendees: "Teilnehmer"
+                generateOccurrences: "Erzeuge alle Wiederholungen..."
             new:
                 title: "Neues Ereignis"
                 submit: "Speichern"
