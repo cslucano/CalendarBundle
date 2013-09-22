@@ -13,7 +13,9 @@ namespace Sg\CalendarBundle\Twig;
 
 use Twig_Extension;
 use Twig_SimpleFunction;
+use Twig_SimpleFilter;
 use Twig_Environment as Twig;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Class CalendarExtension
@@ -26,6 +28,11 @@ class CalendarExtension extends Twig_Extension
      * @var Twig
      */
     private $twig;
+
+    /**
+     * @var Translator
+     */
+    private $translator;
 
     /**
      * The jQuery fullcalendar id selector
@@ -60,15 +67,17 @@ class CalendarExtension extends Twig_Extension
     /**
      * Ctor.
      *
-     * @param Twig    $twig           A Twig instance
-     * @param string  $fullcalendarId The jQuery fullcalendar id selector
-     * @param string  $datepickerId   The jQuery datepicker id selector
-     * @param integer $firstDay       The day that each week begins
-     * @param string  $timeFormat     Determines the time-text that will be displayed on each event
+     * @param Twig       $twig           A Twig instance
+     * @param Translator $translator     A Translator instance
+     * @param string     $fullcalendarId The jQuery fullcalendar id selector
+     * @param string     $datepickerId   The jQuery datepicker id selector
+     * @param integer    $firstDay       The day that each week begins
+     * @param string     $timeFormat     Determines the time-text that will be displayed on each event
      */
-    public function __construct(Twig $twig, $fullcalendarId, $datepickerId, $firstDay, $timeFormat)
+    public function __construct(Twig $twig, Translator $translator, $fullcalendarId, $datepickerId, $firstDay, $timeFormat)
     {
         $this->twig = $twig;
+        $this->translator = $translator;
         $this->fullcalendarId = $fullcalendarId;
         $this->datepickerId = $datepickerId;
         $this->firstDay = $firstDay;
@@ -83,6 +92,16 @@ class CalendarExtension extends Twig_Extension
         return array(
             new Twig_SimpleFunction('render_full_calendar', array($this, 'renderFullCalendar'), array('is_safe' => array('all'))),
             new Twig_SimpleFunction('render_datepicker', array($this, 'renderDatepicker'), array('is_safe' => array('all')))
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFilters()
+    {
+        return array(
+            new Twig_SimpleFilter('boolean', array($this, 'booleanFilter'))
         );
     }
 
@@ -114,6 +133,22 @@ class CalendarExtension extends Twig_Extension
         $options['datepicker_id'] = $this->datepickerId;
 
         return $this->twig->render('SgCalendarBundle:Extension:datepicker.html.twig', $options);
+    }
+
+    /**
+     * Replacing "0" and "1" for boolean fields.
+     *
+     * @param boolean $value
+     *
+     * @return string
+     */
+    public function booleanFilter($value)
+    {
+        if ($value == '0') {
+            return $this->translator->trans('calendar.filter.no');
+        } else {
+            return $this->translator->trans('calendar.filter.yes');
+        }
     }
 
     /**

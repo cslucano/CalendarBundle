@@ -60,7 +60,7 @@
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.allDay'|trans({}, 'messages') }}</th>
-                <td>{{ entity.allDay }}</td>
+                <td>{{ entity.allDay|boolean }}</td>
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.start'|trans({}, 'messages') }}</th>
@@ -90,11 +90,11 @@
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.editable'|trans({}, 'messages') }}</th>
-                <td>{{ entity.editable }}</td>
+                <td>{{ entity.editable|boolean }}</td>
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.attendable'|trans({}, 'messages') }}</th>
-                <td>{{ entity.attendable }}</td>
+                <td>{{ entity.attendable|boolean }}</td>
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.event.color'|trans({}, 'messages') }}</th>

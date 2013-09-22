@@ -4,7 +4,7 @@ services:
 
     sg_calendar.twig_extension:
         class: Sg\CalendarBundle\Twig\CalendarExtension
-        arguments: [@twig, %sg_calendar.twig.fullcalendar_id%, %sg_calendar.twig.datepicker_id%, %sg_calendar.twig.first_day%, %sg_calendar.twig.time_format%]
+        arguments: [@twig, @translator, %sg_calendar.twig.fullcalendar_id%, %sg_calendar.twig.datepicker_id%, %sg_calendar.twig.first_day%, %sg_calendar.twig.time_format%]
         tags:
             - { name: twig.extension }
 

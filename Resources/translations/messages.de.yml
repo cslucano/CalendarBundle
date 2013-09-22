@@ -133,3 +133,6 @@ calendar: # the bundle name
         legend:
             event: "Ereignis"
             rrules: "Wiederholen"
+    filter:
+        yes: "ja"
+        no: "nein"

@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.calendar.visible'|trans({}, 'messages') }}</th>
-                <td>{{ entity.visible }}</td>
+                <td>{{ entity.visible|boolean }}</td>
             </tr>
             <tr>
                 <th>{{ 'calendar.entity.calendar.createdAt'|trans({}, 'messages') }}</th>
