@@ -2,8 +2,6 @@
 
 This Bundle integrates the jQuery FullCalendar plugin into your Symfony2 application. Compatible with Doctrine ORM.
 
-**Status:** not yet ready, hard-development.
-
 <div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/screen.jpg"></div>
 
 Features include:
