@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the SgCalendarBundle package.
+ *
+ * (c) stwe <https://github.com/stwe/CalendarBundle>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sg\CalendarBundle\Doctrine\Orm;
 
 use Doctrine\Common\EventSubscriber;
@@ -9,7 +18,7 @@ use Doctrine\ORM\Events;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sg\CalendarBundle\Model\EventInterface;
 use Sg\CalendarBundle\Model\CalendarInterface;
-use \DateTime;
+use DateTime;
 
 /**
  * Class OrmSubscriber
