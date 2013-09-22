@@ -314,6 +314,8 @@ abstract class AbstractEvent implements EventInterface
         }
 
         $this->status = $status;
+
+        return $this;
     }
 
     /**

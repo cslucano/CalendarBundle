@@ -52,6 +52,18 @@ interface EventInterface
     public function getId();
 
     /**
+     * @param string $status
+     *
+     * @return self
+     */
+    public function setStatus($status);
+
+    /**
+     * @return string
+     */
+    public function getStatus();
+
+    /**
      * Set title.
      *
      * @param string $title

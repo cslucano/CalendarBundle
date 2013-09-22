@@ -18,7 +18,9 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Fixtures
+ * Class Data
+ *
+ * @package Sg\CalendarBundle\DataFixtures\ORM
  */
 class Data extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
