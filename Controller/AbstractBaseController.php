@@ -97,7 +97,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
+     * @return \Sg\CalendarBundle\Doctrine\CalendarManager
      */
     protected function getCalendarManager()
     {
@@ -105,7 +105,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\CalendarBundle\Model\ModelManagerInterface
+     * @return \Sg\CalendarBundle\Doctrine\EventManager
      */
     protected function getEventManager()
     {
@@ -113,7 +113,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\RruleBundle\Model\ModelManagerInterface
+     * @return \Sg\RruleBundle\Doctrine\RruleManager
      */
     protected function getRruleManager()
     {
@@ -121,7 +121,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * @return \Sg\RruleBundle\Model\ModelManagerInterface
+     * @return \Sg\RruleBundle\Doctrine\Occurrencemanager
      */
     protected function getOccurrenceManager()
     {
