@@ -47,7 +47,7 @@ interface EventInterface
     /**
      * Get id.
      *
-     * @return integer
+     * @return mixed
      */
     public function getId();
 
@@ -102,7 +102,7 @@ interface EventInterface
      *
      * @return self
      */
-    public function setStart($start);
+    public function setStart(DateTime $start);
 
     /**
      * Get start.
@@ -118,7 +118,7 @@ interface EventInterface
      *
      * @return self
      */
-    public function setEnd($end);
+    public function setEnd(DateTime $end = null);
 
     /**
      * Get end.
@@ -134,7 +134,7 @@ interface EventInterface
      *
      * @return self
      */
-    public function setRrule(RruleInterface $rrule);
+    public function setRrule(RruleInterface $rrule = null);
 
     /**
      * Get rrule.
@@ -320,13 +320,38 @@ interface EventInterface
     public function hasAttendee(UserInterface $user);
 
     /**
+     * Add reminder.
+     *
+     * @param ReminderInterface $reminder
+     *
+     * @return self
+     */
+    public function addReminder(ReminderInterface $reminder);
+
+    /**
+     * Remove reminder.
+     *
+     * @param ReminderInterface $reminder
+     *
+     * @return self
+     */
+    public function removeReminder(ReminderInterface $reminder);
+
+    /**
+     * Get reminders.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReminders();
+
+    /**
      * Set createdAt.
      *
      * @param DateTime $createdAt
      *
      * @return self
      */
-    public function setCreatedAt($createdAt);
+    public function setCreatedAt(DateTime $createdAt);
 
     /**
      * Get createdAt.
@@ -342,7 +367,7 @@ interface EventInterface
      *
      * @return self
      */
-    public function setUpdatedAt($updatedAt);
+    public function setUpdatedAt(DateTime $updatedAt);
 
     /**
      * Get updatedAt.

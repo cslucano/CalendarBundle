@@ -221,6 +221,20 @@ abstract class AbstractEvent implements EventInterface
     protected $attendees;
 
     /**
+     * The reminders of the event.
+     *
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Sg\CalendarBundle\Model\ReminderInterface",
+     *     mappedBy="event",
+     *     cascade={"persist"},
+     *     orphanRemoval=true
+     * )
+     */
+    protected $reminders;
+
+    /**
      * Creation time of the event.
      *
      * @var DateTime $createdAt
@@ -281,6 +295,7 @@ abstract class AbstractEvent implements EventInterface
         $this->editable = false;
         $this->attendable = false;
         $this->attendees = new ArrayCollection();
+        $this->reminders = new ArrayCollection();
     }
 
     /**
@@ -365,7 +380,7 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function setStart($start)
+    public function setStart(DateTime $start)
     {
         $this->start = $start;
 
@@ -383,7 +398,7 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function setEnd($end)
+    public function setEnd(DateTime $end = null)
     {
         $this->end = $end;
 
@@ -615,7 +630,35 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function setCreatedAt($createdAt)
+    public function addReminder(ReminderInterface $reminder)
+    {
+        $this->reminders[] = $reminder;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeReminder(ReminderInterface $reminder)
+    {
+        $this->reminders->removeElement($reminder);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getReminders()
+    {
+        return $this->reminders;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -633,7 +676,7 @@ abstract class AbstractEvent implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
