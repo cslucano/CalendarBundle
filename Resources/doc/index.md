@@ -230,6 +230,7 @@ doctrine:
         resolve_target_entities:
             Sg\RruleBundle\Model\RruleInterface: Sg\RruleBundle\Entity\Rrule              # RruleBundle default
             Sg\RruleBundle\Model\OccurrenceInterface: Sg\RruleBundle\Entity\Occurrence    # RruleBundle default
+            Sg\CalendarBundle\Model\ReminderInterface: Sg\CalendarBundle\Entity\Reminder  # CalendarBundle default
             Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User # your User entity
             Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar      # your Calendar entity
             Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event            # your Event entity
