@@ -23,7 +23,7 @@ These addresses can be entered using the calendar form.
 * This version of the bundle requires Symfony 2.3.x.
 * Also FOSUserBundle needs to be installed and configured beforehand. Please follow all steps described [here](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
 * The SgRruleBundle is part of SgCalendarBundle and must be installed.
-* Finally, Bootstrap 2.3 and FullCalendar 1.6 should be installed.
+* Finally, Bootstrap 2.3.2 and FullCalendar 1.6 should be installed.
 
 Your composer.json should look like this:
 
@@ -46,7 +46,7 @@ Your composer.json should look like this:
         "sg/rrulebundle": "dev-master",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
         "arshaw/fullcalendar": "1.6.4",
-        "twitter/bootstrap": "v2.3.2",
+        "twbs/bootstrap": "v2.3.2",
         "sg/calendarbundle": "dev-master"
     },
 }
@@ -295,19 +295,19 @@ assetic:
            output: js/jquery.js
        img_bootstrap_glyphicons_black:
            inputs:
-               - %kernel.root_dir%/../vendor/twitter/bootstrap/img/glyphicons-halflings.png
+               - %kernel.root_dir%/../vendor/twbs/bootstrap/img/glyphicons-halflings.png
            output: img/glyphicons-halflings.png
        img_bootstrap_glyphicons_white:
            inputs:
-               - %kernel.root_dir%/../vendor/twitter/bootstrap/img/glyphicons-halflings-white.png
+               - %kernel.root_dir%/../vendor/twbs/bootstrap/img/glyphicons-halflings-white.png
            output: img/glyphicons-halflings-white.png
        bootstrap_css:
            inputs:
-               - %kernel.root_dir%/../vendor/twitter/bootstrap/docs/assets/css/bootstrap.css
+               - %kernel.root_dir%/../vendor/twbs/bootstrap/docs/assets/css/bootstrap.css
            output: css/bootstrap.css
        bootstrap_js:
            inputs:
-               - %kernel.root_dir%/../vendor/twitter/bootstrap/docs/assets/js/bootstrap.js
+               - %kernel.root_dir%/../vendor/twbs/bootstrap/docs/assets/js/bootstrap.js
            output: js/bootstrap.js
        fullcalendar_css:
            inputs:

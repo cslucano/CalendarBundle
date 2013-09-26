@@ -32,7 +32,7 @@
         "sg/rrulebundle": "dev-master",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
         "arshaw/fullcalendar": "1.6.4",
-        "twitter/bootstrap": "v2.3.2"
+        "twbs/bootstrap": "v2.3.2"
     },
     "autoload": {
         "psr-0": { "Sg\\CalendarBundle": "" }
