@@ -231,6 +231,7 @@ abstract class AbstractEvent implements EventInterface
      *     cascade={"persist"},
      *     orphanRemoval=true
      * )
+     * @Assert\Valid()
      */
     protected $reminders;
 
@@ -633,6 +634,7 @@ abstract class AbstractEvent implements EventInterface
     public function addReminder(ReminderInterface $reminder)
     {
         $this->reminders[] = $reminder;
+        $reminder->setEvent($this);
 
         return $this;
     }
