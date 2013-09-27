@@ -122,6 +122,14 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
+     * @return \Sg\CalendarBundle\Doctrine\ReminderManager
+     */
+    protected function getReminderManager()
+    {
+        return $this->container->get('sg_calendar.reminder_manager');
+    }
+
+    /**
      * @return \Sg\RruleBundle\Doctrine\RruleManager
      */
     protected function getRruleManager()

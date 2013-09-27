@@ -37,6 +37,7 @@ class SgCalendarExtension extends Extension
         // doctrine
         $container->setParameter('sg_calendar.doctrine.calendar.class', $config['calendar_class']);
         $container->setParameter('sg_calendar.doctrine.event.class', $config['event_class']);
+        $container->setParameter('sg_calendar.doctrine.reminder.class', $config['reminder_class']);
         $container->setParameter('sg_calendar.doctrine.rrule.class', $config['rrule_class']);
         $container->setParameter('sg_calendar.doctrine.occurrence.class', $config['occurrence_class']);
         $container->setParameter('sg_calendar.doctrine.calendar_max_results', $config['calendar_max_results']);

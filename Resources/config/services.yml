@@ -19,6 +19,10 @@ services:
         class: Sg\CalendarBundle\Doctrine\CalendarManager
         arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%]
 
+    sg_calendar.reminder_manager:
+        class: Sg\CalendarBundle\Doctrine\ReminderManager
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.reminder.class%]
+
 
     # Forms
 
