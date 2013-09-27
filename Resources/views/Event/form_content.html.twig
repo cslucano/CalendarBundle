@@ -1,3 +1,23 @@
+{% macro reminderRow(reminder) %}
+    <tr>
+        <td>
+            {{ form_errors(reminder.minutes) }}
+            {{ form_widget(reminder.minutes, { 'attr': {'class': 'span2'} }) }}
+        </td>
+        <td>
+            {{ form_errors(reminder.method) }}
+            {{ form_widget(reminder.method, { 'attr': {'class': 'span2'} }) }}
+        </td>
+        <td>
+            <a href="javascript:void(0);" class="deleteReminder btn btn-danger">
+                <i class="icon-trash icon-white"></i>
+            </a>
+        </td>
+    </tr>
+{% endmacro %}
+
+<script type="text/html" id="reminder_row">{{ _self.reminderRow(form.reminders.vars.prototype) }}</script>
+
 <fieldset>
     <legend>{{ 'calendar.form.legend.event'|trans({}, 'messages') }}</legend>
     {{ form_errors(form) }}
@@ -16,6 +36,46 @@
 </fieldset>
 
 <fieldset>
+    <legend>
+        Reminders
+        <button type="button" id="addReminder" class="btn btn-mini btn-primary">
+            <i class="icon-plus-sign icon-white"></i>
+        </button>
+    </legend>
+    <table id="remindersTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Minutes</th>
+                <th>Method</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reminder in form.reminders %}
+                {{ _self.reminderRow(reminder) }}
+            {% endfor %}
+        </tbody>
+    </table>
+</fieldset>
+
+<fieldset>
     <legend>{{ 'calendar.form.legend.rrules'|trans({}, 'messages') }}</legend>
     {{ form_widget(form.rrule) }}
 </fieldset>
+
+<script>
+    $(document).ready(function() {
+
+        function add() {
+            $("#remindersTable tbody").append($("#reminder_row").html().replace(/\_\_name\_\_/g, $("#remindersTable tbody tr").length));
+        }
+
+        $("#addReminder").click(function() {
+            add();
+        });
+
+        $("form").on("click", "a.deleteReminder", function() {
+            $(this).closest("tr").remove();
+        });
+    });
+</script>

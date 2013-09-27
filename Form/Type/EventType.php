@@ -66,6 +66,13 @@ class EventType extends AbstractType
                     'label' => 'calendar.entity.event.status',
                     'translation_domain' => 'messages'
                 ))
+            ->add('reminders', 'collection', array(
+                    'type' => new ReminderType(),
+                    'label' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false
+                ))
             ->add('rrule', 'rrule', array('label' => 'calendar.entity.event.rrule', 'translation_domain' => 'messages'));
     }
 
