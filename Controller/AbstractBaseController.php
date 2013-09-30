@@ -57,6 +57,24 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
+     * Returns an Reminder by id.
+     *
+     * @param integer $id
+     *
+     * @return \Sg\CalendarBundle\Model\ReminderInterface
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    protected function getReminderById($id)
+    {
+        $reminder = $this->getReminderManager()->find($id);
+        if (!$reminder) {
+            throw $this->createNotFoundException('Unable to find Reminder entity.');
+        }
+
+        return $reminder;
+    }
+
+    /**
      * Returns an Rrule by id.
      *
      * @param integer $id
