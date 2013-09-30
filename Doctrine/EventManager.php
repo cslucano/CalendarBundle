@@ -12,6 +12,7 @@
 namespace Sg\CalendarBundle\Doctrine;
 
 use Sg\CalendarBundle\Model\CalendarInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class EventManager
@@ -32,6 +33,22 @@ class EventManager extends ModelManager
         $qb = $this->repository->createQueryBuilder('e');
         $qb->where('e.calendar = :calendar');
         $qb->setParameter('calendar', $calendar);
+
+        return $qb->getQuery()->execute();
+    }
+
+    /**
+     * Find all events by given user.
+     *
+     * @param UserInterface $user
+     *
+     * @return mixed
+     */
+    public function findEventsByUser(UserInterface $user)
+    {
+        $qb = $this->repository->createQueryBuilder('e');
+        $qb->where('e.createdBy = :user');
+        $qb->setParameter('user', $user);
 
         return $qb->getQuery()->execute();
     }
