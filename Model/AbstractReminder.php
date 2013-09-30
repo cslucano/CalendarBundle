@@ -70,6 +70,15 @@ abstract class AbstractReminder implements ReminderInterface
      */
     protected $minutes;
 
+    /**
+     * Determines whether the reminder is done.
+     *
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $done;
+
 
     //-------------------------------------------------
     // Ctor. && toString
@@ -82,6 +91,7 @@ abstract class AbstractReminder implements ReminderInterface
     {
         $this->method = self::METHOD_POPUP;
         $this->minutes = 30;
+        $this->done = false;
     }
 
     /**
@@ -157,5 +167,23 @@ abstract class AbstractReminder implements ReminderInterface
     public function getMinutes()
     {
         return $this->minutes;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDone($done)
+    {
+        $this->done = $done;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDone()
+    {
+        return $this->done;
     }
 }

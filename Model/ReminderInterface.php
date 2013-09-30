@@ -85,4 +85,20 @@ interface ReminderInterface
      * @return integer
      */
     public function getMinutes();
+
+    /**
+     * Set done.
+     *
+     * @param boolean $done
+     *
+     * @return self
+     */
+    public function setDone($done);
+
+    /**
+     * Get done.
+     *
+     * @return boolean
+     */
+    public function getDone();
 }
