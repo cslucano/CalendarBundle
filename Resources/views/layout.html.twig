@@ -34,9 +34,33 @@
         global = {
             locale : "{{ app.request.locale }}"
         }
+
+        $.ajaxSetup({
+            beforeSend:function(){
+                $("#ajax_spinner_img").show();
+            },
+            complete:function(){
+                $("#ajax_spinner_img").hide();
+            }
+        });
+
+        function getReminders() {
+            $.post("{{ path('sg_calendar_get_reminders') }}", null, function(data) {
+                if (data.method) {
+                    if (data.method == "POPUP") {
+                        alert(data.title);
+                    }
+                }
+            });
+        }
+
         $(document).ready(function() {
             sg_calendar_datepicker.initLocale();
             sg_calendar_datepicker.initDatePicker();
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                setInterval(getReminders, 10000);
+            {% endif %}
         });
     </script>
 
@@ -64,6 +88,13 @@
                         {% endif %}
                         <li>
                             <a href="#" class="pull-right">Locale: {{ app.request.locale }}</a>
+                        </li>
+                        <li>
+                            <p style="margin-top: 10px">
+                                <span id="ajax_spinner_container">
+                                    <img src="{{ asset('bundles/sgcalendar/img/ajax-loader.gif') }}" id="ajax_spinner_img" class="hide" title="working...">
+                                </span>
+                            </p>
                         </li>
                     </ul>
                 </div>
