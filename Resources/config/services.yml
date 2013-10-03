@@ -67,7 +67,7 @@ services:
 
     sg_calendar.subscriber.calendar:
         class: Sg\CalendarBundle\Subscriber\CalendarSubscriber
-        arguments: [@session, @router, @translator, @mailer]
+        arguments: [@session, @router, @translator, @sg_calendar.mailer]
         tags:
             - { name: kernel.event_subscriber }
 
@@ -98,3 +98,10 @@ services:
         public: false
         tags:
             - { name: security.voter }
+
+
+    # Mailer
+
+    sg_calendar.mailer:
+        class: Sg\CalendarBundle\Mailer\CalendarMailer
+        arguments: [@mailer, %sg_calendar.mailer.from.address%, %sg_calendar.mailer.from.name%]
