@@ -34,6 +34,8 @@ class EventData extends Event
 
 
     /**
+     * Ctor.
+     *
      * @param EventInterface $event
      */
     public function __construct(EventInterface $event)
@@ -42,6 +44,8 @@ class EventData extends Event
     }
 
     /**
+     * Get event.
+     *
      * @return EventInterface
      */
     public function getEvent()
@@ -50,6 +54,8 @@ class EventData extends Event
     }
 
     /**
+     * Set response.
+     *
      * @param Response $response
      */
     public function setResponse(Response $response)
@@ -58,6 +64,8 @@ class EventData extends Event
     }
 
     /**
+     * Get response.
+     *
      * @return Response|null
      */
     public function getResponse()

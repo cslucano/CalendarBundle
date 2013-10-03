@@ -13,19 +13,25 @@ namespace Sg\CalendarBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
-use Sg\CalendarBundle\Model\CalendarInterface;
+use Sg\CalendarBundle\Model\ReminderInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 /**
- * Class CalendarData
+ * Class ReminderData
  *
  * @package Sg\CalendarBundle\Event
  */
-class CalendarData extends Event
+class ReminderData extends Event
 {
     /**
-     * @var CalendarInterface
+     * @var ReminderInterface
      */
-    private $calendar;
+    private $reminder;
+
+    /**
+     * @var EventInterface
+     */
+    private $event;
 
     /**
      * @var Response
@@ -36,26 +42,32 @@ class CalendarData extends Event
     /**
      * Ctor.
      *
-     * @param CalendarInterface $calendar
+     * @param ReminderInterface $reminder A ReminderInterface
+     * @param EventInterface    $event    An EventInterface
      */
-    public function __construct(CalendarInterface $calendar)
+    public function __construct(ReminderInterface $reminder, EventInterface $event)
     {
-        $this->calendar = $calendar;
+        $this->reminder = $reminder;
+        $this->event = $event;
     }
 
     /**
-     * Get calendar.
-     *
-     * @return CalendarInterface
+     * @return ReminderInterface
      */
-    public function getCalendar()
+    public function getReminder()
     {
-        return $this->calendar;
+        return $this->reminder;
     }
 
     /**
-     * Set response.
-     *
+     * @return EventInterface
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
      * @param Response $response
      */
     public function setResponse(Response $response)
@@ -64,8 +76,6 @@ class CalendarData extends Event
     }
 
     /**
-     * Get response.
-     *
      * @return Response|null
      */
     public function getResponse()

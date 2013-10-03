@@ -77,4 +77,9 @@ final class SgCalendarEvents
      * @var string
      */
     const CALENDAR_REMOVE_COMPLETED = 'sg_calendar.calendar.remove.completed';
+
+    /**
+     * @var string
+     */
+    const REMINDER_TRIGGER = 'sg_calendar.reminder.trigger';
 }
