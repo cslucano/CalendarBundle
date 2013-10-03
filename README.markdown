@@ -12,7 +12,7 @@ Features include:
 - recurring events (experiment with the [rrule.js library](https://github.com/jkbr/rrule) and the [SgRruleBundle](https://github.com/stwe/RruleBundle))
 - private and public events
 - multiple calendars
-- reminders (in the moment only as popup)
+- reminders (as popup and email)
 
 ## Installation
 
