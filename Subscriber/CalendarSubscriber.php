@@ -12,11 +12,12 @@
 namespace Sg\CalendarBundle\Subscriber;
 
 use Sg\CalendarBundle\SgCalendarEvents;
-use Sg\CalendarBundle\Event\EventData;
-use Sg\CalendarBundle\Event\CalendarData;
-use Sg\CalendarBundle\Event\ReminderData;
+use Sg\CalendarBundle\EventDispatcher\EventData;
+use Sg\CalendarBundle\EventDispatcher\CalendarData;
+use Sg\CalendarBundle\EventDispatcher\ReminderData;
 use Sg\CalendarBundle\Model\ReminderInterface;
 use Sg\CalendarBundle\Mailer\CalendarMailer;
+
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -169,6 +170,8 @@ class CalendarSubscriber implements EventSubscriberInterface
     //-------------------------------------------------
 
     /**
+     * Set Response.
+     *
      * @param ReminderData $reminderData
      */
     public function onReminder(ReminderData $reminderData)
@@ -203,11 +206,11 @@ class CalendarSubscriber implements EventSubscriberInterface
     //-------------------------------------------------
 
     /**
-     * Set FlashBag.
+     * Add success flash message.
      *
      * @param Event $event
      */
-    public function addSuccessFlash(Event $event)
+    public function addSuccessFlashMessage(Event $event)
     {
         $eventName = $event->getName();
         $this->session->getFlashBag()->add('success', $this->translator->trans(self::$messages[$eventName], array(), 'flashes'));
@@ -227,15 +230,15 @@ class CalendarSubscriber implements EventSubscriberInterface
             SgCalendarEvents::EVENT_CREATE_SUCCESS => 'onEventCreateSuccess',
             SgCalendarEvents::EVENT_UPDATE_SUCCESS => 'onEventUpdateSuccess',
             SgCalendarEvents::EVENT_REMOVE_SUCCESS => 'onEventRemoveSuccess',
-            SgCalendarEvents::EVENT_CREATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::EVENT_CREATE_COMPLETED => 'addSuccessFlashMessage',
+            SgCalendarEvents::EVENT_UPDATE_COMPLETED => 'addSuccessFlashMessage',
+            SgCalendarEvents::EVENT_REMOVE_COMPLETED => 'addSuccessFlashMessage',
             SgCalendarEvents::CALENDAR_CREATE_SUCCESS => 'onCalendarCreateSuccess',
             SgCalendarEvents::CALENDAR_UPDATE_SUCCESS => 'onCalendarUpdateSuccess',
             SgCalendarEvents::CALENDAR_REMOVE_SUCCESS => 'onCalendarRemoveSuccess',
-            SgCalendarEvents::CALENDAR_CREATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::CALENDAR_UPDATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::CALENDAR_REMOVE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::CALENDAR_CREATE_COMPLETED => 'addSuccessFlashMessage',
+            SgCalendarEvents::CALENDAR_UPDATE_COMPLETED => 'addSuccessFlashMessage',
+            SgCalendarEvents::CALENDAR_REMOVE_COMPLETED => 'addSuccessFlashMessage',
             SgCalendarEvents::REMINDER_TRIGGER => 'onReminder'
         );
     }

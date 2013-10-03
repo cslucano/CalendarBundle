@@ -9,18 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Sg\CalendarBundle\Event;
+namespace Sg\CalendarBundle\EventDispatcher;
+
+use Sg\CalendarBundle\Model\ReminderInterface;
+use Sg\CalendarBundle\Model\EventInterface;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sg\CalendarBundle\Model\ReminderInterface;
-use Sg\CalendarBundle\Model\EventInterface;
 
 /**
  * Class ReminderData
  *
- * @package Sg\CalendarBundle\Event
+ * @package Sg\CalendarBundle\EventDispatcher
  */
 class ReminderData extends Event
 {

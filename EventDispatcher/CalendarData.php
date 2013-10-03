@@ -9,16 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Sg\CalendarBundle\Event;
+namespace Sg\CalendarBundle\EventDispatcher;
+
+use Sg\CalendarBundle\Model\CalendarInterface;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
-use Sg\CalendarBundle\Model\CalendarInterface;
 
 /**
  * Class CalendarData
  *
- * @package Sg\CalendarBundle\Event
+ * @package Sg\CalendarBundle\EventDispatcher
  */
 class CalendarData extends Event
 {
