@@ -11,6 +11,8 @@
 
 namespace Sg\CalendarBundle\Controller;
 
+use Sg\CalendarBundle\Event\ReminderData;
+use Sg\CalendarBundle\SgCalendarEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -42,41 +44,41 @@ class ReminderController extends AbstractBaseController
             // get all events by given user
             $events = $this->getEventManager()->findEventsByUser($this->getUser());
 
+            // get current DateTime
+            $now = new DateTime();
+
             /**
-             * Get all reminders of the event.
-             *
              * @var \Sg\CalendarBundle\Model\EventInterface $event
              */
             foreach ($events as $event) {
+                // get all the reminders of the event
                 $reminders = $event->getReminders();
+                // get start DatTime of the event
+                $startEvent = $event->getStart();
+                // get the difference between the two DateTime objects
+                $interval = $now->diff($startEvent);
+                // formats the interval (sign "-" when negative, empty when positive; minutes numeric)
+                $diff = $interval->format('%r%i');
+                $diff = (int) $diff + 1;
 
                 /**
                  * @var \Sg\CalendarBundle\Model\ReminderInterface $reminder
                  */
                 foreach ($reminders as $reminder) {
                     if (false === $reminder->getDone()) {
-                        $method = $reminder->getMethod();
                         $minutes = $reminder->getMinutes();
-                        $startEvent = $event->getStart();
-                        $now = new DateTime();
-                        $interval = $now->diff($startEvent);
-                        $minDiff = $interval->format('%r%i');
-                        $minDiff = (int) $minDiff + 1;
 
-                        if ($minDiff == $minutes) {
-                            $data = array(
-                                'method' => $method,
-                                'title' => $event->getTitle() . ' fängt in ' . $minutes . 'Minuten an.'
-                            );
-
+                        if ($diff == $minutes) {
                             $reminder = $this->getReminderById($reminder->getId());
                             $reminder->setDone(true);
                             $this->getReminderManager()->save($reminder);
 
-                            $response = new Response(json_encode($data), 200);
-                            $response->headers->set('Content-Type', 'application/json');
+                            $dispatcher = $this->getDispatcher();
+                            $reminderData = new ReminderData($reminder, $event);
 
-                            return $response;
+                            $dispatcher->dispatch(SgCalendarEvents::REMINDER_TRIGGER, $reminderData);
+
+                            return $reminderData->getResponse();
                         }
                     }
                 }
