@@ -58,6 +58,14 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
 
+                // mailer
+                ->arrayNode('from_email')
+                    ->children()
+                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+
             ->end();
 
         return $treeBuilder;

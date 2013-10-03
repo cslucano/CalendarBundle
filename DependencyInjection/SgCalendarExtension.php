@@ -53,5 +53,9 @@ class SgCalendarExtension extends Extension
         $container->setParameter('sg_calendar.form.calendar.type', $config['form']['calendar_type']);
         $container->setParameter('sg_calendar.form.event.name', $config['form']['event_name']);
         $container->setParameter('sg_calendar.form.event.type', $config['form']['event_type']);
+
+        // mailer
+        $container->setParameter('sg_calendar.mailer.from.address', $config['from_email']['address']);
+        $container->setParameter('sg_calendar.mailer.from.sender_name', $config['from_email']['sender_name']);
     }
 }

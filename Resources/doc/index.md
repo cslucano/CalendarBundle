@@ -248,6 +248,20 @@ sg_calendar:
     event_class: Sg\UserBundle\Entity\Event       # or SgUserBundle:Event
     first_day: 1                                  # Monday
     time_format: "HH:mm"
+    #...
+```
+
+The bundle uses `Swiftmailer` to send emails.
+To configure the sender email address for all emails sent out by the bundle, simply update your config as follows:
+
+``` yaml
+# app/config/config.yml
+
+sg_calendar:
+    #...
+    from_email:
+        address:        noreply@acmedemo.com
+        sender_name:    Acme Demo App
 ```
 
 ### Step 7: Import routing
