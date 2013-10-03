@@ -74,7 +74,7 @@ class ReminderController extends AbstractBaseController
                             $this->getReminderManager()->save($reminder);
 
                             $dispatcher = $this->getDispatcher();
-                            $reminderData = new ReminderData($reminder, $event);
+                            $reminderData = new ReminderData($reminder, $event, $this->getUser());
 
                             $dispatcher->dispatch(SgCalendarEvents::REMINDER_TRIGGER, $reminderData);
 

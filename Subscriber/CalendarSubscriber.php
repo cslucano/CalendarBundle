@@ -14,9 +14,13 @@ namespace Sg\CalendarBundle\Subscriber;
 use Sg\CalendarBundle\SgCalendarEvents;
 use Sg\CalendarBundle\Event\EventData;
 use Sg\CalendarBundle\Event\CalendarData;
+use Sg\CalendarBundle\Event\ReminderData;
+use Sg\CalendarBundle\Model\ReminderInterface;
+use Sg\CalendarBundle\Mailer\CalendarMailer;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -44,6 +48,11 @@ class CalendarSubscriber implements EventSubscriberInterface
     private $translator;
 
     /**
+     * @var CalendarMailer
+     */
+    private $calendarMailer;
+
+    /**
      * @var array
      */
     private static $messages = array(
@@ -63,15 +72,17 @@ class CalendarSubscriber implements EventSubscriberInterface
     /**
      * Ctor.
      *
-     * @param Session               $session    A Session instance
-     * @param UrlGeneratorInterface $router     An UrlGeneratorInterface
-     * @param TranslatorInterface   $translator A TranslatorInterface
+     * @param Session               $session        A Session instance
+     * @param UrlGeneratorInterface $router         An UrlGeneratorInterface
+     * @param TranslatorInterface   $translator     A TranslatorInterface
+     * @param CalendarMailer        $calendarMailer A CalendarMailer instance
      */
-    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator)
+    public function __construct(Session $session, UrlGeneratorInterface $router, TranslatorInterface $translator, CalendarMailer $calendarMailer)
     {
         $this->session = $session;
         $this->router = $router;
         $this->translator = $translator;
+        $this->calendarMailer = $calendarMailer;
     }
 
 
@@ -154,6 +165,40 @@ class CalendarSubscriber implements EventSubscriberInterface
 
 
     //-------------------------------------------------
+    // ReminderController
+    //-------------------------------------------------
+
+    /**
+     * @param ReminderData $reminderData
+     */
+    public function onReminder(ReminderData $reminderData)
+    {
+        $event = $reminderData->getEvent();
+        $reminder = $reminderData->getReminder();
+        $user = $reminderData->getUser();
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+
+        if (ReminderInterface::METHOD_POPUP == $reminder->getMethod()) {
+            $data = array(
+                'method' => ReminderInterface::METHOD_POPUP,
+                'title' => $event->getTitle() . ' fängt in ' . $reminder->getMinutes() . 'Minuten an.'
+            );
+
+            $response->setContent(json_encode($data));
+        }
+
+        if (ReminderInterface::METHOD_EMAIL == $reminder->getMethod()) {
+            $this->calendarMailer->sendEmail($user->getEmail(), 'Reminder Mail Body', 'Reminder Mail Subject');
+            $response->setContent('Sent email.');
+        }
+
+        $reminderData->setResponse($response);
+    }
+
+
+    //-------------------------------------------------
     // Common
     //-------------------------------------------------
 
@@ -190,7 +235,8 @@ class CalendarSubscriber implements EventSubscriberInterface
             SgCalendarEvents::CALENDAR_REMOVE_SUCCESS => 'onCalendarRemoveSuccess',
             SgCalendarEvents::CALENDAR_CREATE_COMPLETED => 'addSuccessFlash',
             SgCalendarEvents::CALENDAR_UPDATE_COMPLETED => 'addSuccessFlash',
-            SgCalendarEvents::CALENDAR_REMOVE_COMPLETED => 'addSuccessFlash'
+            SgCalendarEvents::CALENDAR_REMOVE_COMPLETED => 'addSuccessFlash',
+            SgCalendarEvents::REMINDER_TRIGGER => 'onReminder'
         );
     }
 }

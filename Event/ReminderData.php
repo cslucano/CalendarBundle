@@ -13,6 +13,7 @@ namespace Sg\CalendarBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Sg\CalendarBundle\Model\ReminderInterface;
 use Sg\CalendarBundle\Model\EventInterface;
 
@@ -34,6 +35,11 @@ class ReminderData extends Event
     private $event;
 
     /**
+     * @var UserInterface
+     */
+    private $user;
+
+    /**
      * @var Response
      */
     private $response;
@@ -44,14 +50,18 @@ class ReminderData extends Event
      *
      * @param ReminderInterface $reminder A ReminderInterface
      * @param EventInterface    $event    An EventInterface
+     * @param UserInterface     $user     The current User
      */
-    public function __construct(ReminderInterface $reminder, EventInterface $event)
+    public function __construct(ReminderInterface $reminder, EventInterface $event, UserInterface $user)
     {
         $this->reminder = $reminder;
         $this->event = $event;
+        $this->user = $user;
     }
 
     /**
+     * Get reminder.
+     *
      * @return ReminderInterface
      */
     public function getReminder()
@@ -60,6 +70,8 @@ class ReminderData extends Event
     }
 
     /**
+     * Get event.
+     *
      * @return EventInterface
      */
     public function getEvent()
@@ -68,6 +80,18 @@ class ReminderData extends Event
     }
 
     /**
+     * Get user.
+     *
+     * @return UserInterface
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set response.
+     *
      * @param Response $response
      */
     public function setResponse(Response $response)
@@ -76,6 +100,8 @@ class ReminderData extends Event
     }
 
     /**
+     * Get response.
+     *
      * @return Response|null
      */
     public function getResponse()
