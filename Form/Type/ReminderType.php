@@ -45,9 +45,12 @@ class ReminderType extends AbstractType
                 ))
             ->add('minutes', 'choice', array(
                     'choices' => array(
+                         5 => '5',
+                        10 => '10',
                         15 => '15',
                         30 => '30',
-                        45 => '45'
+                        45 => '45',
+                        60 => '60'
                     ),
                     'empty_value' => 'Choose',
                     'empty_data'  => null,
