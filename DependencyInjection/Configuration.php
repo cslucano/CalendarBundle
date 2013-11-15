@@ -32,8 +32,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 // doctrine
-                ->scalarNode('calendar_class')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('event_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('calendar_class')->defaultValue('Sg\CalendarBundle\Entity\Calendar')->end()
+                ->scalarNode('event_class')->defaultValue('Sg\CalendarBundle\Entity\Event')->end()
                 ->scalarNode('reminder_class')->defaultValue('Sg\CalendarBundle\Entity\Reminder')->end()
                 ->scalarNode('rrule_class')->defaultValue('Sg\RruleBundle\Entity\Rrule')->end()
                 ->scalarNode('occurrence_class')->defaultValue('Sg\RruleBundle\Entity\Occurrence')->end()

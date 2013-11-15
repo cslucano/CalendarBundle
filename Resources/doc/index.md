@@ -106,75 +106,7 @@ public function registerBundles()
 }
 ```
 
-### Step 3: Create your Doctrine ORM classes
-
-#### The Calendar class
-
-``` php
-<?php
-// src/Sg/UserBundle/Entity/Calendar.php
-
-namespace Sg\UserBundle\Entity;
-
-use Sg\CalendarBundle\Model\AbstractCalendar as BaseCalendar;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Class Calendar
- *
- * @ORM\Entity()
- * @ORM\Table()
- *
- * @package Sg\UserBundle\Entity
- */
-class Calendar extends BaseCalendar
-{
-    /**
-     * Ctor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        // your own logic
-    }
-}
-```
-
-#### The Event class
-
-``` php
-<?php
-// src/Sg/UserBundle/Entity/Event.php
-
-namespace Sg\UserBundle\Entity;
-
-use Sg\CalendarBundle\Model\AbstractEvent as BaseEvent;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Class Event
- *
- * @ORM\Entity()
- * @ORM\Table()
- *
- * @package Sg\UserBundle\Entity
- */
-class Event extends BaseEvent
-{
-    /**
-     * Ctor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        // your own logic
-    }
-}
-```
-
-### Step 4: Implement the EquatableInterface in your Doctrine ORM User class
+### Step 3: Implement the EquatableInterface in your Doctrine ORM User class
 
 ``` php
 <?php
@@ -217,7 +149,7 @@ class User extends BaseUser implements EquatableInterface
 }
 ```
 
-### Step 5: Configure your Doctrine ORM classes as target entities
+### Step 4: Configure your Doctrine ORM classes as target entities
 
 Configure it in your `config.yml`:
 
@@ -228,15 +160,15 @@ doctrine:
     orm:
         # ...
         resolve_target_entities:
-            Sg\RruleBundle\Model\RruleInterface: Sg\RruleBundle\Entity\Rrule              # RruleBundle default
-            Sg\RruleBundle\Model\OccurrenceInterface: Sg\RruleBundle\Entity\Occurrence    # RruleBundle default
-            Sg\CalendarBundle\Model\ReminderInterface: Sg\CalendarBundle\Entity\Reminder  # CalendarBundle default
+            Sg\RruleBundle\Model\RruleInterface: Sg\RruleBundle\Entity\Rrule              # SgRruleBundle default
+            Sg\RruleBundle\Model\OccurrenceInterface: Sg\RruleBundle\Entity\Occurrence    # SgRruleBundle default
+            Sg\CalendarBundle\Model\CalendarInterface: Sg\CalendarBundle\Entity\Calendar  # SgCalendarBundle default
+            Sg\CalendarBundle\Model\EventInterface: Sg\CalendarBundle\Entity\Event        # SgCalendarBundle default
+            Sg\CalendarBundle\Model\ReminderInterface: Sg\CalendarBundle\Entity\Reminder  # SgCalendarBundle default
             Symfony\Component\Security\Core\User\UserInterface: Sg\UserBundle\Entity\User # your User entity
-            Sg\CalendarBundle\Model\CalendarInterface: Sg\UserBundle\Entity\Calendar      # your Calendar entity
-            Sg\CalendarBundle\Model\EventInterface: Sg\UserBundle\Entity\Event            # your Event entity
 ```
 
-### Step 6: Configure the SgCalendarBundle
+### Step 5: Configure the SgCalendarBundle
 
 Add the following configuration to your `config.yml` file:
 
@@ -244,9 +176,7 @@ Add the following configuration to your `config.yml` file:
 # app/config/config.yml
 
 sg_calendar:
-    calendar_class: Sg\UserBundle\Entity\Calendar # or SgUserBundle:Calendar
-    event_class: Sg\UserBundle\Entity\Event       # or SgUserBundle:Event
-    first_day: 1                                  # Monday
+    first_day: 1 # Monday
     time_format: "HH:mm"
     #...
 ```
@@ -264,7 +194,7 @@ sg_calendar:
         sender_name:    Acme Demo App
 ```
 
-### Step 7: Import routing
+### Step 6: Import routing
 
 Add the following configuration to your `routing.yml` file:
 
@@ -284,13 +214,13 @@ sg_calendar:
     prefix:   /
 ```
 
-### Step 8: Update your database schema
+### Step 7: Update your database schema
 
 ``` bash
 $ php app/console doctrine:schema:update --force
 ```
 
-### Step 9: Assetic Configuration
+### Step 8: Assetic Configuration
 
 ``` yaml
 # app/config/config.yml
