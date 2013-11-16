@@ -77,6 +77,11 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    sg_calendar.listener.locale:
+        class: Sg\CalendarBundle\Subscriber\LocaleSubscriber
+        arguments: [%kernel.default_locale%]
+        tags:
+            - { name: kernel.event_subscriber }
 
     # Helper
 
