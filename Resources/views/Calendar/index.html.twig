@@ -30,20 +30,14 @@
 
     <hr />
 
-    <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }}</h4>
-
-    {% for calendar in visible_calendars %}
-        <label class="checkbox">
-            <input class="eventcheckboxes" type="checkbox" name="{{ calendar.eventsUrl }}" value="{{ calendar.id }}">
-            {{ calendar.name }}
-        </label>
-    {% endfor %}
+    <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }} ({{ count_visible_calendars }})</h4>
 
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
-        <hr />
-
-        <h4>{{ 'calendar.calendar.action.index.myCalendars'|trans({}, 'messages') }}</h4>
+        {% if user_calendars|length > 0 %}
+            <hr />
+            <h4>{{ 'calendar.calendar.action.index.myCalendars'|trans({}, 'messages') }}</h4>
+        {% endif %}
 
         {% for calendar in user_calendars %}
             <label class="checkbox">

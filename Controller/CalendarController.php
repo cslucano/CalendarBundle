@@ -11,13 +11,14 @@
 
 namespace Sg\CalendarBundle\Controller;
 
+use Sg\CalendarBundle\EventDispatcher\CalendarData;
+use Sg\CalendarBundle\SgCalendarEvents;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sg\CalendarBundle\Event\CalendarData;
-use Sg\CalendarBundle\SgCalendarEvents;
 
 /**
  * Class CalendarController
@@ -29,9 +30,9 @@ use Sg\CalendarBundle\SgCalendarEvents;
 class CalendarController extends AbstractBaseController
 {
     /**
-     * Shows all available Calendars, without the associated Events.
+     * Start action.
      *
-     * @Route("/", name="sg_calendar")
+     * @Route("/{_locale}", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar")
      * @Method("GET")
      * @Template()
      *
@@ -40,19 +41,15 @@ class CalendarController extends AbstractBaseController
     public function indexAction()
     {
         $userCalendars = array();
-        $visibleCalendars = array();
-        $maxResults = $this->container->getParameter('sg_calendar.doctrine.calendar_max_results');
+        $countVisibleCalendars = $this->getCalendarManager()->countVisibleCalendars();
 
         if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true, $maxResults, $this->getUser());
             $userCalendars = $this->getCalendarManager()->findCalendarsByUser($this->getUser());
-        } else {
-            $visibleCalendars = $this->getCalendarManager()->findCalendarsByVisible(true, $maxResults);
         }
 
         return array(
             'update_xhr_event_url' => $this->generateUrl('sg_calendar_update_xhr_event'),
-            'visible_calendars' => $visibleCalendars,
+            'count_visible_calendars' => $countVisibleCalendars,
             'user_calendars' => $userCalendars
         );
     }
@@ -105,7 +102,7 @@ class CalendarController extends AbstractBaseController
     /**
      * Displays a form to create a new Calendar entity.
      *
-     * @Route("/new", name="sg_calendar_new_calendar")
+     * @Route("/{_locale}/new", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_new_calendar")
      * @Method("GET")
      * @Template()
      *
@@ -160,7 +157,7 @@ class CalendarController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/edit", name="sg_calendar_edit_calendar")
+     * @Route("/{id}/edit", name="sg_calendar_edit_calendar", options={"expose"=true})
      * @Method("GET")
      * @Template()
      *
