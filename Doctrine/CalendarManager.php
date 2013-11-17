@@ -21,28 +21,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class CalendarManager extends ModelManager
 {
     /**
-     * Find all calendars by given visibility.
+     * Count all visible calendars.
      *
-     * @param boolean       $visible The visibility of the calendar
-     * @param string        $max     Limit the number of results returned from the query
-     * @param UserInterface $user    If a user passed, this is an exclusion criteria
-     *
-     * @return mixed
+     * @return integer
      */
-    public function findCalendarsByVisible($visible, $max, UserInterface $user = null)
+    public function countVisibleCalendars()
     {
         $qb = $this->repository->createQueryBuilder('c');
+        $qb->select('COUNT(c.id)');
         $qb->where('c.visible = :visible');
-        $qb->setParameter('visible', $visible);
+        $qb->setParameter('visible', true);
 
-        if (!(null === $user)) {
-            $qb->andWhere('c.createdBy != :user');
-            $qb->setParameter('user', $user);
-        }
-
-        $qb->setMaxResults($max);
-
-        return $qb->getQuery()->execute();
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     /**
