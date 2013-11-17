@@ -22,6 +22,7 @@ These addresses can be entered using the calendar form.
 
 * This version of the bundle requires Symfony 2.3.x.
 * Also FOSUserBundle needs to be installed and configured beforehand. Please follow all steps described [here](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
+* KnpMenuBundle needs to be installed and configured beforehand. Please follow all steps described [here](https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md).
 * The SgRruleBundle is part of SgCalendarBundle and must be installed.
 * Finally, Bootstrap 2.3.2 and FullCalendar 1.6 should be installed.
 
@@ -43,10 +44,12 @@ Your composer.json should look like this:
         }
     ],
     "require": {
-        "sg/rrulebundle": "dev-master",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "arshaw/fullcalendar": "1.6.4",
+        "knplabs/knp-menu-bundle":"dev-master",
+        "knplabs/knp-menu": "2.0.*@dev",
+        "sg/rrulebundle": "dev-master",
         "twbs/bootstrap": "v2.3.2",
+        "arshaw/fullcalendar": "1.6.4",
         "sg/calendarbundle": "dev-master"
     },
 }
@@ -266,110 +269,6 @@ assetic:
 
 This bundle provides a layout that uses the Bootstrap framework.
 The bundle layout file is: `src/Sg/CalendarBundle/Resources/views/layout.html.twig`. This is only an example and can be replaced.
-
-``` html
-{% extends '::base.html.twig' %}
-
-{% block title %}CalendarBundle{% endblock %}
-
-{% block stylesheets %}
-    {% stylesheets
-        '@bootstrap_css'
-        '@fullcalendar_css'
-        'bundles/sgcalendar/css/smoothness/jquery-ui-1.10.3.custom.min.css'
-        filter='cssrewrite' %}
-        <link href="{{ asset_url }}" rel="stylesheet" type="text/css"/>
-    {% endstylesheets %}
-{% endblock %}
-
-{% block body%}
-
-    {% block scripts %}
-        {% javascripts
-            '@jquery_js'
-            '@bootstrap_js'
-            '@fullcalendar_js'
-            'bundles/sgcalendar/js/jquery-ui-1.10.3.custom.min.js'
-            'bundles/sgcalendar/js/jquery.ui.datepicker-de.js'
-            'bundles/sgcalendar/js/sgcalendar.js'
-            'bundles/sgrrule/js/underscore-min.js'
-            'bundles/sgrrule/js/rrule.js'
-            'bundles/sgrrule/js/nlp.js'
-            'bundles/sgrrule/js/moment.min.js' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    {% endblock %}
-
-    <script>
-        global = {
-            locale : "{{ app.request.locale }}"
-        }
-        $(document).ready(function() {
-            sg_calendar_datepicker.initLocale();
-            sg_calendar_datepicker.initDatePicker();
-        });
-    </script>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="{{ path('sg_calendar') }}">SgCalendarBundle</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li>
-                                <a href="{{ path('fos_user_profile_show') }}">
-                                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('fos_user_security_logout') }}">
-                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                            </li>
-                        {% endif %}
-                        <li>
-                            <a href="#" class="pull-right">Locale: {{ app.request.locale }}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container" style="margin-top: 45px;">
-        <div class="row">
-            <div class="span12">
-                {% block header %}
-                {% endblock %}
-            </div>
-        </div>
-        <div class="row">
-            <div class="span4">
-                {% block sidebar %}
-                {% endblock %}
-            </div>
-            <div class="span8">
-                {% for type, messages in app.session.flashbag.all() %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ type }}">
-                            <button class="close" data-dismiss="alert" type="button">×</button>
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
-    </div>
-
-{% endblock %}
-```
 
 ## List of all available routes
 
