@@ -86,7 +86,7 @@ class EventController extends AbstractBaseController
     /**
      * Displays a form to create a new Event entity.
      *
-     * @Route("calendar/event/new", name="sg_calendar_new_event")
+     * @Route("calendar/{_locale}/event/new", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_new_event")
      * @Method("GET")
      * @Template()
      *
@@ -117,7 +117,7 @@ class EventController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("calendar/event/{id}/show", name="sg_calendar_get_event")
+     * @Route("calendar/{_locale}/event/{id}/show", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_get_event")
      * @Method("GET")
      * @Template()
      *
@@ -157,7 +157,7 @@ class EventController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("calendar/event/{id}/edit", name="sg_calendar_edit_event")
+     * @Route("calendar/{_locale}/event/{id}/edit", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_edit_event")
      * @Method("GET")
      * @Template()
      *
@@ -253,7 +253,7 @@ class EventController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("calendar/event/{id}/remove", name="sg_calendar_remove_event")
+     * @Route("calendar/{_locale}/event/{id}/remove", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_remove_event")
      * @Method("GET")
      * @Template()
      *
