@@ -11,8 +11,9 @@
 
 namespace Sg\CalendarBundle\Controller;
 
-use Sg\CalendarBundle\Event\ReminderData;
+use Sg\CalendarBundle\EventDispatcher\ReminderData;
 use Sg\CalendarBundle\SgCalendarEvents;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;

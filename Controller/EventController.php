@@ -11,14 +11,15 @@
 
 namespace Sg\CalendarBundle\Controller;
 
+use Sg\CalendarBundle\EventDispatcher\EventData;
+use Sg\CalendarBundle\SgCalendarEvents;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sg\CalendarBundle\Event\EventData;
-use Sg\CalendarBundle\SgCalendarEvents;
 
 /**
  * Class EventController

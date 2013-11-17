@@ -21,9 +21,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 abstract class AbstractBaseController extends Controller
 {
     /**
-     * Return an Calendar by id.
+     * Returns a Calendar by id.
      *
-     * @param integer $id
+     * @param mixed $id
      *
      * @return \Sg\CalendarBundle\Model\CalendarInterface
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -41,7 +41,7 @@ abstract class AbstractBaseController extends Controller
     /**
      * Returns an Event by id.
      *
-     * @param integer $id
+     * @param mixed $id
      *
      * @return \Sg\CalendarBundle\Model\EventInterface
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -57,9 +57,9 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * Returns an Reminder by id.
+     * Returns a Reminder by id.
      *
-     * @param integer $id
+     * @param mixed $id
      *
      * @return \Sg\CalendarBundle\Model\ReminderInterface
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -75,9 +75,9 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * Returns an Rrule by id.
+     * Returns a Rrule by id.
      *
-     * @param integer $id
+     * @param mixed $id
      *
      * @return \Sg\RruleBundle\Model\RruleInterface
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -93,7 +93,7 @@ abstract class AbstractBaseController extends Controller
     }
 
     /**
-     * Creates a form to delete a entity by id.
+     * Creates a form to delete an entity by id.
      *
      * @param mixed $id The entity id
      *

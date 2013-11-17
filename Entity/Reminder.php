@@ -12,6 +12,7 @@
 namespace Sg\CalendarBundle\Entity;
 
 use Sg\CalendarBundle\Model\AbstractReminder as BaseReminder;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,7 +31,5 @@ class Reminder extends BaseReminder
     public function __construct()
     {
         parent::__construct();
-
-        // your own logic
     }
 }
