@@ -130,7 +130,7 @@ class CalendarController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/show", name="sg_calendar_get_calendar")
+     * @Route("/{_locale}/{id}/show", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_get_calendar")
      * @Method("GET")
      * @Template()
      *
@@ -157,7 +157,7 @@ class CalendarController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/edit", name="sg_calendar_edit_calendar", options={"expose"=true})
+     * @Route("/{_locale}/{id}/edit", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_edit_calendar")
      * @Method("GET")
      * @Template()
      *
@@ -232,7 +232,7 @@ class CalendarController extends AbstractBaseController
      *
      * @param integer $id The entity id
      *
-     * @Route("/{id}/remove", name="sg_calendar_remove_calendar")
+     * @Route("/{_locale}/{id}/remove", defaults={"_locale"="%locale%"}, requirements={"_locale" = "en|de"}, name="sg_calendar_remove_calendar")
      * @Method("GET")
      * @Template()
      *
