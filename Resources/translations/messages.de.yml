@@ -53,6 +53,11 @@ calendar: # the bundle name
         show: "Zeigen"
         edit: "Ändern"
         remove: "Löschen"
+    layout: # the main layout
+        loggedInAs: "Angemeldet als"
+        logout: "Abmelden"
+        login: "Anmelden"
+        register: "Registrieren"
     calendar: # a controller
         action:
             index:

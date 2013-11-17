@@ -68,35 +68,28 @@
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand" href="{{ path('sg_calendar') }}">SgCalendarBundle</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li>
-                                <a href="{{ path('fos_user_profile_show') }}">
-                                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('fos_user_security_logout') }}">
-                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                            </li>
-                        {% endif %}
-                        <li>
-                            <a href="#" class="pull-right">Locale: {{ app.request.locale }}</a>
-                        </li>
-                        <li>
-                            <p style="margin-top: 10px">
-                                <span id="ajax_spinner_container">
-                                    <img src="{{ asset('bundles/sgcalendar/img/ajax-loader.gif') }}" id="ajax_spinner_img" class="hide" title="working...">
-                                </span>
-                            </p>
-                        </li>
-                    </ul>
+
+                {{ knp_menu_render('SgCalendarBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'SgCalendarBundle:Menu:theme.html.twig'}) }}
+
+                <p class="navbar-text pull-right">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                        <i class="icon-user icon-white"></i>
+                        {{ 'calendar.layout.loggedInAs'|trans({}, 'messages') }} <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> |
+                        <a href="{{ path('fos_user_security_logout') }}">{{ 'calendar.layout.logout'|trans({}, 'messages') }}</a>
+
+                    {% else %}
+
+                        <a class="btn btn-mini btn-inverse" href="{{ path('fos_user_security_login') }}"><i class="icon-lock icon-white"></i> {{ 'calendar.layout.login'|trans({}, 'messages') }}</a>
+                        <a class="btn btn-mini btn-inverse" href="{{ path('fos_user_registration_register') }}"><i class="icon-plus icon-white"></i> {{ 'calendar.layout.register'|trans({}, 'messages') }}</a>
+
+                    {% endif %}
+                </p>
+
+                <div style="margin-top: 10px">
+                    <span id="ajax_spinner_container">
+                        <img src="{{ asset('bundles/sgcalendar/img/ajax-loader.gif') }}" id="ajax_spinner_img" class="hide" title="working...">
+                    </span>
                 </div>
             </div>
         </div>

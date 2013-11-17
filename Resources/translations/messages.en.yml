@@ -53,6 +53,11 @@ calendar: # the bundle name
         show: "Show"
         edit: "Edit"
         remove: "Delete"
+    layout: # the main layout
+        loggedInAs: "Logged in as"
+        logout: "Logout"
+        login: "Login"
+        register: "Register"
     calendar: # a controller
         action:
             index:

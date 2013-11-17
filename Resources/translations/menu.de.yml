@@ -1,0 +1,12 @@
+menu: # the main navbar
+    calendar: "Kalendar"
+    event: "Ereignis"
+    new_calendar: "Neuer Kalender"
+    new_event: "Neues Ereignis"
+    user: "Benutzer"
+    user_profile: "Benutzerprofil"
+    user_profile_edit: "Benutzer aktualisieren"
+    user_profile_change_password: "Passwort ändern"
+    language: "Sprache"
+    german: "Deutsch"
+    english: "Englisch"
