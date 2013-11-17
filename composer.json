@@ -29,10 +29,12 @@
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "~2.3",
-        "sg/rrulebundle": "dev-master",
         "friendsofsymfony/user-bundle": "2.0.*@dev",
-        "arshaw/fullcalendar": "1.6.4",
-        "twbs/bootstrap": "v2.3.2"
+        "knplabs/knp-menu-bundle":"dev-master",
+        "knplabs/knp-menu": "2.0.*@dev",
+        "sg/rrulebundle": "dev-master",
+        "twbs/bootstrap": "v2.3.2",
+        "arshaw/fullcalendar": "1.6.4"
     },
     "autoload": {
         "psr-0": { "Sg\\CalendarBundle": "" }
