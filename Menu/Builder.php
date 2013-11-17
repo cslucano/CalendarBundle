@@ -32,9 +32,12 @@ class Builder extends ContainerAware
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $request = $this->container->get('request');
+        $route = $request->attributes->get('_route');
+        $routeParams = $request->attributes->get('_route_params');
+        $german = array('_locale' => 'de');
+        $english = array('_locale' => 'en');
 
         $menu = $factory->createItem('root');
-
         $menu->setChildrenAttribute('class', 'nav');
 
         // Calendar, Event
@@ -60,12 +63,12 @@ class Builder extends ContainerAware
         $menu->addChild('menu.language')
             ->setAttribute('dropdown', true);
         $menu['menu.language']->addChild('menu.german', array(
-                'route' => $request->attributes->get('_route'),
-                'routeParameters' => array('_locale' => 'de')
+                'route' => $route,
+                'routeParameters' => array_replace($routeParams, $german)
             ));
         $menu['menu.language']->addChild('menu.english', array(
-                'route' => $request->attributes->get('_route'),
-                'routeParameters' => array('_locale' => 'en')
+                'route' => $route,
+                'routeParameters' => array_replace($routeParams, $english)
             ));
 
         return $menu;
