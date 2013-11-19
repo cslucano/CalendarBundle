@@ -17,7 +17,7 @@ services:
 
     sg_calendar.calendar_manager:
         class: Sg\CalendarBundle\Doctrine\CalendarManager
-        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%]
+        arguments: [@doctrine.orm.entity_manager, %sg_calendar.doctrine.calendar.class%, %sg_calendar.doctrine.autocomplete_max_results%]
 
     sg_calendar.reminder_manager:
         class: Sg\CalendarBundle\Doctrine\ReminderManager
@@ -51,6 +51,13 @@ services:
         class: Sg\CalendarBundle\Form\Type\DateTimePickerType
         tags:
             - { name: form.type, alias: dateTimePicker }
+
+    ## Autocomplete
+
+    sg_calendar.form_type.autocomplete:
+        class: Sg\CalendarBundle\Form\Type\AutocompleteType
+        tags:
+            - { name: form.type, alias: autocomplete }
 
     ## Form factories
 

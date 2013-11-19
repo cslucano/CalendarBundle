@@ -40,7 +40,7 @@ class SgCalendarExtension extends Extension
         $container->setParameter('sg_calendar.doctrine.reminder.class', $config['reminder_class']);
         $container->setParameter('sg_calendar.doctrine.rrule.class', $config['rrule_class']);
         $container->setParameter('sg_calendar.doctrine.occurrence.class', $config['occurrence_class']);
-        $container->setParameter('sg_calendar.doctrine.calendar_max_results', $config['calendar_max_results']);
+        $container->setParameter('sg_calendar.doctrine.autocomplete_max_results', $config['autocomplete_max_results']);
 
         // twig
         $container->setParameter('sg_calendar.twig.fullcalendar_id', $config['fullcalendar_id']);

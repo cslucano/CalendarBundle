@@ -78,6 +78,6 @@ class ReminderType extends AbstractType
      */
     public function getName()
     {
-        return 'sg_calendar_remindtype';
+        return 'sg_calendar_remindertype';
     }
 }

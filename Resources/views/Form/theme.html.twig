@@ -3,53 +3,53 @@
 {# Bootstrap #}
 
 {% block form_row %}
-{% spaceless %}
-    <div class="control-group{{ errors|length > 0 ? ' error' : '' }}">
-        {{ form_label(form) }}
+    {% spaceless %}
+        <div class="control-group{{ errors|length > 0 ? ' error' : '' }}">
+            {{ form_label(form) }}
 
-        <div class="controls">
-            {{ form_widget(form) }}
-            {{ form_errors(form) }}
+            <div class="controls">
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+            </div>
         </div>
-    </div>
-{% endspaceless %}
+    {% endspaceless %}
 {% endblock form_row %}
 
 {% block form_errors %}
-{% spaceless %}
-    {% if errors|length > 0 %}
-    <span>
-        {% for error in errors %}
-            {{ error.message }}
-        {% endfor %}
-    </span>
-    {% endif %}
-{% endspaceless %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+        <span>
+            {% for error in errors %}
+                {{ error.message }}
+            {% endfor %}
+        </span>
+        {% endif %}
+    {% endspaceless %}
 {% endblock form_errors %}
 
 {% block form_label %}
-{% spaceless %}
-    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
-    {% if required %}
-        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
-    {% endif %}
-    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-    {{ label|trans({}, translation_domain) }}
-    {% if required %}*{% endif %}
-    </label>
-{% endspaceless %}
+    {% spaceless %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{ label|trans({}, translation_domain) }}
+        {% if required %}*{% endif %}
+        </label>
+    {% endspaceless %}
 {% endblock %}
 
 {# DatePicker && DateTimePicker#}
 
 {% block datePicker_widget %}
-{% spaceless %}
-    <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-    {% set attr = attr|merge({'class': ((attr.class|default('') ~ ' SgCalendarDatePicker')|trim)}) %}
-    {% set  id = id ~ "_datepicker" %}
-    {% set  full_name = "datepicker_" ~ full_name  %}
-    <input type="text" {{ block('widget_attributes') }}/>
-{% endspaceless %}
+    {% spaceless %}
+        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        {% set attr = attr|merge({'class': ((attr.class|default('') ~ ' SgCalendarDatePicker')|trim)}) %}
+        {% set  id = id ~ "_datepicker" %}
+        {% set  full_name = "datepicker_" ~ full_name  %}
+        <input type="text" {{ block('widget_attributes') }}/>
+    {% endspaceless %}
 {% endblock %}
 
 {% block dateTimePicker_widget %}
@@ -60,3 +60,52 @@
     {{ form_widget(form.date, {'id' : id ~ '_date'}) }}
     {{ form_widget(form.time, {'id' : id ~ '_time'}) }}
 {% endblock %}
+
+{# Autocomplete #}
+
+{% block autocomplete_widget %}
+    <script>
+        $(document).ready(function() {
+
+            function selected(message) {
+                $("<div>").text(message).prependTo("#publicCalendars").append(" <i class='icon-file'></i> <i class='icon-trash'></i>");
+                $("#publicCalendars").scrollTop(0);
+            }
+
+            $("#{{ form.vars.id }}").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "{{ path('sg_calendar_search') }}",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data, function(item) {
+                                return {
+                                    label: item,
+                                    value: item
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function(event, ui) {
+                    selected(ui.item.label);
+                },
+                open: function() {
+                    $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                },
+                close: function() {
+                    $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+                }
+            });
+
+        });
+    </script>
+
+    {{ form_widget(form) }}
+
+{% endblock %}
+

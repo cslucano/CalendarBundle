@@ -31,7 +31,9 @@
     <hr />
 
     <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }} ({{ count_visible_calendars }})</h4>
-    {{ render(controller("SgCalendarBundle:Search:searchCalendars")) }}
+    {{ render(controller("SgCalendarBundle:Search:newCalendarSearch")) }}
+
+    <div id="publicCalendars"></div>
 
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 

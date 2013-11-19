@@ -11,6 +11,7 @@
 
 namespace Sg\CalendarBundle\Doctrine;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -20,6 +21,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class CalendarManager extends ModelManager
 {
+    protected $autocompleteMaxResults;
+
+
+    /**
+     * Ctor.
+     *
+     * @param EntityManager $em                     An EntityManager instance
+     * @param string        $class                  The class name
+     * @param integer       $autocompleteMaxResults Autocomplete max results
+     */
+    public function __construct(EntityManager $em, $class, $autocompleteMaxResults)
+    {
+        parent::__construct($em, $class);
+
+        $this->autocompleteMaxResults = $autocompleteMaxResults;
+    }
+
     /**
      * Count all visible calendars.
      *
@@ -49,5 +67,24 @@ class CalendarManager extends ModelManager
         $qb->setParameter('user', $user);
 
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * Find all calendars by given term.
+     *
+     * @param string $term
+     *
+     * @return array
+     */
+    public function findCalendarsByTerm($term)
+    {
+        $qb = $this->repository->createQueryBuilder('c');
+        $qb->select('c.name');
+        $qb->add('where', $qb->expr()->like('c.name', ':search'));
+        $qb->setMaxResults($this->autocompleteMaxResults);
+        $qb->orderBy('c.name', 'ASC');
+        $qb->setParameter('search', '%' . $term . '%');
+
+       return $qb->getQuery()->getScalarResult();
     }
 }
