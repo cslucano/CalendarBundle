@@ -70,20 +70,25 @@ class CalendarManager extends ModelManager
     }
 
     /**
-     * Find all calendars by given term.
+     * Find all visible calendars by given term (name, description or creator of the calendar).
      *
      * @param string $term
      *
      * @return array
      */
-    public function findCalendarsByTerm($term)
+    public function findVisibleCalendarsByTerm($term)
     {
         $qb = $this->repository->createQueryBuilder('c');
-        $qb->select('c.name');
-        $qb->add('where', $qb->expr()->like('c.name', ':search'));
+        $qb->select('c.id, c.name, u.username');
+        $qb->join('c.createdBy', 'u');
+        $qb->where('c.name LIKE :term');
+        $qb->orWhere('c.description LIKE :term');
+        $qb->orWhere('u.username LIKE :term');
+        $qb->andWhere('c.visible = :visible');
         $qb->setMaxResults($this->autocompleteMaxResults);
         $qb->orderBy('c.name', 'ASC');
-        $qb->setParameter('search', '%' . $term . '%');
+        $qb->setParameter('term', '%' . $term . '%');
+        $qb->setParameter('visible', true);
 
        return $qb->getQuery()->getScalarResult();
     }
