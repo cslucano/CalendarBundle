@@ -91,6 +91,16 @@ class AbstractCalendar implements CalendarInterface
     protected $visible;
 
     /**
+     * Many calendars are favorited by many users.
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="Symfony\Component\Security\Core\User\UserInterface",
+     *     mappedBy="favorites"
+     * )
+     */
+    protected $userFavorites;
+
+    /**
      * Creation time of the calendar.
      *
      * @var DateTime
@@ -148,6 +158,7 @@ class AbstractCalendar implements CalendarInterface
     {
         $this->events = new ArrayCollection();
         $this->visible = true;
+        $this->userFavorites = new ArrayCollection();
     }
 
     /**
@@ -269,6 +280,34 @@ class AbstractCalendar implements CalendarInterface
     public function getVisible()
     {
         return $this->visible;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addUserFavorite(UserInterface $userFavorite)
+    {
+        $this->userFavorites[] = $userFavorite;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeUserFavorite(UserInterface$userFavorite)
+    {
+        $this->userFavorites->removeElement($userFavorite);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUserFavorites()
+    {
+        return $this->userFavorites;
     }
 
     /**

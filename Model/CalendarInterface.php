@@ -118,6 +118,31 @@ interface CalendarInterface
     public function getVisible();
 
     /**
+     * Add userFavorite.
+     *
+     * @param UserInterface $userFavorite
+     *
+     * @return self
+     */
+    public function addUserFavorite(UserInterface $userFavorite);
+
+    /**
+     * Remove userFavorite.
+     *
+     * @param UserInterface $userFavorite
+     *
+     * @return self
+     */
+    public function removeUserFavorite(UserInterface$userFavorite);
+
+    /**
+     * Get userFavorites.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserFavorites();
+
+    /**
      * Set createdAt.
      *
      * @param DateTime $createdAt
