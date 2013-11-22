@@ -53,16 +53,32 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
     public function load(ObjectManager $manager)
     {
 
-        $calendar = $this->getCalendarManager()->create();
-        $calendar->setName('My Calendar');
-        $calendar->setDescription('German Holidays');
-        $calendar->setCreatedAt(new DateTime());
-        $calendar->setUpdatedAt(new DateTime());
-        $calendar->setCreatedBy($this->getReference('user'));
-        $calendar->setUpdatedBy($this->getReference('user'));
+        $calendar0 = $this->getCalendarManager()->create();
+        $calendar0->setName('My Calendar');
+        $calendar0->setDescription('German Holidays');
+        $calendar0->setCreatedAt(new DateTime());
+        $calendar0->setUpdatedAt(new DateTime());
+        $calendar0->setCreatedBy($this->getReference('user'));
+        $calendar0->setUpdatedBy($this->getReference('user'));
+
+        $calendar1 = $this->getCalendarManager()->create();
+        $calendar1->setName('My Calendar 1');
+        $calendar1->setDescription('Events');
+        $calendar1->setCreatedAt(new DateTime());
+        $calendar1->setUpdatedAt(new DateTime());
+        $calendar1->setCreatedBy($this->getReference('admin'));
+        $calendar1->setUpdatedBy($this->getReference('admin'));
+
+        $calendar2 = $this->getCalendarManager()->create();
+        $calendar2->setName('My Calendar 2');
+        $calendar2->setDescription('Meetings');
+        $calendar2->setCreatedAt(new DateTime());
+        $calendar2->setUpdatedAt(new DateTime());
+        $calendar2->setCreatedBy($this->getReference('superadmin'));
+        $calendar2->setUpdatedBy($this->getReference('superadmin'));
 
         $event = $this->getEventManager()->create();
-        $event->setCalendar($calendar);
+        $event->setCalendar($calendar0);
         $event->setTitle('UserTestevent');
         $event->setStart(new DateTime());
         $event->setAllDay(true);
@@ -72,7 +88,9 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
         $event->setCreatedBy($this->getReference('user'));
         $event->setUpdatedBy($this->getReference('user'));
 
-        $manager->persist($calendar);
+        $manager->persist($calendar0);
+        $manager->persist($calendar1);
+        $manager->persist($calendar2);
         $manager->persist($event);
 
         $manager->flush();

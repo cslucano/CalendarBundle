@@ -1,0 +1,19 @@
+<label class="checkbox">
+    <input class="eventcheckboxes" type="checkbox" name="{{ calendar.eventsUrl }}" value="{{ calendar.id }}">
+    {% if calendar.visible %}
+        <span class="text-error">{{ calendar.name }}</span>
+    {% else %}
+        {{ calendar.name }}
+    {% endif %}
+    {% if is_granted('OWNER', calendar) %}
+        <a href="{{ path('sg_calendar_get_calendar', { 'id': calendar.id }) }}">
+            {{ 'calendar.action.show'|trans({}, 'messages') }}
+        </a> |
+        <a href="{{ path('sg_calendar_edit_calendar', { 'id': calendar.id }) }}">
+            {{ 'calendar.action.edit'|trans({}, 'messages') }}
+        </a> |
+        <a href="{{ path('sg_calendar_remove_calendar', { 'id': calendar.id }) }}">
+            {{ 'calendar.action.remove'|trans({}, 'messages') }}
+        </a>
+    {% endif %}
+</label>

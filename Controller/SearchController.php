@@ -11,7 +11,6 @@
 
 namespace Sg\CalendarBundle\Controller;
 
-use Sg\CalendarBundle\Entity\Calendar;
 use Sg\CalendarBundle\Form\Type\CalendarSearchType;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +37,7 @@ class SearchController extends AbstractBaseController
      */
     public function newCalendarSearchAction()
     {
-        $form = $this->createForm(new CalendarSearchType(), new Calendar());
+        $form = $this->createForm(new CalendarSearchType());
 
         return array(
             'form' => $form->createView()
@@ -46,11 +45,11 @@ class SearchController extends AbstractBaseController
     }
 
     /**
-     * Search Calendar entities.
+     * Search public Calendar entities.
      *
      * @param Request $request
      *
-     * @Route("calendar/search", name="sg_calendar_search")
+     * @Route("calendar/search", name="sg_calendar_search_calendars")
      * @Method("GET")
      *
      * @return Response
@@ -60,11 +59,11 @@ class SearchController extends AbstractBaseController
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
-            $results = $this->getCalendarManager()->findCalendarsByTerm($request->query->get('term'));
+            $results = $this->getCalendarManager()->findPublicCalendarsByTerm($request->query->get('term'));
 
             $json = array();
             foreach ($results as $result) {
-                $json[] = $result['name'];
+                $json[] = $result;
             };
 
             return new Response(json_encode($json));
@@ -73,4 +72,61 @@ class SearchController extends AbstractBaseController
         return new Response('This is not ajax.', 400);
     }
 
+    /**
+     * Save a public Calendar entity as user favorite.
+     *
+     * @param Request $request
+     *
+     * @Route("calendar/search/save/favorite", name="sg_calendar_save_favorite")
+     * @Method("GET")
+     *
+     * @return Response
+     */
+    public function saveFavorite(Request $request)
+    {
+        $isAjax = $request->isXmlHttpRequest();
+
+        if ($isAjax) {
+            $id = $request->query->get('id');
+            $calendar = $this->getCalendarById($id);
+
+            $user = $this->getUser();
+            $calendar->addUserFavorite($user);
+            $user->addFavorite($calendar);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return new Response('Save calendar successfully as user favorite.', 200);
+        }
+
+        return new Response('This is not ajax.', 400);
+    }
+
+    /**
+     * Shows the searchresult as menu entry.
+     *
+     * @param Request $request
+     *
+     * @Template("SgCalendarBundle:Calendar:calendarListRow.html.twig")
+     * @Route("calendar/search/show/favorite", name="sg_calendar_show_favorite")
+     * @Method("GET")
+     *
+     * @return array|Response
+     */
+    public function showFavorite(Request $request)
+    {
+        $isAjax = $request->isXmlHttpRequest();
+
+        if ($isAjax) {
+            $id = $request->query->get('id');
+            $calendar = $this->getCalendarById($id);
+
+            return array(
+                'calendar' => $calendar
+            );
+        }
+
+        return new Response('This is not ajax.', 400);
+    }
 } 

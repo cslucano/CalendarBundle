@@ -39,11 +39,11 @@ class CalendarManager extends ModelManager
     }
 
     /**
-     * Count all visible calendars.
+     * Count all public calendars.
      *
      * @return integer
      */
-    public function countVisibleCalendars()
+    public function countPublicCalendars()
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->select('COUNT(c.id)');
@@ -70,13 +70,13 @@ class CalendarManager extends ModelManager
     }
 
     /**
-     * Find all visible calendars by given term (name, description or creator of the calendar).
+     * Find all public calendars by given term (name, description or creator of the calendar).
      *
      * @param string $term
      *
      * @return array
      */
-    public function findVisibleCalendarsByTerm($term)
+    public function findPublicCalendarsByTerm($term)
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->select('c.id, c.name, u.username');

@@ -41,16 +41,20 @@ class CalendarController extends AbstractBaseController
     public function indexAction()
     {
         $userCalendars = array();
-        $countVisibleCalendars = $this->getCalendarManager()->countVisibleCalendars();
+        $userFavoritePublicCalendars = array();
+        $countPublicCalendars = $this->getCalendarManager()->countPublicCalendars();
 
         if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $userCalendars = $this->getCalendarManager()->findCalendarsByUser($this->getUser());
+            $user = $this->getUser();
+            $userCalendars = $this->getCalendarManager()->findCalendarsByUser($user);
+            $userFavoritePublicCalendars = $user->getFavorites();
         }
 
         return array(
             'update_xhr_event_url' => $this->generateUrl('sg_calendar_update_xhr_event'),
-            'count_visible_calendars' => $countVisibleCalendars,
-            'user_calendars' => $userCalendars
+            'user_calendars' => $userCalendars,
+            'user_favorite_public_calendars' => $userFavoritePublicCalendars,
+            'count_public_calendars' => $countPublicCalendars,
         );
     }
 
