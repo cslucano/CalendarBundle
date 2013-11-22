@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use DateTime;
 
 /**
  * Class Data
@@ -53,20 +54,21 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
     {
 
         $calendar = $this->getCalendarManager()->create();
-        $calendar->setName('UserCalendar');
-        $calendar->setCreatedAt(new \DateTime());
-        $calendar->setUpdatedAt(new \DateTime());
+        $calendar->setName('My Calendar');
+        $calendar->setDescription('German Holidays');
+        $calendar->setCreatedAt(new DateTime());
+        $calendar->setUpdatedAt(new DateTime());
         $calendar->setCreatedBy($this->getReference('user'));
         $calendar->setUpdatedBy($this->getReference('user'));
 
         $event = $this->getEventManager()->create();
         $event->setCalendar($calendar);
         $event->setTitle('UserTestevent');
-        $event->setStart(new \DateTime());
+        $event->setStart(new DateTime());
         $event->setAllDay(true);
         $event->setEnd(null);
-        $event->setCreatedAt(new \DateTime());
-        $event->setUpdatedAt(new \DateTime());
+        $event->setCreatedAt(new DateTime());
+        $event->setUpdatedAt(new DateTime());
         $event->setCreatedBy($this->getReference('user'));
         $event->setUpdatedBy($this->getReference('user'));
 
