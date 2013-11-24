@@ -55,9 +55,14 @@
         }
 
         $(document).ready(function() {
+            {# init datepicker #}
             sg_calendar_datepicker.initLocale();
             sg_calendar_datepicker.initDatePicker();
 
+            {# activate all tooltips #}
+            $("[data-toggle='tooltip']").tooltip();
+
+            {# get reminders #}
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 setInterval(getReminders, 10000);
             {% endif %}

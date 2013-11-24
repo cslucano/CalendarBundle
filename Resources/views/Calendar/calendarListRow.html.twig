@@ -6,14 +6,20 @@
         {{ calendar.name }}
     {% endif %}
     {% if is_granted('OWNER', calendar) %}
-        <a href="{{ path('sg_calendar_get_calendar', { 'id': calendar.id }) }}">
-            {{ 'calendar.action.show'|trans({}, 'messages') }}
-        </a> |
-        <a href="{{ path('sg_calendar_edit_calendar', { 'id': calendar.id }) }}">
-            {{ 'calendar.action.edit'|trans({}, 'messages') }}
-        </a> |
-        <a href="{{ path('sg_calendar_remove_calendar', { 'id': calendar.id }) }}">
-            {{ 'calendar.action.remove'|trans({}, 'messages') }}
+        {# show #}
+        <a href="{{ path('sg_calendar_get_calendar', { 'id': calendar.id }) }}" data-placement="top" data-toggle="tooltip"
+           title="{{ 'calendar.action.show'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.show'|trans({}, 'messages') }}">
+            <i class="icon-eye-open"></i>
+        </a>
+        {# edit #}
+        <a href="{{ path('sg_calendar_edit_calendar', { 'id': calendar.id }) }}" data-placement="top" data-toggle="tooltip"
+           title="{{ 'calendar.action.edit'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.edit'|trans({}, 'messages') }}">
+            <i class="icon-edit"></i>
+        </a>
+        {# delete #}
+        <a href="{{ path('sg_calendar_remove_calendar', { 'id': calendar.id }) }}" data-placement="top" data-toggle="tooltip"
+           title="{{ 'calendar.action.remove'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.remove'|trans({}, 'messages') }}">
+            <i class="icon-remove-circle"></i>
         </a>
     {% endif %}
 </label>
