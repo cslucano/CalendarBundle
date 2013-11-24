@@ -41,11 +41,11 @@ class Builder extends ContainerAware
         $menu->setChildrenAttribute('class', 'nav');
 
         // Calendar, Event
-        $menu->addChild('menu.calendar')
-            ->setAttribute('dropdown', true);
-        $menu->addChild('menu.event')
-            ->setAttribute('dropdown', true);
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $menu->addChild('menu.calendar')
+                ->setAttribute('dropdown', true);
+            $menu->addChild('menu.event')
+                ->setAttribute('dropdown', true);
             $menu['menu.calendar']->addChild('menu.new_calendar', array('route' => 'sg_calendar_new_calendar'));
             $menu['menu.event']->addChild('menu.new_event', array('route' => 'sg_calendar_new_event'));
         }
