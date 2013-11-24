@@ -1,5 +1,5 @@
 <label class="checkbox">
-    <input class="eventcheckboxes" type="checkbox" name="{{ calendar.eventsUrl }}" value="{{ calendar.id }}">
+    <input class="eventcheckboxes" id="calendar_{{ calendar.id }}" type="checkbox" name="{{ calendar.eventsUrl }}" value="{{ calendar.id }}">
     {% if calendar.visible %}
         <span class="text-error">{{ calendar.name }}</span>
     {% else %}
