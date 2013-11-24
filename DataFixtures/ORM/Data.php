@@ -77,21 +77,33 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
         $calendar2->setCreatedBy($this->getReference('superadmin'));
         $calendar2->setUpdatedBy($this->getReference('superadmin'));
 
-        $event = $this->getEventManager()->create();
-        $event->setCalendar($calendar0);
-        $event->setTitle('UserTestevent');
-        $event->setStart(new DateTime());
-        $event->setAllDay(true);
-        $event->setEnd(null);
-        $event->setCreatedAt(new DateTime());
-        $event->setUpdatedAt(new DateTime());
-        $event->setCreatedBy($this->getReference('user'));
-        $event->setUpdatedBy($this->getReference('user'));
+        $event0 = $this->getEventManager()->create();
+        $event0->setCalendar($calendar0);
+        $event0->setTitle('UserTestevent');
+        $event0->setStart(new DateTime());
+        $event0->setAllDay(true);
+        $event0->setEnd(null);
+        $event0->setCreatedAt(new DateTime());
+        $event0->setUpdatedAt(new DateTime());
+        $event0->setCreatedBy($this->getReference('user'));
+        $event0->setUpdatedBy($this->getReference('user'));
+
+        $event1 = $this->getEventManager()->create();
+        $event1->setCalendar($calendar1);
+        $event1->setTitle('AdminTestevent');
+        $event1->setStart(new DateTime());
+        $event1->setAllDay(true);
+        $event1->setEnd(null);
+        $event1->setCreatedAt(new DateTime());
+        $event1->setUpdatedAt(new DateTime());
+        $event1->setCreatedBy($this->getReference('admin'));
+        $event1->setUpdatedBy($this->getReference('admin'));
 
         $manager->persist($calendar0);
         $manager->persist($calendar1);
         $manager->persist($calendar2);
-        $manager->persist($event);
+        $manager->persist($event0);
+        $manager->persist($event1);
 
         $manager->flush();
     }
