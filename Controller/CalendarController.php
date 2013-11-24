@@ -42,12 +42,13 @@ class CalendarController extends AbstractBaseController
     {
         $userCalendars = array();
         $userFavoritePublicCalendars = array();
-        $countPublicCalendars = $this->getCalendarManager()->countPublicCalendars();
+        $countPublicCalendars = array();
 
         if (true === $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $user = $this->getUser();
             $userCalendars = $this->getCalendarManager()->findCalendarsByUser($user);
             $userFavoritePublicCalendars = $user->getFavorites();
+            $countPublicCalendars = $this->getCalendarManager()->countPublicCalendars();
         }
 
         return array(
@@ -72,14 +73,14 @@ class CalendarController extends AbstractBaseController
      */
     public function postAction(Request $request)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         /**
          * @var \Sg\CalendarBundle\Model\CalendarInterface $calendar
          */
         $calendar = $this->getCalendarManager()->create();
-
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedException();
-        }
 
         $form = $this->getCalendarFormFactory()->createForm($calendar);
         $form->handleRequest($request);
@@ -115,11 +116,11 @@ class CalendarController extends AbstractBaseController
      */
     public function newAction()
     {
-        $calendar = $this->getCalendarManager()->create();
-
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
         }
+
+        $calendar = $this->getCalendarManager()->create();
 
         $form = $this->getCalendarFormFactory()->createForm($calendar);
 
@@ -143,6 +144,10 @@ class CalendarController extends AbstractBaseController
      */
     public function getAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -170,6 +175,10 @@ class CalendarController extends AbstractBaseController
      */
     public function editAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -201,6 +210,10 @@ class CalendarController extends AbstractBaseController
      */
     public function putAction(Request $request, $id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -245,6 +258,10 @@ class CalendarController extends AbstractBaseController
      */
     public function removeAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -275,6 +292,10 @@ class CalendarController extends AbstractBaseController
      */
     public function deleteAction(Request $request, $id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $calendar = $this->getCalendarById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {

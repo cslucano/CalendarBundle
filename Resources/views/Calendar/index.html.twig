@@ -30,21 +30,22 @@
     {# Datepicker #}
     {{ render_datepicker() }}
 
-    {# Public calendars #}
-    <hr />
-
-    <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }} ({{ count_public_calendars }})</h4>
-    {{ render(controller("SgCalendarBundle:Search:newCalendarSearch")) }}
-
-    <div id="publicCalendars">
-        {% for calendar in user_favorite_public_calendars %}
-            {% include "SgCalendarBundle:Calendar:calendarListRow.html.twig" %}
-        {% endfor %}
-    </div>
-
-    {# User calendars #}
+    {# Calendars #}
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
+        {# Public calendars #}
+        <hr />
+
+        <h4>{{ 'calendar.calendar.action.index.publicCalendars'|trans({}, 'messages') }} ({{ count_public_calendars }})</h4>
+        {{ render(controller("SgCalendarBundle:Search:newCalendarSearch")) }}
+
+        <div id="publicCalendars">
+            {% for calendar in user_favorite_public_calendars %}
+                {% include "SgCalendarBundle:Calendar:calendarListRow.html.twig" %}
+            {% endfor %}
+        </div>
+
+        {# User calendars #}
         {% if user_calendars|length > 0 %}
             <hr />
             <h4>{{ 'calendar.calendar.action.index.myCalendars'|trans({}, 'messages') }}</h4>

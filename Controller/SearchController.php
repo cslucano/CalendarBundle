@@ -15,6 +15,7 @@ use Sg\CalendarBundle\Form\Type\CalendarSearchType;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -34,9 +35,14 @@ class SearchController extends AbstractBaseController
      * @Template()
      *
      * @return array
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function newCalendarSearchAction()
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(new CalendarSearchType());
 
         return array(
@@ -53,9 +59,14 @@ class SearchController extends AbstractBaseController
      * @Method("GET")
      *
      * @return Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function calendarSearchAction(Request $request)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
@@ -77,13 +88,19 @@ class SearchController extends AbstractBaseController
      *
      * @param Request $request
      *
+     * @Template("SgCalendarBundle:Calendar:calendarListRow.html.twig")
      * @Route("calendar/search/save/favorite", name="sg_calendar_save_favorite")
      * @Method("GET")
      *
-     * @return Response
+     * @return array|Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function saveFavorite(Request $request)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
@@ -91,40 +108,24 @@ class SearchController extends AbstractBaseController
             $calendar = $this->getCalendarById($id);
 
             $user = $this->getUser();
-            $calendar->addUserFavorite($user);
-            $user->addFavorite($calendar);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            if ( !($user->getFavorites()->contains($calendar)) ) {
+                $calendar->addUserFavorite($user);
+                $user->addFavorite($calendar);
 
-            return new Response('Save calendar successfully as user favorite.', 200);
-        }
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
 
-        return new Response('This is not ajax.', 400);
-    }
+                return array(
+                    'calendar' => $calendar
+                );
+            } else {
+                $json = array('message' => 'The calendar is already a user favorite.');
+                $response = new Response(json_encode($json));
+                $response->headers->set('Content-Type', 'application/json');
 
-    /**
-     * Shows the searchresult as menu entry.
-     *
-     * @param Request $request
-     *
-     * @Template("SgCalendarBundle:Calendar:calendarListRow.html.twig")
-     * @Route("calendar/search/show/favorite", name="sg_calendar_show_favorite")
-     * @Method("GET")
-     *
-     * @return array|Response
-     */
-    public function showFavorite(Request $request)
-    {
-        $isAjax = $request->isXmlHttpRequest();
-
-        if ($isAjax) {
-            $id = $request->query->get('id');
-            $calendar = $this->getCalendarById($id);
-
-            return array(
-                'calendar' => $calendar
-            );
+                return $response;
+            }
         }
 
         return new Response('This is not ajax.', 400);

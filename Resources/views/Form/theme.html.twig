@@ -64,12 +64,14 @@
 {# Autocomplete #}
 
 {% block autocomplete_widget %}
-    <script>
-        $(document).ready(function() {
 
-            function selected(message, id) {
-                {# save as user favorite #}
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+        <script>
+            $(document).ready(function() {
+
+                function selected(message, id) {
+                    {# save as user favorite #}
                     $.ajax({
                         url: "{{ path('sg_calendar_save_favorite') }}",
                         type: "GET",
@@ -77,68 +79,57 @@
                         data: {
                             'id': id
                         },
-                        success: function(data) {
-                            alert("Der Kalender wurde erfolgreich als Favorit gespeichert.");
+                        success: function(response) {
+                            if(response.message) {
+                                alert(response.message);
+                            } else {
+                                $("#publicCalendars").append(response);
+                            }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
                         }
                     })
-                {% endif %}
-
-                {# add menu entry #}
-                $.ajax({
-                    url: "{{ path('sg_calendar_show_favorite') }}",
-                    type: "GET",
-                    cache: false,
-                    data: {
-                        'id': id
-                    },
-                    success: function(data) {
-                        $("#publicCalendars").append(data);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
-                    }
-                })
-            }
-
-            $("#{{ form.vars.id }}").autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: "{{ path('sg_calendar_search_calendars') }}",
-                        type: "GET",
-                        cache: false,
-                        dataType: "json",
-                        data: {
-                            term: request.term
-                        },
-                        success: function(data) {
-                            response($.map(data, function(item) {
-                                return {
-                                    label: item.name,
-                                    value: item.id
-                                }
-                            }));
-                        }
-                    });
-                },
-                minLength: 2,
-                select: function(event, ui) {
-                    selected(ui.item.label, ui.item.value);
-                    $(this).val("");
-                    return false;
-                },
-                open: function() {
-                    $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-                },
-                close: function() {
-                    $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
                 }
-            });
 
-        });
-    </script>
+                $("#{{ form.vars.id }}").autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "{{ path('sg_calendar_search_calendars') }}",
+                            type: "GET",
+                            cache: false,
+                            dataType: "json",
+                            data: {
+                                term: request.term
+                            },
+                            success: function(data) {
+                                response($.map(data, function(item) {
+                                    return {
+                                        label: item.name,
+                                        value: item.id
+                                    }
+                                }));
+                            }
+                        });
+                    },
+                    minLength: 2,
+                    select: function(event, ui) {
+                        selected(ui.item.label, ui.item.value);
+                        $(this).val("");
+                        return false;
+                    },
+                    open: function() {
+                        $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                    },
+                    close: function() {
+                        $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+                    }
+                });
+
+            });
+        </script>
+
+    {% endif %}
 
     {{ form_widget(form) }}
 
