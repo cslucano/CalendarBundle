@@ -138,6 +138,8 @@ calendar: # the bundle name
         legend:
             event: "Ereignis"
             rrules: "Wiederholen"
+        search:
+            placeholder: "Nach Kalendern suchen"
     filter:
         yes: "ja"
         no: "nein"

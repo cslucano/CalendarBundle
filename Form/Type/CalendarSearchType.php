@@ -27,7 +27,10 @@ class CalendarSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', 'autocomplete', array('mapped' => false));
+            ->add('search', 'autocomplete', array(
+                    'mapped' => false,
+                    'attr' => array('placeholder' => 'calendar.form.search.placeholder')
+                ));
     }
 
     /**

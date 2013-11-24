@@ -138,6 +138,8 @@ calendar: # the bundle name
         legend:
             event: "Event"
             rrules: "Recurrences"
+        search:
+            placeholder: "Search calendars"
     filter:
         yes: "ja"
         no: "nein"
