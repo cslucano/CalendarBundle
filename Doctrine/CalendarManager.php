@@ -39,16 +39,20 @@ class CalendarManager extends ModelManager
     }
 
     /**
-     * Count all public calendars.
+     * Count all public calendars of other users.
+     *
+     * @param UserInterface $user
      *
      * @return integer
      */
-    public function countPublicCalendars()
+    public function countPublicCalendars(UserInterface $user)
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->select('COUNT(c.id)');
         $qb->where('c.visible = :visible');
+        $qb->andwhere('c.createdBy != :user');
         $qb->setParameter('visible', true);
+        $qb->setParameter('user', $user);
 
         return $qb->getQuery()->getSingleScalarResult();
     }
@@ -70,13 +74,14 @@ class CalendarManager extends ModelManager
     }
 
     /**
-     * Find all public calendars by given term (name, description or creator of the calendar).
+     * Find all public calendars by given term (name, description or creator of the calendar) of other users.
      *
-     * @param string $term
+     * @param string        $term The search string
+     * @param UserInterface $user The current user
      *
      * @return array
      */
-    public function findPublicCalendarsByTerm($term)
+    public function findPublicCalendarsByTerm($term, UserInterface $user)
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->select('c.id, c.name, u.username');
@@ -85,10 +90,12 @@ class CalendarManager extends ModelManager
         $qb->orWhere('c.description LIKE :term');
         $qb->orWhere('u.username LIKE :term');
         $qb->andWhere('c.visible = :visible');
+        $qb->andwhere('c.createdBy != :user');
         $qb->setMaxResults($this->autocompleteMaxResults);
         $qb->orderBy('c.name', 'ASC');
         $qb->setParameter('term', '%' . $term . '%');
         $qb->setParameter('visible', true);
+        $qb->setParameter('user', $user);
 
        return $qb->getQuery()->getScalarResult();
     }

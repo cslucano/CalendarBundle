@@ -48,7 +48,7 @@ class CalendarController extends AbstractBaseController
             $user = $this->getUser();
             $userCalendars = $this->getCalendarManager()->findCalendarsByUser($user);
             $userFavoritePublicCalendars = $user->getFavorites();
-            $countPublicCalendars = $this->getCalendarManager()->countPublicCalendars();
+            $countPublicCalendars = $this->getCalendarManager()->countPublicCalendars($user);
         }
 
         return array(
