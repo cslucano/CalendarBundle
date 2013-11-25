@@ -83,7 +83,25 @@
                             if(response.message) {
                                 alert(response.message);
                             } else {
+                                {# add calendar row #}
                                 $("#publicCalendars").append(response);
+                                {# bind click #}
+                                $("#calendar_" + id).click(function() {
+                                    var calendarId = $(this).attr("value");
+                                    var eventsUrl = $(this).attr("name");
+                                    var fc = $("#" + "{{ fullcalendar_id }}");
+
+                                    var events = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
+                                    events = events.replace("placeholder_id", calendarId);
+
+                                    if( $(this).is(":checked")) {
+                                        fc.fullCalendar("addEventSource", events);
+                                        fc.fullCalendar("addEventSource", eventsUrl);
+                                    } else {
+                                        fc.fullCalendar("removeEventSource", events);
+                                        fc.fullCalendar("removeEventSource", eventsUrl);
+                                    }
+                                });
                             }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {

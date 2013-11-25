@@ -1,175 +1,198 @@
 {% block sg_calendar_content %}
 
-    <div id="{{ fullcalendar_id }}"></div>
+    {# html #}
+    {% block sg_calendar_fullcalendar_html %}
 
-    <script type="text/javascript">
+        <div id="{{ fullcalendar_id }}"></div>
 
-        function toInt( val ) {
-            return val & 1;
-        }
+    {% endblock %}
 
-        $(document).ready(function () {
+    {# js - functions #}
+    {% block sg_calendar_fullcalendar_js_functions %}
 
-            $("#" + "{{ fullcalendar_id }}").fullCalendar({
-                header: {
-                    left: "prev, next, today",
-                    center: "title",
-                    right: "month, agendaWeek, agendaDay"
-                },
-                editable: false,
-                ignoreTimezone: false,
-                defaultView: "month",
-                firstDay: {{ first_day }},
-                allDayText: "{{ 'calendar.fullcalendar.allDay'|trans({}, 'messages') }}",
-                dayNames: [
-                    "{{ 'calendar.fullcalendar.day.sunday'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.monday'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.tuesday'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.wednesday'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.thursday'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.friday'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.saturday'|trans({}, 'messages') }}"
-                ],
-                dayNamesShort: [
-                    "{{ 'calendar.fullcalendar.day.short.sun'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.short.mon'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.short.tue'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.short.wed'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.short.thu'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.short.fri'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.day.short.sat'|trans({}, 'messages') }}"
-                ],
-                monthNames: [
-                    "{{ 'calendar.fullcalendar.month.january'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.february'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.march'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.april'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.may'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.june'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.july'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.august'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.september'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.october'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.november'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.december'|trans({}, 'messages') }}"
-                ],
-                monthNamesShort: [
-                    "{{ 'calendar.fullcalendar.month.short.jan'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.feb'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.mar'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.apr'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.may'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.june'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.july'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.aug'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.sept'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.oct'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.nov'|trans({}, 'messages') }}",
-                    "{{ 'calendar.fullcalendar.month.short.dec'|trans({}, 'messages') }}"
-                ],
-                timeFormat:{
-                    '': "{{ time_format }}",
-                    agenda: "{{ time_format }}{ - {{ time_format }}}"
-                },
-                axisFormat: "{{ time_format }}",
+        <script type="text/javascript">
 
-                // @todo: config
-                titleFormat: {
-                    week: "d.[ MMMM][ yyyy]{ - d. MMMM yyyy}",
-                    day: "d. MMMM yyyy"
-                },
-                columnFormat: {
-                    week: "ddd d.",
-                    day: ""
-                },
+            function toInt( val ) {
+                return val & 1;
+            }
 
-                buttonText: {
-                    today: "{{ 'calendar.fullcalendar.button.today'|trans({}, 'messages') }}",
-                    month: "{{ 'calendar.fullcalendar.button.month'|trans({}, 'messages') }}",
-                    week: "{{ 'calendar.fullcalendar.button.week'|trans({}, 'messages') }}",
-                    day: "{{ 'calendar.fullcalendar.button.day'|trans({}, 'messages') }}"
-                },
+            function bindClickToCalendarRows() {
+                $('.eventcheckboxes').click(function() {
+                    var calendarId = $(this).attr("value");
+                    var eventsUrl = $(this).attr("name");
+                    var fc = $("#" + "{{ fullcalendar_id }}");
 
-                /*
-                eventRender: function(event, element) {
-                    element.find('.fc-event-title').html("<a href=" + event.show_url + ">" + event.title +"</a>" + "<a href=" + event.delete_url + "> <i style='margin-top: 2px;' class=' pull-right cus-delete'></i></a>");
-                },*/
+                    var events = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
+                    events = events.replace("placeholder_id", calendarId);
 
-                eventMouseover: function(event, jsEvent, view) {
-                    if (view.name !== "agendaDay") {
-                        $(jsEvent.target).attr("title", event.title);
-                    }
-                },
-
-                eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-                    if (!confirm("Soll der neue Termin gespeichert werden?")) {
-                        revertFunc();
+                    if( $(this).is(":checked")) {
+                        fc.fullCalendar("addEventSource", events);
+                        fc.fullCalendar("addEventSource", eventsUrl);
                     } else {
-                        $.ajax({
-                            url: "{{ update_xhr_event_url }}",
-                            type: "POST",
-                            cache: false,
-                            data: {
-                                'id':       event.id,
-                                'start':    event.start,
-                                'end':      event.end,
-                                'allDay':   toInt(event.allDay)
-                            },
-                            success: function(data) {
-                                alert("Der Termin wurde erfolgreich gespeichert.");
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
-                                revertFunc();
-                            }
-                        })
+                        fc.fullCalendar("removeEventSource", events);
+                        fc.fullCalendar("removeEventSource", eventsUrl);
                     }
-                },
+                });
+            }
 
-                eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-                    if (!confirm("Soll der neue Termin gespeichert werden?")) {
-                        revertFunc();
-                    } else {
-                        $.ajax({
-                            url: "{{ update_xhr_event_url }}",
-                            type: "POST",
-                            cache: false,
-                            data: {
-                                'id':       event.id,
-                                'start':    event.start,
-                                'end':      event.end,
-                                'allDay':   toInt(event.allDay)
-                            },
-                            success: function(data) {
-                                alert("Der Termin wurde erfolgreich gespeichert.");
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
-                                revertFunc();
-                            }
-                        })
+        </script>
+
+    {% endblock %}
+
+    {# js - document ready #}
+    {% block sg_calendar_fullcalendar_js_document_ready %}
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $("#" + "{{ fullcalendar_id }}").fullCalendar({
+                    header: {
+                        left: "prev, next, today",
+                        center: "title",
+                        right: "month, agendaWeek, agendaDay"
+                    },
+                    editable: false,
+                    ignoreTimezone: false,
+                    defaultView: "month",
+                    firstDay: {{ first_day }},
+                    allDayText: "{{ 'calendar.fullcalendar.allDay'|trans({}, 'messages') }}",
+                    dayNames: [
+                        "{{ 'calendar.fullcalendar.day.sunday'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.monday'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.tuesday'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.wednesday'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.thursday'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.friday'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.saturday'|trans({}, 'messages') }}"
+                    ],
+                    dayNamesShort: [
+                        "{{ 'calendar.fullcalendar.day.short.sun'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.short.mon'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.short.tue'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.short.wed'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.short.thu'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.short.fri'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.day.short.sat'|trans({}, 'messages') }}"
+                    ],
+                    monthNames: [
+                        "{{ 'calendar.fullcalendar.month.january'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.february'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.march'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.april'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.may'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.june'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.july'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.august'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.september'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.october'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.november'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.december'|trans({}, 'messages') }}"
+                    ],
+                    monthNamesShort: [
+                        "{{ 'calendar.fullcalendar.month.short.jan'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.feb'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.mar'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.apr'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.may'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.june'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.july'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.aug'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.sept'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.oct'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.nov'|trans({}, 'messages') }}",
+                        "{{ 'calendar.fullcalendar.month.short.dec'|trans({}, 'messages') }}"
+                    ],
+                    timeFormat:{
+                        '': "{{ time_format }}",
+                        agenda: "{{ time_format }}{ - {{ time_format }}}"
+                    },
+                    axisFormat: "{{ time_format }}",
+
+                    // @todo: config
+                    titleFormat: {
+                        week: "d.[ MMMM][ yyyy]{ - d. MMMM yyyy}",
+                        day: "d. MMMM yyyy"
+                    },
+                    columnFormat: {
+                        week: "ddd d.",
+                        day: ""
+                    },
+
+                    buttonText: {
+                        today: "{{ 'calendar.fullcalendar.button.today'|trans({}, 'messages') }}",
+                        month: "{{ 'calendar.fullcalendar.button.month'|trans({}, 'messages') }}",
+                        week: "{{ 'calendar.fullcalendar.button.week'|trans({}, 'messages') }}",
+                        day: "{{ 'calendar.fullcalendar.button.day'|trans({}, 'messages') }}"
+                    },
+
+                    /*
+                    eventRender: function(event, element) {
+                        element.find('.fc-event-title').html("<a href=" + event.show_url + ">" + event.title +"</a>" + "<a href=" + event.delete_url + "> <i style='margin-top: 2px;' class=' pull-right cus-delete'></i></a>");
+                    },*/
+
+                    eventMouseover: function(event, jsEvent, view) {
+                        if (view.name !== "agendaDay") {
+                            $(jsEvent.target).attr("title", event.title);
+                        }
+                    },
+
+                    eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+                        if (!confirm("Soll der neue Termin gespeichert werden?")) {
+                            revertFunc();
+                        } else {
+                            $.ajax({
+                                url: "{{ update_xhr_event_url }}",
+                                type: "POST",
+                                cache: false,
+                                data: {
+                                    'id':       event.id,
+                                    'start':    event.start,
+                                    'end':      event.end,
+                                    'allDay':   toInt(event.allDay)
+                                },
+                                success: function(data) {
+                                    alert("Der Termin wurde erfolgreich gespeichert.");
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
+                                    revertFunc();
+                                }
+                            })
+                        }
+                    },
+
+                    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+                        if (!confirm("Soll der neue Termin gespeichert werden?")) {
+                            revertFunc();
+                        } else {
+                            $.ajax({
+                                url: "{{ update_xhr_event_url }}",
+                                type: "POST",
+                                cache: false,
+                                data: {
+                                    'id':       event.id,
+                                    'start':    event.start,
+                                    'end':      event.end,
+                                    'allDay':   toInt(event.allDay)
+                                },
+                                success: function(data) {
+                                    alert("Der Termin wurde erfolgreich gespeichert.");
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
+                                    revertFunc();
+                                }
+                            })
+                        }
                     }
-                }
+                });
+
+                bindClickToCalendarRows();
+
             });
+        </script>
 
-            $('.eventcheckboxes').click(function() {
-                var calendarId = $(this).attr("value");
-                var eventsUrl = $(this).attr("name");
-                var fc = $("#" + "{{ fullcalendar_id }}");
-
-                var events = "{{ path('sg_calendar_get_xhr_events', {'id': 'placeholder_id'}) }}";
-                events = events.replace("placeholder_id", calendarId);
-
-                if( $(this).is(":checked")) {
-                    fc.fullCalendar("addEventSource", events);
-                    fc.fullCalendar("addEventSource", eventsUrl);
-                } else {
-                    fc.fullCalendar("removeEventSource", events);
-                    fc.fullCalendar("removeEventSource", eventsUrl);
-                }
-            });
-
-        });
-    </script>
+    {% endblock %}
 
 {% endblock %}

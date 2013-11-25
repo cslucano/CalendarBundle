@@ -12,6 +12,8 @@
 namespace Sg\CalendarBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class AutocompleteType
@@ -20,6 +22,28 @@ use Symfony\Component\Form\AbstractType;
  */
 class AutocompleteType extends AbstractType
 {
+    /**
+     * @var string
+     */
+    private $fullcalendarId;
+
+
+    /**
+     * @param string $fullcalendarId
+     */
+    public function __construct($fullcalendarId)
+    {
+        $this->fullcalendarId = $fullcalendarId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['fullcalendar_id'] = $this->fullcalendarId;
+    }
+
     /**
      * {@inheritdoc}
      */
