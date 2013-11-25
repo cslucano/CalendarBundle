@@ -112,6 +112,12 @@ services:
         tags:
             - { name: security.voter }
 
+    sg_calendar.voter.access.favorite:
+        class: Sg\CalendarBundle\Security\Authorization\Voter\FavoriteVoter
+        public: false
+        tags:
+            - { name: security.voter }
+
 
     # Mailer
 
