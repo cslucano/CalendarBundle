@@ -109,7 +109,7 @@ class SearchController extends AbstractBaseController
 
             $user = $this->getUser();
 
-            if ( !($user->getFavorites()->contains($calendar)) ) {
+            if (false === $this->getSecurity()->isGranted('FAVORITE', $calendar)) {
                 $calendar->addUserFavorite($user);
                 $user->addFavorite($calendar);
 
@@ -156,7 +156,7 @@ class SearchController extends AbstractBaseController
 
             $user = $this->getUser();
 
-            if ( $user->getFavorites()->contains($calendar) ) {
+            if (true === $this->getSecurity()->isGranted('FAVORITE', $calendar)) {
                 $calendar->removeUserFavorite($user);
                 $user->removeFavorite($calendar);
 
