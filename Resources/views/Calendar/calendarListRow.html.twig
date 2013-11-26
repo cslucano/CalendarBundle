@@ -25,7 +25,7 @@
     {% if is_granted('FAVORITE', calendar) %}
         {# delete favorite #}
         <a href="javascript:void(0)" id="delete_favorite_calendar_{{ calendar.id }}" onclick="return !deleteFavorite({{ calendar.id }});" data-placement="top" data-toggle="tooltip"
-           title="{{ 'calendar.action.remove'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.remove'|trans({}, 'messages') }}">
+           title="{{ 'calendar.action.removeFavorite'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.removeFavorite'|trans({}, 'messages') }}">
             <i class="icon-remove-circle"></i>
         </a>
     {% endif %}

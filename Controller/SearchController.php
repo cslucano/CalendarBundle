@@ -95,7 +95,7 @@ class SearchController extends AbstractBaseController
      * @return array|Response
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    public function saveFavorite(Request $request)
+    public function saveFavoriteAction(Request $request)
     {
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -120,7 +120,7 @@ class SearchController extends AbstractBaseController
                     'calendar' => $calendar
                 );
             } else {
-                $json = array('message' => 'The calendar is already a user favorite.');
+                $json = array('message' => $this->get('translator')->trans('calendar.search.action.saveFavorite.errorMessage'));
                 $response = new Response(json_encode($json));
                 $response->headers->set('Content-Type', 'application/json');
 
@@ -142,7 +142,7 @@ class SearchController extends AbstractBaseController
      * @return Response
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    public function deleteAction(Request $request)
+    public function deleteFavoriteAction(Request $request)
     {
         if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AccessDeniedException();
@@ -163,13 +163,13 @@ class SearchController extends AbstractBaseController
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
 
-                $json = array('message' => 'The calendar was removed.');
+                $json = array('message' => $this->get('translator')->trans('calendar.search.action.deleteFavorite.successMessage'));
                 $response = new Response(json_encode($json));
                 $response->headers->set('Content-Type', 'application/json');
 
                 return $response;
             } else {
-                $json = array('message' => 'The calendar was already removed.');
+                $json = array('message' => $this->get('translator')->trans('calendar.search.action.deleteFavorite.errorMessage'));
                 $response = new Response(json_encode($json));
                 $response->headers->set('Content-Type', 'application/json');
 

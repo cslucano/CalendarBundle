@@ -53,6 +53,7 @@ calendar: # the bundle name
         show: "Show"
         edit: "Edit"
         remove: "Delete"
+        removeFavorite: "Remove favorite"
     layout: # the main layout
         loggedInAs: "Logged in as"
         logout: "Logout"
@@ -96,6 +97,13 @@ calendar: # the bundle name
                 title: "Delete Event"
                 submit: "Delete"
                 confirm: "Are you sure you want to delete?"
+    search: # a controller
+        action:
+            saveFavorite:
+                errorMessage: "The calendar is already a user favorite."
+            deleteFavorite:
+                successMessage: "The calendar was successfully removed."
+                errorMessage: "The calendar was already removed."
     entity: # all entities
         event: # an entity
             id: "Id"
