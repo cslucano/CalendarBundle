@@ -109,7 +109,7 @@ public function registerBundles()
 }
 ```
 
-### Step 3: Implement the EquatableInterface in your Doctrine ORM User class
+### Step 3: Implement the EquatableInterface and CalendarUserInterface in your Doctrine ORM User class
 
 ``` php
 <?php
@@ -117,16 +117,26 @@ public function registerBundles()
 
 namespace Sg\UserBundle\Entity;
 
+use Sg\CalendarBundle\Model\CalendarInterface;
+use Sg\CalendarBundle\Model\CalendarUserInterface;
+
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable as JoinTable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class User
+ *
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ *
+ * @package Sg\UserBundle\Entity
  */
-class User extends BaseUser implements EquatableInterface
+class User extends BaseUser implements EquatableInterface, CalendarUserInterface
 {
     /**
      * @ORM\Id
@@ -135,10 +145,40 @@ class User extends BaseUser implements EquatableInterface
      */
     protected $id;
 
+    /**
+     * Many users have Many favorite calendars.
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="Sg\CalendarBundle\Model\CalendarInterface",
+     *     inversedBy="userFavorites"
+     * )
+     * @JoinTable(
+     *     name="user_favorite_calendars",
+     *     joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="favorite_calendar_id", referencedColumnName="id")}
+     * )
+     */
+    protected $favorites;
+
+
+    /**
+     * Ctor.
+     */
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+
+        $this->favorites = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -147,7 +187,35 @@ class User extends BaseUser implements EquatableInterface
     public function isEqualTo(UserInterface $user)
     {
         return md5($user->getUsername()) == md5($this->getUsername()) &&
-            md5(serialize($user->getRoles())) == md5(serialize($this->getRoles()));
+        md5(serialize($user->getRoles())) == md5(serialize($this->getRoles()));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addFavorite(CalendarInterface $favorite)
+    {
+        $this->favorites[] = $favorite;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeFavorite(CalendarInterface $favorite)
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFavorites()
+    {
+        return $this->favorites;
     }
 }
 ```
@@ -194,7 +262,7 @@ sg_calendar:
     #...
     from_email:
         address:        noreply@acmedemo.com
-        sender_name:    Acme Demo App
+        sender_name:    Calendar Demo App
 ```
 
 ### Step 6: Import routing
@@ -269,10 +337,6 @@ assetic:
 
 This bundle provides a layout that uses the Bootstrap framework.
 The bundle layout file is: `src/Sg/CalendarBundle/Resources/views/layout.html.twig`. This is only an example and can be replaced.
-
-## List of all available routes
-
-<div style="text-align:center"><img alt="Routes" src="https://github.com/stwe/CalendarBundle/raw/master/Resources/doc/routes.jpg"></div>
 
 ## Next Steps
 
