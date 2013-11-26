@@ -70,7 +70,7 @@ class SearchController extends AbstractBaseController
         $isAjax = $request->isXmlHttpRequest();
 
         if ($isAjax) {
-            $results = $this->getCalendarManager()->findPublicCalendarsByTerm($request->query->get('term'));
+            $results = $this->getCalendarManager()->findPublicCalendarsByTerm($request->query->get('term'), $this->getUser());
 
             $json = array();
             foreach ($results as $result) {
@@ -130,4 +130,53 @@ class SearchController extends AbstractBaseController
 
         return new Response('This is not ajax.', 400);
     }
-} 
+
+    /**
+     * Deletes an existing user favorite Calendar entity.
+     *
+     * @param Request $request
+     *
+     * @Route("calendar/search/delete/favorite", name="sg_calendar_delete_favorite")
+     * @Method("GET")
+     *
+     * @return Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
+    public function deleteAction(Request $request)
+    {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
+        $isAjax = $request->isXmlHttpRequest();
+
+        if ($isAjax) {
+            $id = $request->query->get('id');
+            $calendar = $this->getCalendarById($id);
+
+            $user = $this->getUser();
+
+            if ( $user->getFavorites()->contains($calendar) ) {
+                $calendar->removeUserFavorite($user);
+                $user->removeFavorite($calendar);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+
+                $json = array('message' => 'The calendar was removed.');
+                $response = new Response(json_encode($json));
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } else {
+                $json = array('message' => 'The calendar was already removed.');
+                $response = new Response(json_encode($json));
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            }
+        }
+
+        return new Response('This is not ajax.', 400);
+    }
+}

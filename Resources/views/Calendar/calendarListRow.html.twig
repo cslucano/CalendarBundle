@@ -19,7 +19,38 @@
         {# delete #}
         <a href="{{ path('sg_calendar_remove_calendar', { 'id': calendar.id }) }}" data-placement="top" data-toggle="tooltip"
            title="{{ 'calendar.action.remove'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.remove'|trans({}, 'messages') }}">
+            <i class="icon-trash"></i>
+        </a>
+    {% endif %}
+    {% if is_granted('FAVORITE', calendar) %}
+        {# delete favorite #}
+        <a href="javascript:void(0)" id="delete_favorite_calendar_{{ calendar.id }}" onclick="return !deleteFavorite({{ calendar.id }});" data-placement="top" data-toggle="tooltip"
+           title="{{ 'calendar.action.remove'|trans({}, 'messages') }}" data-original-title="{{ 'calendar.action.remove'|trans({}, 'messages') }}">
             <i class="icon-remove-circle"></i>
         </a>
     {% endif %}
 </label>
+
+<script type="text/javascript">
+    function deleteFavorite(id) {
+        $.ajax({
+            url: "{{ path('sg_calendar_delete_favorite') }}",
+            type: "GET",
+            cache: false,
+            data: {
+                'id': id
+            },
+            success: function(response) {
+                if(response.message) {
+                    alert(response.message);
+                }
+                $("#delete_favorite_calendar_" + id).parent().remove();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
+            }
+        })
+
+        return true;
+    }
+</script>
