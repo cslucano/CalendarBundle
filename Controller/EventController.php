@@ -44,14 +44,14 @@ class EventController extends AbstractBaseController
      */
     public function postAction(Request $request)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         /**
          * @var \Sg\CalendarBundle\Model\EventInterface $event
          */
         $event = $this->getEventManager()->create();
-
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedException();
-        }
 
         $form = $this->getEventFormFactory()->createForm($event);
         $form->handleRequest($request);
@@ -95,14 +95,14 @@ class EventController extends AbstractBaseController
      */
     public function newAction()
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventManager()->create();
         $rrule = $this->getRruleManager()->create();
 
         $event->setRrule($rrule);
-
-        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedException();
-        }
 
         $form = $this->getEventFormFactory()->createForm($event);
 
@@ -126,6 +126,10 @@ class EventController extends AbstractBaseController
      */
     public function getAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
         $calendar = $event->getCalendar();
 
@@ -166,6 +170,10 @@ class EventController extends AbstractBaseController
      */
     public function editAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
 
         if (null === $event->getRrule()) {
@@ -202,6 +210,10 @@ class EventController extends AbstractBaseController
      */
     public function putAction(Request $request, $id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -262,6 +274,10 @@ class EventController extends AbstractBaseController
      */
     public function removeAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -292,6 +308,10 @@ class EventController extends AbstractBaseController
      */
     public function deleteAction(Request $request, $id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
 
         if (false === $this->getSecurity()->isGranted('ROLE_ADMIN')) {
@@ -335,6 +355,10 @@ class EventController extends AbstractBaseController
      */
     public function attendAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
 
         if (false === $this->getSecurity()->isGranted('ATTEND', $event)) {
@@ -364,6 +388,10 @@ class EventController extends AbstractBaseController
      */
     public function unattendAction($id)
     {
+        if (false === $this->getSecurity()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedException();
+        }
+
         $event = $this->getEventById($id);
 
         if (false === $this->getSecurity()->isGranted('ATTEND', $event)) {
