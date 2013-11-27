@@ -1,0 +1,11 @@
+.fc-header-left {
+    visibility: hidden;
+}
+
+.fc-header-right {
+    visibility: hidden;
+}
+
+.fc-header-title h2 {
+    font-size: 24.5px;
+}

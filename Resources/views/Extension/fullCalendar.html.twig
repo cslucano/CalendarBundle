@@ -12,7 +12,7 @@
 
         <script type="text/javascript">
 
-            function toInt( val ) {
+            function toInt(val) {
                 return val & 1;
             }
 
@@ -33,6 +33,12 @@
                         fc.fullCalendar("removeEventSource", eventsUrl);
                     }
                 });
+            }
+
+            function hideHeader() {
+                {# hide with script, also done with css #}
+                $(".fc-header-left").hide();
+                $(".fc-header-right").hide();
             }
 
         </script>
@@ -126,11 +132,6 @@
                         day: "{{ 'calendar.fullcalendar.button.day'|trans({}, 'messages') }}"
                     },
 
-                    /*
-                    eventRender: function(event, element) {
-                        element.find('.fc-event-title').html("<a href=" + event.show_url + ">" + event.title +"</a>" + "<a href=" + event.delete_url + "> <i style='margin-top: 2px;' class=' pull-right cus-delete'></i></a>");
-                    },*/
-
                     eventMouseover: function(event, jsEvent, view) {
                         if (view.name !== "agendaDay") {
                             $(jsEvent.target).attr("title", event.title);
@@ -189,6 +190,7 @@
                 });
 
                 bindClickToCalendarRows();
+                hideHeader();
 
             });
         </script>
