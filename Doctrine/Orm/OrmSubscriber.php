@@ -11,13 +11,14 @@
 
 namespace Sg\CalendarBundle\Doctrine\Orm;
 
+use Sg\CalendarBundle\Model\EventInterface;
+use Sg\CalendarBundle\Model\CalendarInterface;
+
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Sg\CalendarBundle\Model\EventInterface;
-use Sg\CalendarBundle\Model\CalendarInterface;
 use DateTime;
 
 /**

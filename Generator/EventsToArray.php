@@ -11,8 +11,9 @@
 
 namespace Sg\CalendarBundle\Generator;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sg\CalendarBundle\Model\EventInterface;
+
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class EventsToArray

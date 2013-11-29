@@ -11,9 +11,10 @@
 
 namespace Sg\CalendarBundle\Doctrine;
 
+use Sg\CalendarBundle\Model\AbstractModelManager as BaseManager;
+
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Sg\CalendarBundle\Model\AbstractModelManager as BaseManager;
 
 /**
  * Class ModelManager

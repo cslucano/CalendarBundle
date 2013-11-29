@@ -11,10 +11,11 @@
 
 namespace Sg\CalendarBundle\Form\Type;
 
+use Sg\CalendarBundle\Model\ReminderInterface;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sg\CalendarBundle\Model\ReminderInterface;
 
 /**
  * Class ReminderType

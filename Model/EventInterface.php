@@ -12,6 +12,7 @@
 namespace Sg\CalendarBundle\Model;
 
 use Sg\RruleBundle\Model\RruleInterface;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 

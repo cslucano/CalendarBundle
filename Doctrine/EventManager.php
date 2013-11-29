@@ -12,6 +12,7 @@
 namespace Sg\CalendarBundle\Doctrine;
 
 use Sg\CalendarBundle\Model\CalendarInterface;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

@@ -12,6 +12,7 @@
 namespace Sg\CalendarBundle\Model;
 
 use Sg\RruleBundle\Model\RruleInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn as JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable as JoinTable;
