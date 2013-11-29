@@ -30,7 +30,7 @@ services:
 
     sg_calendar.form_type.event.default:
         class: Sg\CalendarBundle\Form\Type\EventType
-        arguments: [%sg_calendar.doctrine.event.class%]
+        arguments: [%sg_calendar.doctrine.event.class%, %sg_calendar.doctrine.calendar.class%, @security.context, @sg_calendar.calendar_manager]
         tags:
             - { name: form.type, alias: sg_calendar_eventtype }
 
