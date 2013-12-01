@@ -42,7 +42,7 @@
 
             function updateEvent(event, revertFunc) {
                 $.ajax({
-                    url: "{{ update_xhr_event_url }}",
+                    url: "{{ path('sg_calendar_update_xhr_event') }}",
                     type: "POST",
                     cache: false,
                     data: {

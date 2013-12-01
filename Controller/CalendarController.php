@@ -52,7 +52,6 @@ class CalendarController extends AbstractBaseController
         }
 
         return array(
-            'update_xhr_event_url' => $this->generateUrl('sg_calendar_update_xhr_event'),
             'user_calendars' => $userCalendars,
             'user_favorite_public_calendars' => $userFavoritePublicCalendars,
             'count_public_calendars' => $countPublicCalendars,
