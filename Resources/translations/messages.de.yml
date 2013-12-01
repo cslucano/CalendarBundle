@@ -121,7 +121,7 @@ calendar: # the bundle name
             calendar: "Kalender"
             url: "Url"
             className: "Css-Klasse"
-            editable: "Editierbar"
+            editable: "Drag & Drop erlauben"
             attendable: "Teilnehmer erlauben"
             color: "Farbe"
             bgColor: "Hintergrundfarbe"
