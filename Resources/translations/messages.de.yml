@@ -97,6 +97,10 @@ calendar: # the bundle name
                 title: "Ereignis löschen"
                 submit: "Löschen"
                 confirm: "Soll das Ereignis wirklich gelöscht werden?"
+    fullcalendarXHR: # a controller
+        action:
+            update:
+                confirm: "Soll das Ereignis gespeichert werden?"
     search: # a controller
         action:
             saveFavorite:
@@ -151,3 +155,5 @@ calendar: # the bundle name
     filter:
         yes: "ja"
         no: "nein"
+    button:
+        cancel: "Abbruch"

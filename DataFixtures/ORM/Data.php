@@ -87,6 +87,7 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
         $event0->setUpdatedAt(new DateTime());
         $event0->setCreatedBy($this->getReference('user'));
         $event0->setUpdatedBy($this->getReference('user'));
+        $event0->setEditable(true);
 
         $event1 = $this->getEventManager()->create();
         $event1->setCalendar($calendar1);
@@ -98,6 +99,7 @@ class Data extends AbstractFixture implements OrderedFixtureInterface, Container
         $event1->setUpdatedAt(new DateTime());
         $event1->setCreatedBy($this->getReference('admin'));
         $event1->setUpdatedBy($this->getReference('admin'));
+        $event1->setEditable(true);
 
         $manager->persist($calendar0);
         $manager->persist($calendar1);

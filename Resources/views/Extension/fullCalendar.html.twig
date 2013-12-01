@@ -36,9 +36,29 @@
             }
 
             function hideHeader() {
-                {# hide with script, also done with css #}
                 $(".fc-header-left").hide();
                 $(".fc-header-right").hide();
+            }
+
+            function updateEvent(event, revert) {
+                $.ajax({
+                    url: "{{ update_xhr_event_url }}",
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        'id':       event.id,
+                        'start':    event.start,
+                        'end':      event.end,
+                        'allDay':   toInt(event.allDay)
+                    },
+                    success: function(data) {
+                        alert("{{ 'calendar.flash.success.event.updated'|trans({}, 'flashes') }}");
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
+                        revert()
+                    }
+                })
             }
 
         </script>
@@ -139,53 +159,23 @@
                     },
 
                     eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-                        if (!confirm("Soll der neue Termin gespeichert werden?")) {
-                            revertFunc();
-                        } else {
-                            $.ajax({
-                                url: "{{ update_xhr_event_url }}",
-                                type: "POST",
-                                cache: false,
-                                data: {
-                                    'id':       event.id,
-                                    'start':    event.start,
-                                    'end':      event.end,
-                                    'allDay':   toInt(event.allDay)
-                                },
-                                success: function(data) {
-                                    alert("Der Termin wurde erfolgreich gespeichert.");
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
-                                    revertFunc();
-                                }
-                            })
-                        }
+                        bootbox.confirm("{{ 'calendar.fullcalendarXHR.action.update.confirm'|trans({}, 'messages') }}", "{{ 'calendar.button.cancel'|trans({}, 'messages') }}", "Ok", function(result) {
+                            if (true == result) {
+                                updateEvent(event, revertFunc());
+                            } else {
+                                revertFunc();
+                            }
+                        });
                     },
 
                     eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-                        if (!confirm("Soll der neue Termin gespeichert werden?")) {
-                            revertFunc();
-                        } else {
-                            $.ajax({
-                                url: "{{ update_xhr_event_url }}",
-                                type: "POST",
-                                cache: false,
-                                data: {
-                                    'id':       event.id,
-                                    'start':    event.start,
-                                    'end':      event.end,
-                                    'allDay':   toInt(event.allDay)
-                                },
-                                success: function(data) {
-                                    alert("Der Termin wurde erfolgreich gespeichert.");
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
-                                    revertFunc();
-                                }
-                            })
-                        }
+                        bootbox.confirm("{{ 'calendar.fullcalendarXHR.action.update.confirm'|trans({}, 'messages') }}", "{{ 'calendar.button.cancel'|trans({}, 'messages') }}", "Ok", function(result) {
+                            if (true == result) {
+                                updateEvent(event, revertFunc);
+                            } else {
+                                revertFunc();
+                            }
+                        });
                     }
                 });
 

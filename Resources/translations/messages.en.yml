@@ -97,6 +97,10 @@ calendar: # the bundle name
                 title: "Delete Event"
                 submit: "Delete"
                 confirm: "Are you sure you want to delete?"
+    fullcalendarXHR: # a controller
+        action:
+            update:
+                confirm: "Save event?"
     search: # a controller
         action:
             saveFavorite:
@@ -151,3 +155,5 @@ calendar: # the bundle name
     filter:
         yes: "ja"
         no: "nein"
+    button:
+        cancel: "Cancel"
