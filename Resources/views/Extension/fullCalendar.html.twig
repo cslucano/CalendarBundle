@@ -40,7 +40,7 @@
                 $(".fc-header-right").hide();
             }
 
-            function updateEvent(event, revert) {
+            function updateEvent(event, revertFunc) {
                 $.ajax({
                     url: "{{ update_xhr_event_url }}",
                     type: "POST",
@@ -56,7 +56,7 @@
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         console.log(XMLHttpRequest + ' ' + textStatus + ' ' +errorThrown);
-                        revert()
+                        revertFunc()
                     }
                 })
             }
@@ -161,7 +161,7 @@
                     eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                         bootbox.confirm("{{ 'calendar.fullcalendarXHR.action.update.confirm'|trans({}, 'messages') }}", "{{ 'calendar.button.cancel'|trans({}, 'messages') }}", "Ok", function(result) {
                             if (true == result) {
-                                updateEvent(event, revertFunc());
+                                updateEvent(event, revertFunc);
                             } else {
                                 revertFunc();
                             }
