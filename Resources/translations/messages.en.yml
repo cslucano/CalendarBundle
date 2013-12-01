@@ -131,7 +131,7 @@ calendar: # the bundle name
             updatedAt: "Updated at"
             createdBy: "Created by"
             updatedBy: "Updated by"
-        calendar: # an other entity
+        calendar: # an entity
             id: "id"
             name: "Name"
             description: "Description"
@@ -141,6 +141,11 @@ calendar: # the bundle name
             updatedAt: "Updated at"
             createdBy: "Created by"
             updatedBy: "Updated by"
+        reminder: # an entity
+            popup: "Popup"
+            email: "E-Mail"
+            method: "Method"
+            minutes: "Minutes"
     status:
         event:
             confirmed: "confirmed"
@@ -150,8 +155,11 @@ calendar: # the bundle name
         legend:
             event: "Event"
             rrules: "Recurrences"
+            reminders: "Reminders"
         search:
             placeholder: "Search calendars"
+        empty:
+            value: "Choose"
     filter:
         yes: "ja"
         no: "nein"

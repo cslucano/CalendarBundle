@@ -37,7 +37,7 @@
 
 <fieldset>
     <legend>
-        Reminders
+        {{ 'calendar.form.legend.reminders'|trans({}, 'messages') }}
         <button type="button" id="addReminder" class="btn btn-mini btn-primary">
             <i class="icon-plus-sign icon-white"></i>
         </button>
@@ -45,9 +45,9 @@
     <table id="remindersTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Minutes</th>
-                <th>Method</th>
-                <th>Delete</th>
+                <th>{{ 'calendar.entity.reminder.minutes'|trans({}, 'messages') }}</th>
+                <th>{{ 'calendar.entity.reminder.method'|trans({}, 'messages') }}</th>
+                <th>{{ 'calendar.action.remove'|trans({}, 'messages') }}</th>
             </tr>
         </thead>
         <tbody>

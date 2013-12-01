@@ -32,13 +32,13 @@ class ReminderType extends AbstractType
         $builder
             ->add('method', 'choice', array(
                     'choices' => array(
-                        ReminderInterface::METHOD_POPUP => 'Popup',
-                        ReminderInterface::METHOD_EMAIL => 'Email'
+                        ReminderInterface::METHOD_POPUP => 'calendar.entity.reminder.popup',
+                        ReminderInterface::METHOD_EMAIL => 'calendar.entity.reminder.email'
                     ),
-                    'empty_value' => 'Choose',
+                    'empty_value' => 'calendar.form.empty.value',
                     'empty_data'  => null,
-                    'label' => 'Method',
-                    //'translation_domain' => 'messages',
+                    'label' => 'calendar.entity.reminder.method',
+                    'translation_domain' => 'messages',
                     'required' => true,
                     'attr' => array(
                         'class' => 'span2'
@@ -53,10 +53,10 @@ class ReminderType extends AbstractType
                         45 => '45',
                         60 => '60'
                     ),
-                    'empty_value' => 'Choose',
+                    'empty_value' => 'calendar.form.empty.value',
                     'empty_data'  => null,
-                    'label' => 'Minutes',
-                    //'translation_domain' => 'messages',
+                    'label' => 'calendar.entity.reminder.minutes',
+                    'translation_domain' => 'messages',
                     'required' => true,
                     'attr' => array(
                         'class' => 'span2'
