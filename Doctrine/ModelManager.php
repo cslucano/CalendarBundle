@@ -50,6 +50,14 @@ class ModelManager extends BaseManager
     }
 
     /**
+     * Write all changes to the database.
+     */
+    public function flushAllChanges()
+    {
+        $this->em->flush();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function save($object, $andFlush = true)
@@ -57,7 +65,7 @@ class ModelManager extends BaseManager
         $this->em->persist($object);
 
         if (true === $andFlush) {
-            $this->em->flush();
+            $this->flushAllChanges();
         }
     }
 
@@ -69,7 +77,7 @@ class ModelManager extends BaseManager
         $this->em->remove($object);
 
         if (true === $andFlush) {
-            $this->em->flush();
+            $this->flushAllChanges();
         }
     }
 

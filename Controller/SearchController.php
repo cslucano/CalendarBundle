@@ -113,8 +113,7 @@ class SearchController extends AbstractBaseController
                 $calendar->addUserFavorite($user);
                 $user->addFavorite($calendar);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
+                $this->getCalendarManager()->flushAllChanges();
 
                 return array(
                     'calendar' => $calendar
@@ -160,8 +159,7 @@ class SearchController extends AbstractBaseController
                 $calendar->removeUserFavorite($user);
                 $user->removeFavorite($calendar);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
+                $this->getCalendarManager()->flushAllChanges();
 
                 $json = array('message' => $this->get('translator')->trans('calendar.search.action.deleteFavorite.successMessage'));
                 $response = new Response(json_encode($json));
