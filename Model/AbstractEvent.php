@@ -76,7 +76,7 @@ abstract class AbstractEvent implements EventInterface
      *
      * @var DateTime
      *
-     * @ORM\Column(name="start", type="datetime", nullable=false)
+     * @ORM\Column(name="startdate", type="datetime", nullable=false)
      */
     protected $start;
 
@@ -85,7 +85,7 @@ abstract class AbstractEvent implements EventInterface
      *
      * @var DateTime
      *
-     * @ORM\Column(name="end", type="datetime", nullable=true)
+     * @ORM\Column(name="enddate", type="datetime", nullable=true)
      */
     protected $end;
 
